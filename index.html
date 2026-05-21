@@ -8,199 +8,168 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Crescer+">
-<meta name="description" content="Crescer + Brokers — Programa de Excelência Nestlé 2026">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icon-192.png">
 <title>Crescer + Brokers</title>
 <style>
 :root{
-  --green:#1a5c2e;--green-light:#e1f5ee;--green-mid:#3b6d11;
-  --blue:#185fa5;--blue-light:#e6f1fb;
-  --amber:#854f0b;--amber-light:#faeeda;
-  --red:#a32d2d;--red-light:#fcebeb;
-  --border:#e0e0e0;--bg:#f7f7f5;--card:#fff;
-  --text:#1a1a1a;--muted:#666;--hint:#999;
-  --radius:10px;--radius-sm:6px;
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --g:#1a5c2e;--gl:#e1f5ee;--gm:#3b6d11;
+  --b:#185fa5;--bl:#e6f1fb;
+  --a:#854f0b;--al:#faeeda;
+  --r:#a32d2d;--rl:#fcebeb;
+  --bd:#e0e0e0;--bg:#f7f7f5;--cd:#fff;
+  --tx:#1a1a1a;--mu:#666;--hi:#999;
+  --ra:10px;--rs:6px;
+  --sb:env(safe-area-inset-bottom,0px);
 }
-@media(prefers-color-scheme:dark){
-  :root{
-    --bg:#111;--card:#1e1e1e;--border:#2e2e2e;
-    --text:#f0f0f0;--muted:#aaa;--hint:#666;
-    --green-light:#0d2e17;--blue-light:#0a1f35;
-    --amber-light:#2a1a00;--red-light:#2a0a0a;
-  }
-}
+@media(prefers-color-scheme:dark){:root{--bg:#111;--cd:#1e1e1e;--bd:#2e2e2e;--tx:#f0f0f0;--mu:#aaa;--hi:#666;--gl:#0d2e17;--bl:#0a1f35;--al:#2a1a00;--rl:#2a0a0a;}}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-.app{display:flex;flex-direction:column;min-height:100vh;max-width:480px;margin:0 auto;background:var(--card);box-shadow:0 0 0 0.5px var(--border)}
-
-/* HEADER */
-.header{background:var(--green);color:#fff;padding:14px 16px 12px;text-align:center;flex-shrink:0}
-.header h1{font-size:16px;font-weight:600;letter-spacing:0.2px}
-.header p{font-size:11px;opacity:0.75;margin-top:2px}
-.offline-badge{display:none;font-size:10px;background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:10px;margin-top:4px}
-.offline-badge.show{display:inline-block}
-
-/* TABS */
-.tabs{display:flex;border-bottom:0.5px solid var(--border);background:var(--card);flex-shrink:0;position:sticky;top:0;z-index:10}
-.tab{flex:1;padding:10px 4px 8px;font-size:10px;text-align:center;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;font-weight:400;transition:color 0.15s}
-.tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:600}
-.tab-icon{font-size:20px;display:block;margin-bottom:2px}
-
-/* SCREENS */
-.screen{display:none;padding:12px 12px calc(12px + var(--safe-bottom));overflow-y:auto;flex:1}
-.screen.active{display:block}
-
-/* FORM CONTROLS */
-select,input[type=number],input[type=text]{
-  font-size:14px;padding:8px 10px;border-radius:var(--radius-sm);
-  border:1px solid var(--border);background:var(--card);color:var(--text);
-  width:100%;outline:none;-webkit-appearance:none;appearance:none
-}
-select:focus,input:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(26,92,46,0.15)}
-button{cursor:pointer;font-family:inherit;font-size:13px;font-weight:500;border-radius:var(--radius-sm);border:none;transition:opacity 0.1s}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
+.app{display:flex;flex-direction:column;min-height:100vh;max-width:480px;margin:0 auto;background:var(--cd);box-shadow:0 0 0 0.5px var(--bd)}
+.hdr{background:var(--g);color:#fff;padding:14px 16px 12px;text-align:center;flex-shrink:0}
+.hdr h1{font-size:16px;font-weight:600}
+.hdr p{font-size:11px;opacity:0.75;margin-top:2px}
+.off{display:none;font-size:10px;background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:10px;margin-top:4px}
+.off.show{display:inline-block}
+.tabs{display:flex;border-bottom:0.5px solid var(--bd);background:var(--cd);flex-shrink:0;position:sticky;top:0;z-index:10}
+.tab{flex:1;padding:8px 2px 6px;font-size:9px;text-align:center;cursor:pointer;color:var(--mu);border-bottom:2px solid transparent;font-weight:400}
+.tab.active{color:var(--g);border-bottom-color:var(--g);font-weight:600}
+.ti{font-size:18px;display:block;margin-bottom:1px}
+.scr{display:none;padding:12px 12px calc(12px + var(--sb));overflow-y:auto;flex:1}
+.scr.active{display:block}
+select,input[type=number]{font-size:14px;padding:8px 10px;border-radius:var(--rs);border:1px solid var(--bd);background:var(--cd);color:var(--tx);width:100%;outline:none;-webkit-appearance:none}
+select:focus,input:focus{border-color:var(--g);box-shadow:0 0 0 2px rgba(26,92,46,0.15)}
+button{cursor:pointer;font-family:inherit;font-size:13px;font-weight:500;border-radius:var(--rs);border:none;transition:opacity 0.1s}
 button:active{opacity:0.75}
-
-/* MONTH ROW */
-.month-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.month-row label{font-size:12px;color:var(--muted);white-space:nowrap;flex-shrink:0}
-.month-row select{flex:1}
-
-/* CHAPTER LABEL */
-.chap-label{font-size:11px;font-weight:600;color:#fff;background:var(--green);padding:5px 10px;border-radius:var(--radius-sm);margin:10px 0 6px;display:flex;align-items:center;gap:6px}
-
-/* CRITERIA CARDS */
-.crit-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;margin-bottom:6px}
-.crit-card.dimmed{opacity:0.4}
-.crit-head{display:flex;align-items:flex-start;gap:8px}
-.crit-code{font-size:9px;font-weight:600;color:var(--green);background:var(--green-light);padding:2px 6px;border-radius:4px;white-space:nowrap;margin-top:2px;flex-shrink:0}
-.crit-name{font-size:12px;color:var(--text);flex:1;line-height:1.4}
-.crit-meta{display:flex;align-items:center;gap:5px;margin-top:4px;flex-wrap:wrap}
-.badge{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600}
-.badge-t{background:var(--amber-light);color:var(--amber)}
-.badge-m{background:var(--blue-light);color:var(--blue)}
-.pts-info{font-size:9px;color:var(--hint)}
-.badge-ideal{font-size:9px;background:var(--green-light);color:var(--green-mid);padding:2px 6px;border-radius:4px;font-weight:600}
-.na-note{font-size:9px;color:var(--hint);font-style:italic}
-
-/* INPUT ROW */
-.inp-row{margin-top:8px;display:flex;align-items:center;gap:8px}
-.inp-row label{font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0}
-.inp-row input[type=number]{width:70px;text-align:center;padding:6px 4px}
-.inp-row .mx{font-size:10px;color:var(--hint);white-space:nowrap}
-.pbar{flex:1;height:5px;background:var(--bg);border-radius:3px;overflow:hidden;position:relative}
-.pbar-meta{height:100%;background:var(--green);position:absolute;top:0;left:0;border-radius:3px;transition:width 0.15s}
-.pbar-ideal{height:100%;background:#97c459;position:absolute;top:0;border-radius:3px;transition:width 0.15s}
-
-/* SAVE BTN */
-.save-btn{width:100%;margin-top:12px;padding:12px;background:var(--green);color:#fff;font-size:14px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;gap:8px}
-
-/* PAINEL FILTERS */
-.filter-row{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
-.fbtn{font-size:11px;padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted)}
-.fbtn.active{background:var(--green);color:#fff;border-color:var(--green)}
-.filter-sub{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
-.fsub{font-size:11px;padding:4px 10px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--muted)}
-.fsub.active{border-color:var(--green);color:var(--green);font-weight:600;background:var(--green-light)}
-
-/* STAT CARDS */
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.stat-card{background:var(--bg);border-radius:var(--radius);padding:10px 12px}
-.stat-card .lbl{font-size:9px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.3px}
-.stat-card .val{font-size:22px;font-weight:700;color:var(--text);line-height:1}
-.stat-card .sub{font-size:10px;color:var(--hint);margin-top:2px}
-.stat-card.ok .val{color:var(--green-mid)}
-.stat-card.bad .val{color:var(--red)}
-
-/* SECTION TITLE */
-.sec-title{font-size:10px;font-weight:700;color:var(--muted);margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:6px}
-.sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* OG BOX */
-.og-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:10px}
-.og-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.og-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.og-field label{font-size:10px;color:var(--muted);display:block;margin-bottom:3px}
-.og-result{margin-top:10px;padding-top:8px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.og-lbl{font-size:10px;color:var(--muted)}
-.og-val{font-size:15px;font-weight:700;color:var(--text)}
-.og-pts{font-size:12px;font-weight:700;padding:4px 12px;border-radius:var(--radius-sm)}
-.og-pts.p0{background:var(--red-light);color:var(--red)}
-.og-pts.p100,.og-pts.p150{background:var(--amber-light);color:var(--amber)}
-.og-pts.p200,.og-pts.p300{background:var(--green-light);color:var(--green-mid)}
-
-/* CAP BARS */
-.cap-bar-row{margin-bottom:10px}
-.cap-bar-lbl{display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px}
-.cap-bar-lbl span:last-child{color:var(--muted)}
-.cap-bar-track{height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
-.cap-bar-fill{height:100%;border-radius:4px;transition:width 0.3s}
-
-/* WORST / IMPACT LIST */
-.list-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)}
-.list-item:last-child{border-bottom:none}
-.list-rk{font-size:11px;font-weight:700;color:var(--red);min-width:20px}
-.list-name{font-size:11px;color:var(--text);flex:1;line-height:1.35}
-.list-val{font-size:11px;font-weight:600}
-
-/* PDF BTN */
-.pdf-sep{height:1px;background:var(--border);margin:14px 0}
-.pdf-btn{width:100%;padding:12px;background:var(--card);color:var(--green);font-size:13px;border:1.5px solid var(--green);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;gap:8px}
-
-/* BATALHA NAVAL */
-.bn-info{font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5}
-.bn-legend{display:flex;gap:12px;margin-bottom:8px;font-size:10px;color:var(--muted);align-items:center;flex-wrap:wrap}
-.bld{width:12px;height:12px;border-radius:3px;flex-shrink:0}
-.bn-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:var(--radius)}
-.bn-table{border-collapse:collapse;width:100%;min-width:560px}
-.bn-table th{font-size:8px;font-weight:600;color:var(--muted);padding:4px 2px;text-align:center;background:var(--bg);position:sticky;top:0;z-index:5}
-.bn-table th.rh{text-align:left;min-width:120px;padding-left:6px;position:sticky;left:0;z-index:6;background:var(--bg)}
-.bn-table td{padding:2px}
-.bn-table td.rh{text-align:left;padding:3px 6px;background:var(--card);position:sticky;left:0;z-index:4;border-right:1px solid var(--border)}
-.rc{font-size:8px;color:var(--green);font-weight:600;display:block}
-.rn{font-size:8px;color:var(--muted);line-height:1.3;display:block}
+.mrow{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.mrow label{font-size:12px;color:var(--mu);white-space:nowrap;flex-shrink:0}
+.mrow select{flex:1}
+.clbl{font-size:11px;font-weight:700;color:#fff;background:var(--g);padding:5px 10px;border-radius:var(--rs);margin:10px 0 4px}
+.glbl{font-size:10px;font-weight:600;color:var(--g);background:var(--gl);padding:4px 10px;border-radius:var(--rs);margin:6px 0 4px;border-left:3px solid var(--g)}
+.cc{background:var(--cd);border:1px solid var(--bd);border-radius:var(--ra);padding:9px 12px;margin-bottom:5px}
+.cc.err{border-color:var(--r)}
+.cc.dim{opacity:0.4}
+.ch{display:flex;align-items:flex-start;gap:8px}
+.ccode{font-size:9px;font-weight:700;color:var(--g);background:var(--gl);padding:2px 6px;border-radius:4px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.cname{font-size:12px;color:var(--tx);flex:1;line-height:1.4}
+.cm{display:flex;align-items:center;gap:5px;margin-top:3px;flex-wrap:wrap}
+.bm{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600}
+.bt{background:var(--al);color:var(--a)}
+.bmo{background:var(--bl);color:var(--b)}
+.bi2{font-size:9px;background:var(--gl);color:var(--gm);padding:2px 6px;border-radius:4px;font-weight:600}
+.pi{font-size:9px;color:var(--hi)}
+.na{font-size:9px;color:var(--hi);font-style:italic}
+.en{font-size:10px;color:var(--r);margin-top:4px;font-weight:500}
+.ir{margin-top:7px;display:flex;align-items:center;gap:8px}
+.ir label{font-size:11px;color:var(--mu);white-space:nowrap;flex-shrink:0}
+.ir input[type=number]{width:70px;text-align:center;padding:6px 4px}
+.ir .mx{font-size:10px;color:var(--hi);white-space:nowrap}
+.pb{flex:1;height:5px;background:var(--bg);border-radius:3px;overflow:hidden;position:relative}
+.pbm{height:100%;background:var(--g);position:absolute;top:0;left:0;border-radius:3px;transition:width 0.15s}
+.pbi{height:100%;background:#97c459;position:absolute;top:0;border-radius:3px;transition:width 0.15s}
+.sbtn{width:100%;margin-top:12px;padding:12px;background:var(--g);color:#fff;font-size:14px;border-radius:var(--ra);display:flex;align-items:center;justify-content:center;gap:8px}
+.vban{background:var(--rl);border:1px solid #f09595;border-radius:var(--rs);padding:8px 12px;margin-top:10px;font-size:11px;color:var(--r);display:none;line-height:1.5}
+.vban.show{display:block}
+.frow{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.fb{font-size:11px;padding:6px 12px;border-radius:20px;border:1px solid var(--bd);background:var(--cd);color:var(--mu)}
+.fb.active{background:var(--g);color:#fff;border-color:var(--g)}
+.fsub{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
+.fs{font-size:11px;padding:4px 10px;border-radius:var(--rs);border:1px solid var(--bd);background:var(--bg);color:var(--mu)}
+.fs.active{border-color:var(--g);color:var(--g);font-weight:600;background:var(--gl)}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.sc{background:var(--bg);border-radius:var(--ra);padding:10px 12px}
+.sc .lb{font-size:9px;color:var(--mu);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.3px}
+.sc .vl{font-size:22px;font-weight:700;color:var(--tx);line-height:1}
+.sc .sb2{font-size:10px;color:var(--hi);margin-top:2px}
+.sc.ok .vl{color:var(--gm)}
+.sc.bad .vl{color:var(--r)}
+.st{font-size:10px;font-weight:700;color:var(--mu);margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:6px}
+.st::after{content:'';flex:1;height:1px;background:var(--bd)}
+.ob{background:var(--cd);border:1px solid var(--bd);border-radius:var(--ra);padding:12px;margin-bottom:10px}
+.ot{font-size:12px;font-weight:600;color:var(--tx);margin-bottom:8px}
+.og{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.of label{font-size:10px;color:var(--mu);display:block;margin-bottom:3px}
+.or2{margin-top:10px;padding-top:8px;border-top:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
+.ol{font-size:10px;color:var(--mu)}
+.ov{font-size:15px;font-weight:700;color:var(--tx)}
+.op{font-size:12px;font-weight:700;padding:4px 12px;border-radius:var(--rs)}
+.op.p0{background:var(--rl);color:var(--r)}
+.op.p100,.op.p150{background:var(--al);color:var(--a)}
+.op.p200,.op.p300{background:var(--gl);color:var(--gm)}
+.cbr{margin-bottom:10px}
+.cbl{display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px}
+.cbl span:last-child{color:var(--mu)}
+.cbt{height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
+.cbf{height:100%;border-radius:4px;transition:width 0.3s}
+.li{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--bd)}
+.li:last-child{border-bottom:none}
+.lrk{font-size:11px;font-weight:700;color:var(--r);min-width:20px}
+.ln{font-size:11px;color:var(--tx);flex:1;line-height:1.35}
+.lv{font-size:11px;font-weight:600}
+.psep{height:1px;background:var(--bd);margin:14px 0}
+.pb1{width:100%;padding:12px;background:var(--cd);color:var(--g);font-size:13px;border:1.5px solid var(--g);border-radius:var(--ra);display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px}
+.pb2{width:100%;padding:12px;background:var(--g);color:#fff;font-size:13px;border:none;border-radius:var(--ra);display:flex;align-items:center;justify-content:center;gap:8px}
+.bns{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--bd);border-radius:var(--ra)}
+.bnt{border-collapse:collapse;width:100%;min-width:560px}
+.bnt th{font-size:8px;font-weight:600;color:var(--mu);padding:4px 2px;text-align:center;background:var(--bg);position:sticky;top:0;z-index:5}
+.bnt th.rh{text-align:left;min-width:120px;padding-left:6px;position:sticky;left:0;z-index:6;background:var(--bg)}
+.bnt td{padding:2px}
+.bnt td.rh{text-align:left;padding:3px 6px;background:var(--cd);position:sticky;left:0;z-index:4;border-right:1px solid var(--bd)}
+.rc{font-size:8px;color:var(--g);font-weight:600;display:block}
+.rn{font-size:8px;color:var(--mu);line-height:1.3;display:block}
 .cell{width:28px;height:24px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;cursor:pointer;border:1px solid transparent;font-weight:600}
 .cell.green{background:#c0dd97;color:#27500a;border-color:#97c459}
 .cell.red{background:#f7c1c1;color:#791f1f;border-color:#f09595}
-.cell.na{background:var(--bg);color:var(--hint);font-size:7px}
-.chap-sep td{background:var(--green-light)}
-.chap-sep td.rh{background:var(--green-light);font-size:9px;font-weight:700;color:var(--green)}
-
-/* EMPTY NOTE */
-.empty-note{font-size:11px;color:var(--muted);padding:6px 0;font-style:italic}
-
-/* TOAST */
-.toast{position:fixed;bottom:calc(80px + var(--safe-bottom));left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;font-size:12px;padding:8px 18px;border-radius:20px;display:none;z-index:100;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
-.toast.show{display:block;animation:fadein 0.2s}
-@keyframes fadein{from{opacity:0;transform:translateX(-50%) translateY(6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.cell.na{background:var(--bg);color:var(--hi);font-size:7px}
+.csep td{background:var(--gl)}
+.csep td.rh{background:var(--gl);font-size:9px;font-weight:700;color:var(--g)}
+.rsi{margin-bottom:12px}
+.rsi input{width:100%;font-size:13px;padding:9px 12px;border-radius:var(--ra);border:1px solid var(--bd);background:var(--cd);color:var(--tx);outline:none}
+.rsi input:focus{border-color:var(--g)}
+.rct{font-size:12px;font-weight:700;color:#fff;background:var(--g);padding:6px 12px;border-radius:var(--rs);margin:10px 0 6px}
+.rcard{background:var(--cd);border:1px solid var(--bd);border-radius:var(--ra);margin-bottom:8px;overflow:hidden}
+.rch{padding:10px 12px;cursor:pointer;display:flex;align-items:flex-start;gap:10px}
+.rch:active{background:var(--bg)}
+.rcode{font-size:9px;font-weight:700;color:var(--g);background:var(--gl);padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.rtit{font-size:12px;font-weight:600;color:var(--tx);flex:1;line-height:1.4}
+.rarr{font-size:14px;color:var(--mu);flex-shrink:0;transition:transform 0.2s}
+.rarr.open{transform:rotate(180deg)}
+.rbody{display:none;padding:0 12px 12px;border-top:1px solid var(--bd)}
+.rbody.open{display:block}
+.rmr{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 6px}
+.rtag{font-size:9px;padding:2px 8px;border-radius:4px;font-weight:600}
+.rtag.fm{background:var(--bl);color:var(--b)}
+.rtag.ft{background:var(--al);color:var(--a)}
+.rtag.av{background:#f0f0f0;color:var(--mu)}
+.rpt{width:100%;border-collapse:collapse;margin:8px 0;font-size:11px}
+.rpt th{background:var(--bg);padding:5px 8px;text-align:left;font-weight:600;color:var(--mu);font-size:10px}
+.rpt td{padding:5px 8px;border-bottom:1px solid var(--bd)}
+.rpt tr:last-child td{border-bottom:none}
+.pmb{background:var(--gl);color:var(--g);font-weight:700;padding:1px 6px;border-radius:3px;font-size:10px}
+.pib{background:#eaf3de;color:var(--gm);font-weight:700;padding:1px 6px;border-radius:3px;font-size:10px}
+.rdesc{font-size:11px;color:var(--mu);line-height:1.6;margin-top:6px}
+.en2{font-size:10px;color:var(--hi);padding:6px 0;font-style:italic}
+.toast{position:fixed;bottom:calc(80px + var(--sb));left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;font-size:12px;padding:8px 18px;border-radius:20px;display:none;z-index:100;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+.toast.show{display:block;animation:fi 0.2s}
+@keyframes fi{from{opacity:0;transform:translateX(-50%) translateY(6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="header">
+  <div class="hdr">
     <h1>🌿 Crescer + Brokers</h1>
     <p>Programa de Excelência Nestlé 2026</p>
-    <div class="offline-badge" id="offline-badge">● Offline</div>
+    <div class="off" id="off">● Offline</div>
   </div>
-
   <div class="tabs">
-    <div class="tab active" onclick="showTab('lanc')">
-      <span class="tab-icon">✏️</span>Lançamento
-    </div>
-    <div class="tab" onclick="showTab('pain')">
-      <span class="tab-icon">📊</span>Painel
-    </div>
-    <div class="tab" onclick="showTab('bat')">
-      <span class="tab-icon">🗺️</span>Batalha
-    </div>
+    <div class="tab active" onclick="showTab('lanc')"><span class="ti">✏️</span>Lançar</div>
+    <div class="tab" onclick="showTab('pain')"><span class="ti">📊</span>Painel</div>
+    <div class="tab" onclick="showTab('bat')"><span class="ti">🗺️</span>Batalha</div>
+    <div class="tab" onclick="showTab('rules')"><span class="ti">📋</span>Regras</div>
   </div>
-
-  <!-- LANÇAMENTO -->
-  <div class="screen active" id="screen-lanc">
-    <div class="month-row">
-      <label>Período:</label>
+ 
+  <div class="scr active" id="scr-lanc">
+    <div class="mrow"><label>Período:</label>
       <select id="sel-m" onchange="renderLanc()">
         <option value="0">Jan 2026</option><option value="1">Fev 2026</option>
         <option value="2">Mar 2026</option><option value="3">Abr 2026</option>
@@ -211,410 +180,606 @@ button:active{opacity:0.75}
       </select>
     </div>
     <div id="lanc-body"></div>
-    <button class="save-btn" onclick="salvar()">💾 Salvar período</button>
+    <div class="vban" id="vban"></div>
+    <button class="sbtn" onclick="salvar()">💾 Salvar período</button>
   </div>
-
-  <!-- PAINEL -->
-  <div class="screen" id="screen-pain">
-    <div class="filter-row">
-      <button class="fbtn active" onclick="setTipo('mes',this)">Mês</button>
-      <button class="fbtn" onclick="setTipo('tri',this)">Trimestre</button>
-      <button class="fbtn" onclick="setTipo('sem',this)">Semestre</button>
-      <button class="fbtn" onclick="setTipo('ano',this)">Ano</button>
+ 
+  <div class="scr" id="scr-pain">
+    <div class="frow">
+      <button class="fb active" onclick="setTipo('mes',this)">Mês</button>
+      <button class="fb" onclick="setTipo('tri',this)">Trimestre</button>
+      <button class="fb" onclick="setTipo('sem',this)">Semestre</button>
+      <button class="fb" onclick="setTipo('ano',this)">Ano</button>
     </div>
-    <div class="filter-sub" id="filter-sub"></div>
-    <div class="sec-title">Resumo</div>
-    <div class="stat-grid" id="stats-top"></div>
-    <div class="sec-title">Booster OG</div>
-    <div id="og-section"></div>
-    <div class="sec-title">Por capítulo</div>
-    <div id="cap-bars"></div>
-    <div class="sec-title">Piores indicadores</div>
-    <div id="worst"></div>
-    <div class="sec-title">Maior impacto (pts perdidos)</div>
-    <div id="impact"></div>
-    <div class="pdf-sep"></div>
-    <button class="pdf-btn" onclick="gerarPDF()">📄 Exportar relatório PDF</button>
+    <div class="fsub" id="fsub"></div>
+    <div class="st">Resumo</div><div class="sg" id="stats"></div>
+    <div class="st">Booster OG</div><div id="ogsec"></div>
+    <div class="st">Por capítulo</div><div id="capbars"></div>
+    <div class="st">Piores indicadores (pts perdidos)</div><div id="worst"></div>
+    <div class="st">Maior impacto nominal</div><div id="impact"></div>
+    <div class="psep"></div>
+    <button class="pb1" onclick="gerarPDF(false)">📄 PDF do período selecionado</button>
+    <button class="pb2" onclick="gerarPDF(true)">📋 PDF anual completo</button>
   </div>
-
-  <!-- BATALHA NAVAL -->
-  <div class="screen" id="screen-bat">
-    <div class="bn-info">Toque em uma célula vermelha para ir direto ao lançamento.</div>
-    <div class="bn-legend">
-      <div class="bld" style="background:#c0dd97;border:1px solid #97c459"></div> Preenchido
-      <div class="bld" style="background:#f7c1c1;border:1px solid #f09595"></div> Pendente
-      <div class="bld" style="background:var(--bg)"></div> N/A
+ 
+  <div class="scr" id="scr-bat">
+    <div style="font-size:11px;color:var(--mu);margin-bottom:8px">Toque em célula vermelha para ir ao lançamento.</div>
+    <div style="display:flex;gap:10px;margin-bottom:8px;font-size:10px;color:var(--mu);align-items:center;flex-wrap:wrap">
+      <div style="width:12px;height:12px;border-radius:3px;background:#c0dd97;border:1px solid #97c459;flex-shrink:0"></div>Preenchido
+      <div style="width:12px;height:12px;border-radius:3px;background:#f7c1c1;border:1px solid #f09595;flex-shrink:0"></div>Pendente
+      <div style="width:12px;height:12px;border-radius:3px;background:var(--bg);flex-shrink:0"></div>N/A
     </div>
-    <div class="bn-scroll">
-      <table class="bn-table" id="bn-tbl"></table>
-    </div>
+    <div class="bns"><table class="bnt" id="bnt"></table></div>
+  </div>
+ 
+  <div class="scr" id="scr-rules">
+    <div class="rsi"><input type="text" id="rsi" placeholder="🔍 Buscar critério..." oninput="filterRules(this.value)"></div>
+    <div id="rbody"></div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
+ 
 <script>
-// ─── DADOS ───────────────────────────────────────────────────────────────────
-const MESES=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-const TRI_M=[2,5,8,11];
-const TRI_NAMES=['Q1 (Jan–Mar)','Q2 (Abr–Jun)','Q3 (Jul–Set)','Q4 (Out–Dez)'];
-const TRI_SHORT=['Q1','Q2','Q3','Q4'];
-
+const M=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const TM=[2,5,8,11];
+const TN=['Q1 (Jan–Mar)','Q2 (Abr–Jun)','Q3 (Jul–Set)','Q4 (Out–Dez)'];
+const TS=['Q1','Q2','Q3','Q4'];
+ 
+// ─── CRITÉRIOS ────────────────────────────────────────────────────────────────
 const CR=[
-  {cap:1,capName:'Cap. I — Performance',code:'1.1.1',name:'VBC — Linha Seca',freq:'M',meta:51,ideal:5},
-  {cap:1,code:'1.1.2',name:'VBC — Garoto',freq:'M',meta:35,ideal:5},
-  {cap:1,code:'1.1.3',name:'VBC — BRP2 Purina Alimentar',freq:'M',meta:11,ideal:2},
-  {cap:1,code:'1.1.4',name:'VBC — BRP2 Purina Especializado',freq:'M',meta:10,ideal:2},
-  {cap:1,code:'1.1.5',name:'VBC — BRN2 Professional Food',freq:'M',meta:11,ideal:2},
-  {cap:1,code:'1.1.6',name:'VBC — BRN8 Professional Bebidas',freq:'M',meta:10,ideal:2},
-  {cap:1,code:'1.1.7',name:'VBC — Farma',freq:'M',meta:10,ideal:2},
-  {cap:1,code:'1.2.1',name:'Cobertura — Categorias',freq:'M',meta:null,ideal:null,note:'Categorias em análise pela Nestlé'},
-  {cap:1,code:'1.3.1',name:'Sortimento Farma B',freq:'M',meta:4,ideal:4},
-  {cap:1,code:'1.4.1',name:'BEES — VBC (por org.)',freq:'M',meta:7,ideal:3},
-  {cap:1,code:'1.4.2',name:'BEES — Coberturas (por org.)',freq:'M',meta:5,ideal:3},
-  {cap:1,code:'1.5.2',name:'Ruptura Zero',freq:'M',meta:10,ideal:0},
-  {cap:1,code:'1.5.3',name:'Positivação em Rota',freq:'M',meta:8,ideal:0},
-  {cap:2,capName:'Cap. II — Excelência Operacional',code:'2.1.1',name:'Turn-over',freq:'T',meta:8,ideal:0},
-  {cap:2,code:'2.1.2',name:'Manual de Identidade',freq:'T',meta:5,ideal:0},
-  {cap:2,code:'2.2.1',name:'Reunião Matinal',freq:'M',meta:8,ideal:0},
-  {cap:2,code:'2.2.2',name:'Reunião Semanal (RPS)',freq:'M',meta:5,ideal:0},
-  {cap:2,code:'2.2.3',name:'Reunião Ciclo',freq:'M',meta:5,ideal:0},
-  {cap:2,code:'2.2.4',name:'FLEXX GPS',freq:'T',meta:6,ideal:0},
-  {cap:2,code:'2.3.1',name:'Prazo de Processamento',freq:'T',meta:8,ideal:0},
-  {cap:2,code:'2.3.2',name:'Frequência de Atendimento',freq:'T',meta:6,ideal:0},
-  {cap:2,code:'2.4.1',name:'12 Passos NiM',freq:'T',meta:10,ideal:10},
-  {cap:2,code:'2.4.2',name:'8 Passos Professional Food',freq:'T',meta:6,ideal:9},
-  {cap:2,code:'2.4.3',name:'9 Passos Prof. Bebidas',freq:'T',meta:6,ideal:9},
-  {cap:2,code:'2.4.4',name:'9 Passos Purina',freq:'T',meta:6,ideal:9},
-  {cap:2,code:'2.5.1',name:'8 Passos Promotor',freq:'T',meta:5,ideal:6},
-  {cap:2,code:'2.6.1',name:'Visita Desenvolvimento Rota',freq:'M',meta:6,ideal:0},
-  {cap:2,code:'2.7.1',name:'Equipamentos TI',freq:'T',meta:4,ideal:0},
-  {cap:2,code:'2.8.1',name:'Supply — Performance',freq:'M',meta:3,ideal:7},
-  {cap:2,code:'2.8.2',name:'Supply — Proc. Operacionais',freq:'T',meta:14,ideal:0},
-  {cap:2,code:'2.8.3',name:'Supply — Gestão/Performance',freq:'T',meta:14,ideal:0},
-  {cap:2,code:'2.8.4',name:'Supply — Distribuição',freq:'T',meta:14,ideal:0},
-  {cap:2,code:'2.8.5',name:'Supply — Qualidade',freq:'T',meta:14,ideal:0},
-  {cap:2,code:'2.8.6',name:'Supply — SHE',freq:'T',meta:14,ideal:0},
-  {cap:2,code:'2.9.1',name:'Crédito — 30 dias',freq:'T',meta:5,ideal:0},
-  {cap:2,code:'2.9.2',name:'Processo Indenização',freq:'T',meta:5,ideal:0},
-  {cap:2,code:'2.9.3',name:'Produtos Destruídos',freq:'T',meta:1,ideal:4},
-  {cap:3,capName:'Compliance',code:'2.11.1',name:'Verbas em aberto',freq:'M',meta:5,ideal:0},
-  {cap:3,code:'2.12.1',name:'Alvarás atualizados',freq:'T',meta:10,ideal:0},
-  {cap:3,code:'2.12.2',name:'Certidões negativas',freq:'T',meta:10,ideal:0},
-  {cap:3,code:'2.13.1',name:'Produtos salvage/bloqueados',freq:'M',meta:5,ideal:0},
-  {cap:3,code:'2.14.1',name:'Transpasse',freq:'T',meta:12,ideal:0},
-  {cap:3,code:'2.15.1',name:'Escrituração',freq:'M',meta:9,ideal:0},
-  {cap:3,code:'2.16.1',name:'Produtos vencidos no PDV',freq:'T',meta:11,ideal:0},
+ 
+  // ══════════════════════════════════════════════════════
+  //  CAP I — PERFORMANCE
+  // ══════════════════════════════════════════════════════
+ 
+  // 1.1.1.x — VBC por organização de vendas
+  {cap:1, capName:'Cap. I — Performance',
+   group:'1.1.1 — VBC por Organização de Vendas',
+   code:'1.1.1.1', name:'VBC — Linha Seca',
+   freq:'M', meta:51, ideal:5,
+   avalia:'Sede Nestlé', como:'PRESER',
+   desc:'Alcançar meta de VBC na Linha Seca mensalmente. ≥100% = META. Pontos IDEAL adicionais por performance acima da meta. VBC = NF total descontando ICMS/ST, IPI, devoluções e indenizações.'},
+  {cap:1, code:'1.1.1.2', name:'VBC — Garoto',
+   freq:'M', meta:35, ideal:5,
+   avalia:'Sede Nestlé', como:'PRESER',
+   desc:'Meta de VBC na organização Garoto. ≥100% = META. IDEAL adicional.'},
+  {cap:1, code:'1.1.1.3', name:'VBC — BRP2 Purina Alimentar',
+   freq:'M', meta:11, ideal:2,
+   avalia:'Sede Nestlé', como:'PRESER',
+   desc:'Meta de VBC na organização BRP2 Purina Alimentar.'},
+  {cap:1, code:'1.1.1.4', name:'VBC — BRP2 Purina Especializado',
+   freq:'M', meta:10, ideal:2,
+   avalia:'Sede Nestlé', como:'PRESER',
+   desc:'Meta de VBC na organização BRP2 Purina Especializado.'},
+  {cap:1, code:'1.1.1.5', name:'VBC — BRN2 Professional Food',
+   freq:'M', meta:11, ideal:2,
+   avalia:'Sede Nestlé', como:'PRESER',
+   desc:'Meta de VBC na organização BRN2 Professional Food.'},
+  {cap:1, code:'1.1.1.6', name:'VBC — BRN8 Professional Bebidas',
+   freq:'M', meta:10, ideal:2,
+   avalia:'Sede Nestlé', como:'PRESER',
+   desc:'Meta de VBC na organização BRN8 Professional Bebidas.'},
+  {cap:1, code:'1.1.1.7', name:'VBC — Farma',
+   freq:'M', meta:10, ideal:2,
+   avalia:'Sede Nestlé', como:'PRESER',
+   desc:'Meta de VBC na organização Farma.'},
+ 
+  // 1.1.2.x — VBC por grupo de categoria
+  {cap:1, group:'1.1.2 — VBC por Grupo de Categoria',
+   code:'1.1.2.1',  name:'VBC Cat. — Chocolates Nestlé',
+   freq:'M', meta:29, ideal:5,
+   avalia:'Sede Nestlé', como:'Dashboard VBC',
+   desc:'≥100% do efetivo = PONTO META. ≥110% do efetivo = PONTO IDEAL adicional.'},
+  {cap:1, code:'1.1.2.2',  name:'VBC Cat. — Garoto',            freq:'M', meta:20, ideal:5,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.3',  name:'VBC Cat. — Biscoitos',         freq:'M', meta:15, ideal:5,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.4',  name:'VBC Cat. — Nutrição Infantil', freq:'M', meta:12, ideal:5,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.5',  name:'VBC Cat. — Nescafé Soluvel + T&M', freq:'M', meta:7, ideal:2, avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.6',  name:'VBC Cat. — RTD Adultos + Kids', freq:'M', meta:6, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.7',  name:'VBC Cat. — Bebidas POS',       freq:'M', meta:5, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.8',  name:'VBC Cat. — Maggi',             freq:'M', meta:5, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.9',  name:'VBC Cat. — Cereais Família',   freq:'M', meta:4, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.10', name:'VBC Cat. — Cereais Matinais',  freq:'M', meta:4, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.11', name:'VBC Cat. — Leites Culinários', freq:'M', meta:4, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.12', name:'VBC Cat. — Sistema Dolce Gusto', freq:'M', meta:3, ideal:1, avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.13', name:'VBC Cat. — Compatíveis Nespresso', freq:'M', meta:2, ideal:1, avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.14', name:'VBC Cat. — Health Science',    freq:'M', meta:2, ideal:1,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.15', name:'VBC Cat. — Purina Alimentar BRL1', freq:'M', meta:5, ideal:1.25, avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.16', name:'VBC Cat. — Purina Especializado', freq:'M', meta:5, ideal:1.25, avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.17', name:'VBC Cat. — BRN2 Professional', freq:'M', meta:4, ideal:1,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1, code:'1.1.2.18', name:'VBC Cat. — BRN8 Professional', freq:'M', meta:4, ideal:1,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
+ 
+  // 1.2.1 — Cobertura
+  {cap:1, code:'1.2.1', name:'Cobertura — Categorias',
+   freq:'M', meta:null, ideal:null, note:'Categorias em análise pela Nestlé',
+   avalia:'Sede Nestlé', como:'PRESER',
+   desc:'Meta de coberturas no grupo das categorias mensalmente. Cliente coberto = VBC > R$ 30,00. Devoluções abatidas no mês de registro no SAP. Categorias ainda em análise.'},
+ 
+  // 1.3.1 — Sortimento Farma B
+  {cap:1, code:'1.3.1', name:'Sortimento Farma B',
+   freq:'M', meta:4, ideal:4,
+   avalia:'Sede Nestlé', como:'PRESER',
+   desc:'4 pts META = atingir faixa META de Sortimento Prioritário. 4 pts IDEAL = faixa IDEAL. Item coberto = peso líquido total > 0. Devoluções descontadas no mês de registro SAP.'},
+ 
+  // 1.4.1.x — BEES VBC por organização
+  {cap:1, group:'1.4.1 — BEES VBC por Organização',
+   code:'1.4.1.1', name:'BEES VBC — BRL1',
+   freq:'M', meta:7, ideal:3,
+   avalia:'Sede Nestlé', como:'BEES',
+   desc:'7 pts = atingir META de VBC no BEES para BRL1. +3 pts adicionais = faixa IDEAL. Mensuração: clientes que compraram no BEES vs. meta do mês.'},
+  {cap:1, code:'1.4.1.2', name:'BEES VBC — BRN2', freq:'M', meta:7, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'7 pts META. +3 pts IDEAL. Organização BRN2.'},
+  {cap:1, code:'1.4.1.3', name:'BEES VBC — BRN8', freq:'M', meta:7, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'7 pts META. +3 pts IDEAL. Organização BRN8.'},
+  {cap:1, code:'1.4.1.4', name:'BEES VBC — BRP2', freq:'M', meta:7, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'7 pts META. +3 pts IDEAL. Organização BRP2.'},
+ 
+  // 1.4.2.x — BEES Coberturas por organização
+  {cap:1, group:'1.4.2 — BEES Coberturas por Organização',
+   code:'1.4.2.1', name:'BEES Coberturas — BRL1',
+   freq:'M', meta:5, ideal:3,
+   avalia:'Sede Nestlé', como:'BEES',
+   desc:'5 pts = atingir META de Coberturas no BEES para BRL1. +3 pts adicionais = faixa IDEAL.'},
+  {cap:1, code:'1.4.2.2', name:'BEES Coberturas — BRN2', freq:'M', meta:5, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'5 pts META. +3 pts IDEAL. Organização BRN2.'},
+  {cap:1, code:'1.4.2.3', name:'BEES Coberturas — BRN8', freq:'M', meta:5, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'5 pts META. +3 pts IDEAL. Organização BRN8.'},
+  {cap:1, code:'1.4.2.4', name:'BEES Coberturas — BRP2', freq:'M', meta:5, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'5 pts META. +3 pts IDEAL. Organização BRP2.'},
+ 
+  // 1.5.1 — Ruptura Zero  |  1.5.2 — Positivação em Rota
+  {cap:1, code:'1.5.1', name:'Ruptura Zero',
+   freq:'M', meta:10, ideal:0,
+   avalia:'Sede Nestlé', como:'Dash Ruptura Zero 3.0',
+   desc:'10 pts = ruptura ≤ 5% para SKUs Hero. Duas validações: (i) target máx. 5% de ruptura; (ii) pesquisa em ≥60% dos PDVs indicados para roteirização. Pesquisa feita pelo promotor via Connect Merchan. Nova pesquisa a cada trimestre com SKUs Hero atuais.'},
+  {cap:1, code:'1.5.2', name:'Positivação em Rota',
+   freq:'M', meta:8, ideal:0,
+   avalia:'Sede Nestlé', como:'Broker 3.0',
+   desc:'8 pts = positivação > 70%. Cálculo: nº de clientes que compraram no dia ÷ nº de clientes previstos no roteiro. Inclui pedidos via BEES. Todas as organizações são consideradas. Clientes fora da rota não contam.'},
+ 
+  // ══════════════════════════════════════════════════════
+  //  CAP II — EXCELÊNCIA OPERACIONAL
+  // ══════════════════════════════════════════════════════
+  {cap:2, capName:'Cap. II — Excelência Operacional',
+   code:'2.1.1', name:'Turn-over',
+   freq:'T', meta:8, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'Formulário Padrão',
+   desc:'8 pts = turn-over ≤ 15%. Cálculo: total desligamentos ÷ média funcionários QLP. Não considerar: terceirizados (exceto rep. comerciais), estagiários, óbitos, expansão territorial, mão de obra temporária.'},
+  {cap:2, code:'2.1.2', name:'Manual de Identidade Visual',
+   freq:'T', meta:5, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'5 pts = todos os colaboradores dos departamentos Comercial, Merchandising, Logística e Depósito seguindo o padrão do Manual de Identidade Visual CRESCER + BROKERS. Prestadores: colete/camiseta "Prestador de Serviço" visível nas costas.'},
+  {cap:2, code:'2.2.1', name:'Reunião Matinal',
+   freq:'M', meta:8, ideal:0,
+   avalia:'Broker', como:'Plataforma Crescer+',
+   desc:'8 pts = 5 reuniões matinais/semana de 1h. Sexta-feira presencial para vendedores a ≤25 km. A cada 15 dias: PDV simulado. ATA preenchida até 5º dia útil do mês seguinte — não inserida = pontuação anulada.'},
+  {cap:2, code:'2.2.2', name:'Reunião Semanal (RPS)',
+   freq:'M', meta:5, ideal:0,
+   avalia:'Broker', como:'Plataforma Crescer+',
+   desc:'5 pts = ≥4 RPSs por mês (toda sexta-feira). Participação mínima 90%. Em feriado pode mudar de dia na mesma semana. ATA até 5º dia útil.'},
+  {cap:2, code:'2.2.3', name:'Reunião Ciclo',
+   freq:'M', meta:5, ideal:0,
+   avalia:'Broker', como:'Plataforma Crescer+',
+   desc:'5 pts = reunião mensal na primeira quinzena com ≥90% da equipe de vendas e merchandising. Pelo menos 1 reunião 100% presencial por semestre. ATA até 5º dia útil.'},
+  {cap:2, code:'2.2.4', name:'FLEXX GPS',
+   freq:'T', meta:6, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'6 pts = uso diário do sistema de Gestão de Visitas FLEXX GPS. Funcionário capacitado deve demonstrar familiaridade. Desvio de rota = contactar vendedor imediatamente.'},
+  {cap:2, code:'2.3.1', name:'Prazo de Processamento',
+   freq:'T', meta:8, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'8 pts = ≥90% dos pedidos faturados no prazo Nestlé (48h ou 72h conforme localização). Qualquer desvio no atendimento = perde automaticamente o ponto.'},
+  {cap:2, code:'2.3.2', name:'Frequência de Atendimento',
+   freq:'T', meta:6, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'6 pts = frequência de atendimento ajustada no FLEXX conforme nível de serviço contratado. Variação aceitável ≤5%. Percentual superior ao recomendado = perde total do ponto.'},
+  {cap:2, code:'2.4.1', name:'12 Passos NiM',
+   freq:'T', meta:10, ideal:10,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'Avaliação com ≥2 vendedores aleatórios, mínimo 6 PDVs. Vendedores com <90 dias não avaliados. Produto vencido = zera passos da loja. Kit Básico obrigatório.',
+   ptsTable:[{l:'≥ 95%',m:20,i:0},{l:'85% – 94,99%',m:15,i:0},{l:'80% – 84,99%',m:10,i:0}]},
+  {cap:2, code:'2.4.2', name:'8 Passos Prof. Food — BRN2',
+   freq:'T', meta:6, ideal:9,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'Vendedores especializados BRN2. Kit inclui touca para cozinha industrial. Produto vencido = zera loja.',
+   ptsTable:[{l:'90% – 100%',m:15,i:0},{l:'80% – 89,99%',m:6,i:0}]},
+  {cap:2, code:'2.4.3', name:'9 Passos Prof. Bebidas — BRN8',
+   freq:'T', meta:6, ideal:9,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'Vendedores especializados BRN8. Kit inclui touca para manuseio do produto.',
+   ptsTable:[{l:'90% – 100%',m:15,i:0},{l:'80% – 89,99%',m:6,i:0}]},
+  {cap:2, code:'2.4.4', name:'9 Passos Purina',
+   freq:'T', meta:6, ideal:9,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'Vendedores especializados Canal Especializado Purina.',
+   ptsTable:[{l:'90% – 100%',m:15,i:0},{l:'80% – 89,99%',m:6,i:0}]},
+  {cap:2, code:'2.5.1', name:'8 Passos Promotor',
+   freq:'T', meta:5, ideal:6,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'Promotores escolhidos aleatoriamente. Produto vencido = zera os 8 passos da loja. Kit Básico obrigatório.',
+   ptsTable:[{l:'7 – 8 passos',m:11,i:0},{l:'5 – 6 passos',m:5,i:0}]},
+  {cap:2, code:'2.6.1', name:'Visita Desenvolvimento Rota',
+   freq:'M', meta:6, ideal:0,
+   avalia:'Broker', como:'Connect Merchan / Plataforma',
+   desc:'6 pts = 6 vendedores × 5 PDVs = 30 visitas/mês. Supervisor preenche formulário no Connect Merchan. Envio na plataforma até 5º dia útil do mês seguinte.'},
+  {cap:2, code:'2.7.1', name:'Equipamentos TI',
+   freq:'T', meta:4, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'4 pts = celular + tablet/notebook para toda equipe de vendas + reserva mínima 10% do efetivo. Feristas, Prospectores e Apoios incluídos no quadro efetivo.'},
+  {cap:2, code:'2.8.1', name:'Supply — Performance',
+   freq:'M', meta:3, ideal:7,
+   avalia:'Sede Operações Brokers', como:'Visão Performance BI',
+   desc:'9 itens avaliados. 10 pts = 7–9 itens | 5 pts = 4–6 itens | 3 pts = 3 itens. Mínimo 3 itens para começar a pontuar.'},
+  {cap:2, code:'2.8.2', name:'Supply — Proc. Operacionais',
+   freq:'T', meta:14, ideal:0,
+   avalia:'Sede Operações Brokers', como:'In Loco',
+   desc:'14 pts = ≥80% dos itens do Check List — Processos Operacionais. Autoavaliação mensal obrigatória.'},
+  {cap:2, code:'2.8.3', name:'Supply — Gestão/Performance',
+   freq:'T', meta:14, ideal:0,
+   avalia:'Sede Operações Brokers', como:'In Loco',
+   desc:'14 pts = ≥80% dos itens do Check List — Gestão e Performance. Autoavaliação mensal obrigatória.'},
+  {cap:2, code:'2.8.4', name:'Supply — Distribuição',
+   freq:'T', meta:14, ideal:0,
+   avalia:'Sede Operações Brokers', como:'In Loco',
+   desc:'14 pts = ≥80% dos itens do Check List — Processos de Distribuição.'},
+  {cap:2, code:'2.8.5', name:'Supply — Qualidade',
+   freq:'T', meta:14, ideal:0,
+   avalia:'Sede Operações Brokers', como:'In Loco',
+   desc:'14 pts = ≥95% dos itens do Check List — Processos de Qualidade.'},
+  {cap:2, code:'2.8.6', name:'Supply — SHE',
+   freq:'T', meta:14, ideal:0,
+   avalia:'Sede Operações Brokers', como:'In Loco',
+   desc:'14 pts = ≥95% dos itens do Check List — SHE (Segurança, Saúde, Meio Ambiente).'},
+  {cap:2, code:'2.9.1', name:'Crédito — 30 dias',
+   freq:'T', meta:5, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'5 pts = 100% das notas indenizadas (Indenização, Pallet, MPDVs) processadas em ≤30 dias. Data FI posterior à NFD = pontuação anulada sem exceção.'},
+  {cap:2, code:'2.9.2', name:'Processo Indenização',
+   freq:'T', meta:5, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'5 pts = processo de indenização estabelecido conforme regras Nestlé. Indenização manual = perde ponto. Ausência de conferência no recolhimento = invalida pontuação.'},
+  {cap:2, code:'2.9.3', name:'Produtos Destruídos',
+   freq:'T', meta:1, ideal:4,
+   avalia:'Sede Nestlé', como:'Dash DSP',
+   desc:'Redução percentual vs. 2025 no acumulado do trimestre. Se broker tinha 0% de destruição no período anterior, não pode ter nenhuma destruição no atual.',
+   ptsTable:[{l:'Redução ≥ 10%',m:5,i:0},{l:'Redução ≥ 8%',m:2,i:0},{l:'Redução ≥ 6%',m:1,i:0}]},
+ 
+  // ══════════════════════════════════════════════════════
+  //  COMPLIANCE
+  // ══════════════════════════════════════════════════════
+  {cap:3, capName:'Compliance',
+   code:'2.11.1', name:'Verbas em aberto',
+   freq:'M', meta:5, ideal:0,
+   avalia:'Sede Nestlé', como:'SUV',
+   desc:'5 pts = sem verbas pendentes de comprovação por mais de 60 dias. Monitorar semanalmente o arquivo da sede. Status 30 ou 27 há >60 dias = perde pontuação.'},
+  {cap:3, code:'2.12.1', name:'Alvarás atualizados',
+   freq:'T', meta:10, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'10 pts = Alvará de Funcionamento, AVCB e Vigilância Sanitária atualizados. Sem alvará: protocolo a cada 6 meses. Solicitação após vencimento = perde ponto. Nenhuma exceção aceita.'},
+  {cap:3, code:'2.12.2', name:'Certidões negativas',
+   freq:'T', meta:10, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'10 pts = CND Federal, TST, CEF, TEM, TRCT, Estadual, IPTU, ISSQN sem restrições. Enviadas via Forms ao final de cada trimestre. Certidão Positiva sem comprovante de parcelamento = perde.'},
+  {cap:3, code:'2.13.1', name:'Produtos salvage/bloqueados',
+   freq:'M', meta:5, ideal:0,
+   avalia:'Sede Operações Brokers', como:'Visão Performance BI',
+   desc:'5 pts = sem expedição de produtos com status salvage, bloqueados ou restritos com vencimento ≤15 dias. Verificação via MB51 no último dia do mês.'},
+  {cap:3, code:'2.14.1', name:'Transpasse',
+   freq:'T', meta:12, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'12 pts = toda NF emitida expedida no mesmo dia. NFs do último dia do mês expedidas no mesmo mês. Sem intervalos (exceto sáb/dom/feriados nacionais). Expedições T2 seguem as mesmas normas. Verificação dos 6 meses anteriores via CEM.'},
+  {cap:3, code:'2.15.1', name:'Escrituração',
+   freq:'M', meta:9, ideal:0,
+   avalia:'NBS', como:'SAP',
+   desc:'9 pts = todas as NFs registradas nos livros contábeis em ≤30 dias da emissão. Inclui: Indenização, Pallets, MPDVs, NFs não reconhecidas. NFs com obs. "Nestlé Verificando Internamente" não são consideradas.'},
+  {cap:3, code:'2.16.1', name:'Produtos vencidos no PDV',
+   freq:'T', meta:11, ideal:0,
+   avalia:'Coordenadores de Excelência', como:'In Loco',
+   desc:'11 pts = sem produtos vencidos no PDV. Qualquer unidade vencida = perde. Sem data legível = classificado como vencido. Inclui Purina a granel (validade no recipiente ou orientação do vendedor).'},
 ];
-
-// ─── STORAGE (localStorage) ───────────────────────────────────────────────────
-const STORE_KEY='cb2026_data';
-const OG_KEY='cb2026_og';
-
-function loadAll(){
-  try{return JSON.parse(localStorage.getItem(STORE_KEY)||'{}');}catch{return {};}
+ 
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+function mxReal(c){
+  if(c.note||(!c.meta&&!c.ptsTable&&!c.ideal))return 0;
+  if(c.ptsTable)return c.ptsTable.reduce((s,r)=>Math.max(s,r.m||0),0);
+  return(c.meta||0)+(c.ideal||0);
 }
-function saveAll(d){localStorage.setItem(STORE_KEY,JSON.stringify(d));}
-function loadOG(){
-  try{return JSON.parse(localStorage.getItem(OG_KEY)||'{}');}catch{return {};}
+function mxMes(c,m){
+  const mx=mxReal(c);if(!mx)return 0;
+  if(c.freq==='M')return mx;
+  return TM.includes(m)?mx:0;
 }
-function saveOG(d){localStorage.setItem(OG_KEY,JSON.stringify(d));}
-
-let DATA=loadAll();
-let OG_DATA=loadOG();
-
-function gd(code,m){return DATA[code+'_'+m]??null;}
-function sd(code,m,v){DATA[code+'_'+m]=v;saveAll(DATA);}
-function getOG(t){return OG_DATA['og_'+t]??{ant:0,atu:0};}
-function setOG(t,a,b){OG_DATA['og_'+t]={ant:parseFloat(a)||0,atu:parseFloat(b)||0};saveOG(OG_DATA);}
-
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
-function maxReal(c){return c.note?0:(c.meta||0)+(c.ideal||0);}
-function maxMes(c,m){if(c.note)return 0;if(c.freq==='M')return maxReal(c);return TRI_M.includes(m)?maxReal(c):0;}
-function metaMes(c,m){if(c.freq==='M')return c.meta||0;return TRI_M.includes(m)?(c.meta||0):0;}
-
-let tipoAtual='mes';
-let subAtual=new Date().getMonth();
-
-function mesesPeriodo(){
-  if(tipoAtual==='mes')return[subAtual];
-  if(tipoAtual==='tri'){const b=subAtual*3;return[b,b+1,b+2];}
-  if(tipoAtual==='sem'){const b=subAtual*6;return Array.from({length:6},(_,i)=>b+i);}
+function metaMes(c){
+  if(c.ptsTable)return c.ptsTable.reduce((s,r)=>Math.max(s,r.m||0),0);
+  return c.meta||0;
+}
+// safe id: replace dots and spaces
+function sid(code){return code.replace(/\./g,'-');}
+ 
+const SK='cb2026v5',OK='cb2026ogv5';
+function load(){try{return JSON.parse(localStorage.getItem(SK)||'{}');}catch{return {};}}
+function saveD(d){localStorage.setItem(SK,JSON.stringify(d));}
+function loadOG(){try{return JSON.parse(localStorage.getItem(OK)||'{}');}catch{return {};}}
+function saveOG(d){localStorage.setItem(OK,JSON.stringify(d));}
+let D=load(),OG=loadOG();
+function gd(c,m){return D[c+'_'+m]??null;}
+function sd(c,m,v){D[c+'_'+m]=v;saveD(D);}
+function getOG(t){return OG['t'+t]??{a:0,b:0};}
+function setOG(t,a,b){OG['t'+t]={a:parseFloat(a)||0,b:parseFloat(b)||0};saveOG(OG);}
+ 
+let tipo='mes',sub=new Date().getMonth();
+function meses(){
+  if(tipo==='mes')return[sub];
+  if(tipo==='tri'){const b=sub*3;return[b,b+1,b+2];}
+  if(tipo==='sem'){const b=sub*6;return Array.from({length:6},(_,i)=>b+i);}
   return Array.from({length:12},(_,i)=>i);
 }
-
-function periodoLabel(){
-  if(tipoAtual==='mes')return MESES[subAtual]+' 2026';
-  if(tipoAtual==='tri')return TRI_NAMES[subAtual]+' 2026';
-  if(tipoAtual==='sem')return(subAtual===0?'1º Semestre':'2º Semestre')+' 2026';
+function plabel(){
+  if(tipo==='mes')return M[sub]+' 2026';
+  if(tipo==='tri')return TN[sub]+' 2026';
+  if(tipo==='sem')return(sub===0?'1º Semestre':'2º Semestre')+' 2026';
   return 'Ano 2026';
 }
-
-function calcOGPts(t){
-  const d=getOG(t);if(!d.ant||!d.atu)return{pct:null,pts:0};
-  const pct=((d.atu-d.ant)/d.ant)*100;
+function ogPts(t){
+  const d=getOG(t);if(!d.a||!d.b)return{pct:null,pts:0};
+  const pct=((d.b-d.a)/d.a)*100;
   let pts=0;
   if(pct>=20)pts=300;else if(pct>=15)pts=200;else if(pct>=10)pts=150;else if(pct>=7.01)pts=100;
   return{pct,pts};
 }
-
-function toast(msg,ms=2000){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
+function toast(msg,ms=2500){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),ms);
 }
-
+ 
 // ─── LANÇAMENTO ───────────────────────────────────────────────────────────────
 function renderLanc(){
   const m=parseInt(document.getElementById('sel-m').value);
-  let html='';let lc=-1;
+  let html='',lc=-1,lg='';
   for(const c of CR){
-    if(c.cap!==lc){lc=c.cap;if(c.capName)html+=`<div class="chap-label">📌 ${c.capName}</div>`;}
-    const mx=maxMes(c,m),mt=metaMes(c,m),hasI=(c.ideal||0)>0,isTri=c.freq==='T';
-    const badge=isTri?'<span class="badge badge-t">Trimestral</span>':'<span class="badge badge-m">Mensal</span>';
+    if(c.cap!==lc){lc=c.cap;lg='';if(c.capName)html+=`<div class="clbl">📌 ${c.capName}</div>`;}
+    if(c.group&&c.group!==lg){lg=c.group;html+=`<div class="glbl">▸ ${c.group}</div>`;}
+    const mx=mxMes(c,m),mt=metaMes(c),hasI=(c.ideal||0)>0,isTri=c.freq==='T';
+    const badge=isTri?'<span class="bm bt">Trimestral</span>':'<span class="bm bmo">Mensal</span>';
+    const id=sid(c.code);
     if(c.note){
-      html+=`<div class="crit-card dimmed"><div class="crit-head"><span class="crit-code">${c.code}</span><span class="crit-name">${c.name}</span></div><div class="crit-meta">${badge}<span class="na-note">${c.note}</span></div></div>`;
+      html+=`<div class="cc dim"><div class="ch"><span class="ccode">${c.code}</span><span class="cname">${c.name}</span></div><div class="cm">${badge}<span class="na">${c.note}</span></div></div>`;
       continue;
     }
     if(!mx){
-      html+=`<div class="crit-card dimmed"><div class="crit-head"><span class="crit-code">${c.code}</span><span class="crit-name">${c.name}</span></div><div class="crit-meta">${badge}<span class="na-note">Apurado em Mar / Jun / Set / Dez</span></div></div>`;
+      html+=`<div class="cc dim"><div class="ch"><span class="ccode">${c.code}</span><span class="cname">${c.name}</span></div><div class="cm">${badge}<span class="na">Apurado em Mar / Jun / Set / Dez</span></div></div>`;
       continue;
     }
     const val=gd(c.code,m)??'';
     const fv=parseFloat(val)||0;
-    const wMeta=Math.min(mt/mx*100,fv/mx*100);
-    const wIdeal=hasI&&fv>mt?Math.min(c.ideal/mx*100,(fv-mt)/mx*100):0;
-    html+=`<div class="crit-card">
-      <div class="crit-head"><span class="crit-code">${c.code}</span><span class="crit-name">${c.name}</span></div>
-      <div class="crit-meta">${badge}<span class="pts-info">Meta: ${mt} pts${hasI?' · Ideal: +'+(c.ideal)+' pts':''}</span>${hasI?`<span class="badge-ideal">Máx: ${mx} pts</span>`:''}</div>
-      <div class="inp-row">
+    const isEmpty=val===''||val===null;
+    const wM=!isEmpty?Math.min(mt/mx*100,fv/mx*100):0;
+    const wI=!isEmpty&&hasI&&fv>mt?Math.min((c.ideal||0)/mx*100,(fv-mt)/mx*100):0;
+    html+=`<div class="cc${isEmpty?' err':''}" id="cc-${id}-${m}">
+      <div class="ch"><span class="ccode">${c.code}</span><span class="cname">${c.name}</span></div>
+      <div class="cm">${badge}<span class="pi">Meta: ${mt} pts${hasI?` · Ideal: +${c.ideal} pts`:''}</span>${hasI?`<span class="bi2">Máx: ${mx} pts</span>`:''}</div>
+      <div class="ir">
         <label>Pts:</label>
         <input type="number" min="0" max="${mx}" step="0.5" value="${val}"
-          id="i-${c.code}-${m}"
-          inputmode="decimal"
-          oninput="onInp(this,'${c.code}',${m},${mt},${c.ideal||0},${mx})">
+          id="i-${id}-${m}" inputmode="decimal" placeholder="obrigatório"
+          oninput="onInp(this,'${c.code}','${id}',${m},${mt},${c.ideal||0},${mx})">
         <span class="mx">/ ${mx}</span>
-        <div class="pbar">
-          <div class="pbar-meta" id="bm-${c.code}-${m}" style="width:${wMeta}%"></div>
-          <div class="pbar-ideal" id="bi-${c.code}-${m}" style="left:${mt/mx*100}%;width:${wIdeal}%"></div>
+        <div class="pb">
+          <div class="pbm" id="bm-${id}-${m}" style="width:${wM}%"></div>
+          <div class="pbi" id="bi-${id}-${m}" style="left:${mt/mx*100}%;width:${wI}%"></div>
         </div>
       </div>
+      <div class="en" id="en-${id}-${m}" style="${isEmpty?'':'display:none'}">⚠ Campo obrigatório</div>
     </div>`;
   }
   document.getElementById('lanc-body').innerHTML=html;
+  document.getElementById('vban').classList.remove('show');
 }
-
-function onInp(el,code,m,meta,ideal,mx){
-  const v=Math.min(parseFloat(el.value)||0,mx);
-  sd(code,m,v);
-  const bm=document.getElementById('bm-'+code+'-'+m);
-  const bi=document.getElementById('bi-'+code+'-'+m);
+ 
+function onInp(el,code,id,m,meta,ideal,mx){
+  const raw=el.value;
+  const cc=document.getElementById('cc-'+id+'-'+m);
+  const en=document.getElementById('en-'+id+'-'+m);
+  if(raw===''){cc&&cc.classList.add('err');if(en)en.style.display='';return;}
+  cc&&cc.classList.remove('err');if(en)en.style.display='none';
+  const v=Math.min(parseFloat(raw)||0,mx);
+  const bm=document.getElementById('bm-'+id+'-'+m);
+  const bi=document.getElementById('bi-'+id+'-'+m);
   if(bm)bm.style.width=Math.min(meta/mx*100,v/mx*100)+'%';
-  if(bi&&ideal>0){const over=Math.max(0,v-meta);bi.style.width=Math.min(ideal/mx*100,over/mx*100)+'%';}
+  if(bi&&ideal>0){const ov=Math.max(0,v-meta);bi.style.width=Math.min(ideal/mx*100,ov/mx*100)+'%';}
+  document.getElementById('vban').classList.remove('show');
 }
-
+ 
 function salvar(){
   const m=parseInt(document.getElementById('sel-m').value);
-  for(const c of CR){
-    const el=document.getElementById('i-'+c.code+'-'+m);
-    if(el)sd(c.code,m,parseFloat(el.value)||0);
-  }
-  renderBat();
-  toast('✓ Período salvo!');
-}
-
-// ─── PAINEL ───────────────────────────────────────────────────────────────────
-function setTipo(t,btn){
-  tipoAtual=t;
-  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  subAtual=t==='mes'?new Date().getMonth():t==='tri'?Math.floor(new Date().getMonth()/3):t==='sem'?Math.floor(new Date().getMonth()/6):0;
-  renderPainel();
-}
-function setSub(v,btn){
-  subAtual=v;
-  document.querySelectorAll('.fsub').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderPainel();
-}
-
-function renderFilterSub(){
-  let opts=[];
-  if(tipoAtual==='mes')opts=MESES.map((n,i)=>({label:n,v:i}));
-  else if(tipoAtual==='tri')opts=TRI_SHORT.map((n,i)=>({label:n,v:i}));
-  else if(tipoAtual==='sem')opts=[{label:'1º Sem',v:0},{label:'2º Sem',v:1}];
-  else opts=[{label:'2026',v:0}];
-  document.getElementById('filter-sub').innerHTML=opts.map(o=>`<button class="fsub${o.v===subAtual?' active':''}" onclick="setSub(${o.v},this)">${o.label}</button>`).join('');
-}
-
-function calcPainel(){
-  const meses=mesesPeriodo();
-  let totPts=0,totMax=0,compPts=0,compMax=0;
-  let capD={1:{pts:0,max:0,name:'Performance'},2:{pts:0,max:0,name:'Excelência Op.'},3:{pts:0,max:0,name:'Compliance'}};
-  let piorMap={};
-  for(const c of CR){
-    if(c.note)continue;
-    for(const m of meses){
-      const mx=maxMes(c,m);if(!mx)continue;
-      const v=gd(c.code,m);if(v===null||v==='')continue;
-      const fv=parseFloat(v)||0;
-      totPts+=fv;totMax+=mx;
-      capD[c.cap].pts+=fv;capD[c.cap].max+=mx;
-      if(c.cap===3){compPts+=fv;compMax+=mx;}
-      if(!piorMap[c.code])piorMap[c.code]={name:c.name,pts:0,max:0,cap:c.cap};
-      piorMap[c.code].pts+=fv;piorMap[c.code].max+=mx;
+  const ativos=CR.filter(c=>!c.note&&mxMes(c,m)>0);
+  const vazios=[];
+  for(const c of ativos){
+    const id=sid(c.code);
+    const el=document.getElementById('i-'+id+'-'+m);
+    if(!el||el.value===''){
+      vazios.push(c.code+' '+c.name);
+      const cc=document.getElementById('cc-'+id+'-'+m);
+      const en=document.getElementById('en-'+id+'-'+m);
+      cc&&cc.classList.add('err');if(en)en.style.display='';
     }
   }
-  const trisFech=[...new Set(meses.filter(m=>TRI_M.includes(m)).map(m=>Math.floor(m/3)))];
-  return{totPts,totMax,compPts,compMax,capD,piorMap,trisFech,meses};
+  if(vazios.length){
+    const b=document.getElementById('vban');
+    b.innerHTML=`⛔ ${vazios.length} campo(s) em branco:<br><strong>${vazios.slice(0,4).join(', ')}${vazios.length>4?` e mais ${vazios.length-4}...`:''}</strong>`;
+    b.classList.add('show');b.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  for(const c of ativos){
+    const id=sid(c.code);
+    const el=document.getElementById('i-'+id+'-'+m);
+    if(el)sd(c.code,m,parseFloat(el.value)||0);
+  }
+  document.getElementById('vban').classList.remove('show');
+  renderBat();toast('✓ '+M[m]+' salvo!');
 }
-
+ 
+// ─── PAINEL ───────────────────────────────────────────────────────────────────
+function setTipo(t,btn){
+  tipo=t;
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  sub=t==='mes'?new Date().getMonth():t==='tri'?Math.floor(new Date().getMonth()/3):0;
+  renderPainel();
+}
+function setSub(v,btn){sub=v;document.querySelectorAll('.fs').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderPainel();}
+function renderFsub(){
+  let opts=[];
+  if(tipo==='mes')opts=M.map((n,i)=>({l:n,v:i}));
+  else if(tipo==='tri')opts=TS.map((n,i)=>({l:n,v:i}));
+  else if(tipo==='sem')opts=[{l:'1º Sem',v:0},{l:'2º Sem',v:1}];
+  else opts=[{l:'2026',v:0}];
+  document.getElementById('fsub').innerHTML=opts.map(o=>`<button class="fs${o.v===sub?' active':''}" onclick="setSub(${o.v},this)">${o.l}</button>`).join('');
+}
+function calcP(ms){
+  ms=ms||meses();
+  let tp=0,tm=0,cp=0,cm=0;
+  let cd={1:{p:0,m:0,n:'Performance'},2:{p:0,m:0,n:'Excelência Op.'},3:{p:0,m:0,n:'Compliance'}};
+  let pm={};
+  for(const c of CR){
+    if(c.note)continue;
+    for(const m of ms){
+      const mx=mxMes(c,m);if(!mx)continue;
+      const v=gd(c.code,m);if(v===null||v==='')continue;
+      const fv=parseFloat(v)||0;
+      tp+=fv;tm+=mx;
+      cd[c.cap].p+=fv;cd[c.cap].m+=mx;
+      if(c.cap===3){cp+=fv;cm+=mx;}
+      if(!pm[c.code])pm[c.code]={n:c.name,p:0,m:0};
+      pm[c.code].p+=fv;pm[c.code].m+=mx;
+    }
+  }
+  const tf=[...new Set(ms.filter(m=>TM.includes(m)).map(m=>Math.floor(m/3)))];
+  return{tp,tm,cp,cm,cd,pm,tf,ms};
+}
 function renderPainel(){
-  renderFilterSub();
-  const{totPts,totMax,compPts,compMax,capD,piorMap,trisFech,meses}=calcPainel();
-  const pctT=totMax>0?Math.round(totPts/totMax*100):null;
-  const pctC=compMax>0?Math.round(compPts/compMax*100):null;
-
-  document.getElementById('stats-top').innerHTML=`
-    <div class="stat-card"><div class="lbl">Pontos obtidos</div><div class="val">${Math.round(totPts)}</div><div class="sub">de ${totMax} possíveis</div></div>
-    <div class="stat-card"><div class="lbl">Aderência</div><div class="val">${pctT!==null?pctT+'%':'—'}</div><div class="sub">no período</div></div>
-    <div class="stat-card ${pctC===null?'':pctC>=80?'ok':'bad'}"><div class="lbl">Compliance</div><div class="val">${pctC!==null?pctC+'%':'—'}</div><div class="sub">mín. 80%</div></div>
-    <div class="stat-card"><div class="lbl">Pts perdidos</div><div class="val" style="color:var(--red)">${Math.round(totMax-totPts)}</div><div class="sub">no período</div></div>`;
-
-  let ogHtml='';
-  if(trisFech.length===0){
-    const t=Math.floor((tipoAtual==='mes'?subAtual:meses[0])/3);
-    ogHtml=`<div class="empty-note">Booster apurado no fechamento do ${TRI_SHORT[t]} (${MESES[TRI_M[t]]}). Lance naquele mês.</div>`;
+  renderFsub();
+  const{tp,tm,cp,cm,cd,pm,tf,ms}=calcP();
+  const pT=tm>0?Math.round(tp/tm*100):null,pC=cm>0?Math.round(cp/cm*100):null;
+  document.getElementById('stats').innerHTML=`
+    <div class="sc"><div class="lb">Pontos obtidos</div><div class="vl">${Math.round(tp)}</div><div class="sb2">de ${tm}</div></div>
+    <div class="sc"><div class="lb">Aderência</div><div class="vl">${pT!==null?pT+'%':'—'}</div><div class="sb2">no período</div></div>
+    <div class="sc ${pC===null?'':pC>=80?'ok':'bad'}"><div class="lb">Compliance</div><div class="vl">${pC!==null?pC+'%':'—'}</div><div class="sb2">mín. 80%</div></div>
+    <div class="sc"><div class="lb">Pts perdidos</div><div class="vl" style="color:var(--r)">${Math.round(tm-tp)}</div><div class="sb2">no período</div></div>`;
+  let ogH='';
+  if(!tf.length){
+    const t=Math.floor((tipo==='mes'?sub:ms[0])/3);
+    ogH=`<p class="en2">Booster apurado no ${TS[t]} (${M[TM[t]]}). Lance naquele mês.</p>`;
   }else{
-    for(const t of trisFech){
-      const d=getOG(t),{pct,pts}=calcOGPts(t);
+    for(const t of tf){
+      const d=getOG(t),{pct,pts}=ogPts(t);
       const pc=pts===0?'p0':pts===100?'p100':pts===150?'p150':pts===200?'p200':'p300';
-      ogHtml+=`<div class="og-box">
-        <div class="og-title">📈 ${TRI_NAMES[t]}</div>
-        <div class="og-grid">
-          <div class="og-field"><label>NNS referência anterior (R$)</label><input type="number" step="0.01" value="${d.ant||''}" placeholder="0,00" id="og-a-${t}" inputmode="decimal" oninput="updOG(${t})"></div>
-          <div class="og-field"><label>NNS ${TRI_SHORT[t]} 2026 (R$)</label><input type="number" step="0.01" value="${d.atu||''}" placeholder="0,00" id="og-b-${t}" inputmode="decimal" oninput="updOG(${t})"></div>
+      ogH+=`<div class="ob">
+        <div class="ot">📈 ${TN[t]}</div>
+        <div class="og">
+          <div class="of"><label>NNS ref. anterior (R$)</label><input type="number" step="0.01" value="${d.a||''}" placeholder="0,00" id="oa-${t}" inputmode="decimal" oninput="updOG(${t})"></div>
+          <div class="of"><label>NNS ${TS[t]} 2026 (R$)</label><input type="number" step="0.01" value="${d.b||''}" placeholder="0,00" id="ob-${t}" inputmode="decimal" oninput="updOG(${t})"></div>
         </div>
-        <div class="og-result">
-          <div><div class="og-lbl">Crescimento</div><div class="og-val" id="og-pct-${t}">${pct!==null?pct.toFixed(1)+'%':'—'}</div></div>
-          <div><div class="og-lbl">Booster</div><span class="og-pts ${pc}" id="og-pts-${t}">+${pts} pts</span></div>
+        <div class="or2">
+          <div><div class="ol">Crescimento</div><div class="ov" id="op-${t}">${pct!==null?pct.toFixed(1)+'%':'—'}</div></div>
+          <div><div class="ol">Booster</div><span class="op ${pc}" id="ops-${t}">+${pts} pts</span></div>
         </div>
       </div>`;
     }
   }
-  document.getElementById('og-section').innerHTML=ogHtml;
-
-  const capColors={1:'#1a5c2e',2:'#185fa5',3:'#854f0b'};
-  document.getElementById('cap-bars').innerHTML=Object.entries(capD).map(([cid,cd])=>{
-    const p=cd.max>0?Math.round(cd.pts/cd.max*100):0;
-    const cor=p>=80?'#27500a':p>=60?'#854f0b':'#a32d2d';
-    return `<div class="cap-bar-row"><div class="cap-bar-lbl"><span>${cd.name}</span><span>${Math.round(cd.pts)}/${cd.max} (${p}%)</span></div><div class="cap-bar-track"><div class="cap-bar-fill" style="width:${p}%;background:${capColors[cid]}"></div></div></div>`;
-  }).join('')||'<p class="empty-note">Nenhum dado lançado.</p>';
-
-  const piors=Object.entries(piorMap).filter(([,d])=>d.max>0).map(([,d])=>({name:d.name,pct:Math.round(d.pts/d.max*100)})).sort((a,b)=>a.pct-b.pct).slice(0,6);
-  document.getElementById('worst').innerHTML=piors.length?piors.map((p,i)=>{
-    const cor=p.pct<60?'var(--red)':p.pct<80?'var(--amber)':'var(--green-mid)';
-    return `<div class="list-item"><span class="list-rk">#${i+1}</span><span class="list-name">${p.name}</span><span class="list-val" style="color:${cor}">${p.pct}%</span></div>`;
-  }).join(''):'<p class="empty-note">Lance dados para ver.</p>';
-
-  const imps=Object.entries(piorMap).filter(([,d])=>d.max>0).map(([,d])=>({name:d.name,perd:d.max-d.pts})).sort((a,b)=>b.perd-a.perd).slice(0,6);
-  document.getElementById('impact').innerHTML=imps.length?imps.map(p=>`<div class="list-item"><span class="list-name">${p.name}</span><span class="list-val" style="color:var(--red)">-${Math.round(p.perd)} pts</span></div>`).join(''):'<p class="empty-note">Lance dados para ver.</p>';
+  document.getElementById('ogsec').innerHTML=ogH;
+  const cc={1:'#1a5c2e',2:'#185fa5',3:'#854f0b'};
+  document.getElementById('capbars').innerHTML=Object.entries(cd).map(([id2,d])=>{
+    const p=d.m>0?Math.round(d.p/d.m*100):0;const cor=p>=80?'#27500a':p>=60?'#854f0b':'#a32d2d';
+    return `<div class="cbr"><div class="cbl"><span>${d.n}</span><span>${Math.round(d.p)}/${d.m} (${p}%)</span></div><div class="cbt"><div class="cbf" style="width:${p}%;background:${cc[id2]}"></div></div></div>`;
+  }).join('')||'<p class="en2">Nenhum dado lançado.</p>';
+  const sorted=Object.entries(pm).filter(([,d])=>d.m>0)
+    .map(([,d])=>({n:d.n,perd:d.m-d.p,pct:Math.round(d.p/d.m*100)}))
+    .sort((a,b)=>b.perd-a.perd);
+  const rH=sorted.length?sorted.slice(0,6).map((p,i)=>{
+    const cor=p.perd>20?'var(--r)':p.perd>10?'var(--a)':'var(--gm)';
+    return `<div class="li"><span class="lrk">#${i+1}</span><span class="ln">${p.n}<br><span style="font-size:9px;color:var(--hi)">${p.pct}% aderência</span></span><span class="lv" style="color:${cor}">-${Math.round(p.perd)} pts</span></div>`;
+  }).join(''):'<p class="en2">Lance dados para ver.</p>';
+  document.getElementById('worst').innerHTML=rH;
+  document.getElementById('impact').innerHTML=rH;
 }
-
 function updOG(t){
-  const a=parseFloat(document.getElementById('og-a-'+t).value)||0;
-  const b=parseFloat(document.getElementById('og-b-'+t).value)||0;
+  const a=parseFloat(document.getElementById('oa-'+t).value)||0;
+  const b=parseFloat(document.getElementById('ob-'+t).value)||0;
   setOG(t,a,b);
-  const{pct,pts}=calcOGPts(t);
-  const pe=document.getElementById('og-pct-'+t),se=document.getElementById('og-pts-'+t);
+  const{pct,pts}=ogPts(t);
+  const pe=document.getElementById('op-'+t),se=document.getElementById('ops-'+t);
   if(pe)pe.textContent=pct!==null?pct.toFixed(1)+'%':'—';
-  if(se){se.textContent='+'+pts+' pts';se.className='og-pts '+(pts===0?'p0':pts===100?'p100':pts===150?'p150':pts===200?'p200':'p300');}
+  if(se){se.textContent='+'+pts+' pts';se.className='op '+(pts===0?'p0':pts===100?'p100':pts===150?'p150':pts===200?'p200':'p300');}
 }
-
+ 
 // ─── PDF ──────────────────────────────────────────────────────────────────────
-function gerarPDF(){
-  const{totPts,totMax,compPts,compMax,capD,piorMap,trisFech}=calcPainel();
-  const pctT=totMax>0?Math.round(totPts/totMax*100):0;
-  const pctC=compMax>0?Math.round(compPts/compMax*100):0;
-  const label=periodoLabel();
-  const capNames={1:'Cap. I — Performance',2:'Cap. II — Excelência Operacional',3:'Compliance'};
-  const capColors={1:'#1a5c2e',2:'#185fa5',3:'#854f0b'};
-
-  let ogRows='';
-  for(const t of trisFech){
-    const{pct,pts}=calcOGPts(t);
-    const cor=pts>=200?'#27500a':pts>=100?'#854f0b':'#a32d2d';
-    ogRows+=`<tr><td>${TRI_NAMES[t]}</td><td style="text-align:center">${pct!==null?pct.toFixed(1)+'%':'—'}</td><td style="text-align:center;color:${cor};font-weight:700">+${pts} pts</td></tr>`;
+function buildPDF(msTarget,lbl,anual){
+  const cN={1:'Cap. I — Performance',2:'Cap. II — Excelência Operacional',3:'Compliance'};
+  const cC={1:'#1a5c2e',2:'#185fa5',3:'#854f0b'};
+  function sec(ms,label){
+    const{tp,tm,cp,cm,cd,pm,tf}=calcP(ms);
+    const pT=tm>0?Math.round(tp/tm*100):0,pC=cm>0?Math.round(cp/cm*100):0;
+    const sorted=Object.entries(pm).filter(([,d])=>d.m>0).map(([,d])=>({n:d.n,perd:d.m-d.p,pct:Math.round(d.p/d.m*100)})).sort((a,b)=>b.perd-a.perd);
+    let og='';for(const t of tf){const{pct,pts}=ogPts(t);const co=pts>=200?'#27500a':pts>=100?'#854f0b':'#a32d2d';og+=`<tr><td>${TN[t]}</td><td style="text-align:center">${pct!==null?pct.toFixed(1)+'%':'—'}</td><td style="text-align:center;color:${co};font-weight:700">+${pts} pts</td></tr>`;}
+    let cr=Object.entries(cd).map(([id2,d])=>{const p=d.m>0?Math.round(d.p/d.m*100):0;const co=p>=80?'#27500a':p>=60?'#854f0b':'#a32d2d';return `<tr><td>${cN[id2]}</td><td style="text-align:center">${Math.round(d.p)}</td><td style="text-align:center">${d.m}</td><td><div style="height:7px;background:#e5e5e5;border-radius:3px"><div style="width:${p}%;height:100%;background:${cC[id2]};border-radius:3px"></div></div><span style="font-size:10px;color:${co};font-weight:700">${p}%</span></td></tr>`;}).join('');
+    let det='';let lc2=-1;for(const[code,d] of Object.entries(pm)){const c=CR.find(x=>x.code===code);if(!c)continue;if(c.cap!==lc2){lc2=c.cap;det+=`<tr style="background:#e8f4ee"><td colspan="4" style="padding:6px 8px;font-weight:700;color:#1a5c2e;font-size:11px">${cN[c.cap]}</td></tr>`;}const p=d.m>0?Math.round(d.p/d.m*100):0;const co=p>=80?'#27500a':p>=60?'#854f0b':'#a32d2d';det+=`<tr><td style="color:#1a5c2e;font-weight:700;font-size:10px">${code}</td><td style="font-size:11px">${d.n}</td><td style="text-align:center;font-size:11px">${Math.round(d.p)}/${d.m}</td><td><div style="height:7px;background:#e5e5e5;border-radius:3px"><div style="width:${p}%;height:100%;background:${co};border-radius:3px"></div></div><span style="font-size:10px;color:${co};font-weight:700">${p}%</span></td></tr>`;}
+    let pio=sorted.slice(0,8).map((p,i)=>{const co=p.perd>20?'#a32d2d':p.perd>10?'#854f0b':'#27500a';return `<tr><td style="font-weight:700;color:#a32d2d">#${i+1}</td><td>${p.n}</td><td style="text-align:center;font-weight:700;color:${co}">${Math.round(p.perd)} pts</td><td style="color:#666">${p.pct}%</td></tr>`;}).join('');
+    return `<div class="pb"><div class="pt">${label}</div>
+      <div class="cs"><div class="cd"><div class="cl">Pontos</div><div class="cv" style="color:#1a5c2e">${Math.round(tp)}</div><div class="cs2">de ${tm}</div></div><div class="cd"><div class="cl">Aderência</div><div class="cv">${pT}%</div></div><div class="cd" style="background:${pC>=80?'#eaf3de':'#fcebeb'}"><div class="cl">Compliance</div><div class="cv" style="color:${pC>=80?'#27500a':'#a32d2d'}">${pC}%</div><div class="cs2">${pC>=80?'✓ OK':'⚠ <80%'}</div></div><div class="cd"><div class="cl">Perdidos</div><div class="cv" style="color:#a32d2d">${Math.round(tm-tp)}</div></div></div>
+      <div class="se">Por capítulo</div><table><thead><tr><th>Capítulo</th><th>Obtido</th><th>Possível</th><th>Aderência</th></tr></thead><tbody>${cr}</tbody></table>
+      ${tf.length?`<div class="se">Booster OG</div><table><thead><tr><th>Trimestre</th><th>Crescimento</th><th>Bônus</th></tr></thead><tbody>${og}</tbody></table>`:''}
+      <div class="se">Ranking pts perdidos</div><table><thead><tr><th>#</th><th>Critério</th><th>Pts perdidos</th><th>Aderência</th></tr></thead><tbody>${pio}</tbody></table>
+      <div class="se">Detalhamento</div><table><thead><tr><th>Código</th><th>Critério</th><th>Pts</th><th>Aderência</th></tr></thead><tbody>${det}</tbody></table>
+    </div>`;
   }
-  if(!ogRows)ogRows=`<tr><td colspan="3" style="color:#999">Nenhum trimestre com dados de OG no período.</td></tr>`;
-
-  let detRows='';let lastCap=-1;
-  for(const[code,d] of Object.entries(piorMap)){
-    const c=CR.find(x=>x.code===code);if(!c)continue;
-    if(c.cap!==lastCap){lastCap=c.cap;detRows+=`<tr style="background:#e8f4ee"><td colspan="4" style="padding:7px 8px;font-weight:700;color:#1a5c2e;font-size:11px">${capNames[c.cap]}</td></tr>`;}
-    const pct=d.max>0?Math.round(d.pts/d.max*100):0;
-    const cor=pct>=80?'#27500a':pct>=60?'#854f0b':'#a32d2d';
-    detRows+=`<tr><td style="color:#1a5c2e;font-weight:700;font-size:10px">${code}</td><td style="font-size:11px">${d.name}</td><td style="text-align:center;font-size:11px">${Math.round(d.pts)}/${d.max}</td><td style="min-width:90px"><div style="height:7px;background:#e5e5e5;border-radius:4px"><div style="width:${pct}%;height:100%;background:${cor};border-radius:4px"></div></div><div style="font-size:10px;color:${cor};margin-top:2px;font-weight:600">${pct}%</div></td></tr>`;
-  }
-
-  const html=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Crescer + Brokers — ${label}</title>
-  <style>body{font-family:Arial,sans-serif;padding:28px 32px;color:#1a1a1a;max-width:900px;margin:0 auto}
-  h1{font-size:20px;color:#1a5c2e;margin:0 0 3px}.sub{font-size:11px;color:#666;margin-bottom:20px}
-  .cards{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
-  .card{flex:1;min-width:110px;background:#f5f5f5;border-radius:8px;padding:11px 13px}
-  .card .cl{font-size:9px;color:#666;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.4px}
-  .card .cv{font-size:22px;font-weight:700}.card .cs{font-size:10px;color:#999;margin-top:1px}
-  .sect{font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.6px;margin:18px 0 7px;padding-bottom:4px;border-bottom:2px solid #1a5c2e}
-  table{width:100%;border-collapse:collapse;margin-bottom:6px}
-  th{font-size:11px;font-weight:700;color:#444;padding:7px 8px;background:#f5f7f5;text-align:left;border-bottom:1px solid #ddd}
-  td{padding:6px 8px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
-  .footer{margin-top:30px;font-size:10px;color:#aaa;border-top:1px solid #eee;padding-top:8px;text-align:center}
-  @media print{body{padding:12px}@page{margin:1.5cm;size:A4}}</style></head><body>
-  <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px">
+  let body='';
+  if(anual){
+    body+=sec(Array.from({length:12},(_,i)=>i),'Visão Anual 2026');
+    body+='<div class="pg"></div><div class="sh">Por Semestre</div>';
+    body+=sec([0,1,2,3,4,5],'1º Semestre 2026');body+=sec([6,7,8,9,10,11],'2º Semestre 2026');
+    body+='<div class="pg"></div><div class="sh">Por Trimestre</div>';
+    for(let t=0;t<4;t++){const b=t*3;body+=sec([b,b+1,b+2],TN[t]+' 2026');}
+    body+='<div class="pg"></div><div class="sh">Por Mês</div>';
+    for(let m=0;m<12;m++){if(CR.some(c=>!c.note&&mxMes(c,m)>0&&gd(c.code,m)!==null))body+=sec([m],M[m]+' 2026');}
+  }else{body+=sec(msTarget,lbl);}
+  return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Crescer+</title>
+  <style>body{font-family:Arial,sans-serif;padding:24px 28px;color:#1a1a1a;max-width:960px;margin:0 auto}
+  .cs{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}.cd{flex:1;min-width:110px;background:#f5f5f5;border-radius:8px;padding:10px 12px}
+  .cl{font-size:9px;color:#666;margin-bottom:3px;text-transform:uppercase}.cv{font-size:20px;font-weight:700}.cs2{font-size:10px;color:#999}
+  .se{font-size:10px;font-weight:700;color:#555;text-transform:uppercase;margin:14px 0 6px;padding-bottom:3px;border-bottom:2px solid #1a5c2e}
+  .sh{font-size:16px;font-weight:700;color:#1a5c2e;background:#e8f4ee;padding:10px 14px;border-radius:8px;margin:24px 0 12px;border-left:4px solid #1a5c2e}
+  .pb{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #e0e0e0}
+  .pt{font-size:14px;font-weight:700;color:#1a5c2e;margin-bottom:12px;padding:6px 10px;background:#f0f7f0;border-radius:6px}
+  table{width:100%;border-collapse:collapse;margin-bottom:8px;font-size:11px}
+  th{font-weight:700;color:#444;padding:6px 8px;background:#f5f7f5;text-align:left;border-bottom:1px solid #ddd}
+  td{padding:5px 8px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+  .pg{page-break-before:always;margin:32px 0}
+  footer{margin-top:30px;font-size:10px;color:#aaa;border-top:1px solid #eee;padding-top:8px;text-align:center}
+  @media print{body{padding:10px}@page{margin:1.2cm;size:A4}.pg{page-break-before:always}}</style>
+  </head><body>
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px">
     <div style="background:#1a5c2e;color:#fff;padding:8px 16px;border-radius:8px;font-size:14px;font-weight:700">Crescer + Brokers</div>
-    <div><h1>Relatório de Resultados</h1><div class="sub">Período: ${label} &nbsp;|&nbsp; Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}</div></div>
-  </div>
-  <div class="cards">
-    <div class="card"><div class="cl">Pontos obtidos</div><div class="cv" style="color:#1a5c2e">${Math.round(totPts)}</div><div class="cs">de ${totMax} possíveis</div></div>
-    <div class="card"><div class="cl">Aderência</div><div class="cv">${pctT}%</div><div class="cs">no período</div></div>
-    <div class="card" style="background:${pctC>=80?'#eaf3de':'#fcebeb'}"><div class="cl">Compliance</div><div class="cv" style="color:${pctC>=80?'#27500a':'#a32d2d'}">${pctC}%</div><div class="cs" style="color:${pctC>=80?'#3b6d11':'#c53030'}">mín. 80% exigido</div></div>
-    <div class="card"><div class="cl">Pts perdidos</div><div class="cv" style="color:#a32d2d">${Math.round(totMax-totPts)}</div><div class="cs">no período</div></div>
-  </div>
-  <div class="sect">Resultado por capítulo</div>
-  <table><thead><tr><th>Capítulo</th><th style="text-align:center">Obtido</th><th style="text-align:center">Possível</th><th>Aderência</th></tr></thead><tbody>
-  ${Object.entries(capD).map(([cid,cd])=>{const p=cd.max>0?Math.round(cd.pts/cd.max*100):0;const cor=p>=80?'#27500a':p>=60?'#854f0b':'#a32d2d';return `<tr><td>${capNames[cid]}</td><td style="text-align:center">${Math.round(cd.pts)}</td><td style="text-align:center">${cd.max}</td><td><div style="height:8px;background:#e5e5e5;border-radius:4px"><div style="width:${p}%;height:100%;background:${capColors[cid]};border-radius:4px"></div></div><div style="font-size:10px;color:${cor};margin-top:2px;font-weight:700">${p}%</div></td></tr>`;}).join('')}
-  </tbody></table>
-  <div class="sect">Booster OG — Crescimento NNS NIM</div>
-  <table><thead><tr><th>Trimestre</th><th style="text-align:center">Crescimento</th><th style="text-align:center">Bônus</th></tr></thead><tbody>${ogRows}</tbody></table>
-  <div class="sect">Detalhamento por critério</div>
-  <table><thead><tr><th style="width:65px">Código</th><th>Critério</th><th style="width:80px;text-align:center">Pts</th><th style="width:100px">Aderência</th></tr></thead><tbody>${detRows}</tbody></table>
-  <div class="sect">Piores indicadores</div>
-  <table><thead><tr><th>#</th><th>Critério</th><th>Aderência</th></tr></thead><tbody>
-  ${Object.entries(piorMap).filter(([,d])=>d.max>0).map(([,d])=>({name:d.name,pct:Math.round(d.pts/d.max*100)})).sort((a,b)=>a.pct-b.pct).slice(0,8).map((p,i)=>{const cor=p.pct<60?'#a32d2d':p.pct<80?'#854f0b':'#27500a';return `<tr><td style="font-weight:700;color:#a32d2d">#${i+1}</td><td>${p.name}</td><td style="font-weight:700;color:${cor}">${p.pct}%</td></tr>`;}).join('')}
-  </tbody></table>
-  <div class="footer">Crescer + Brokers — Programa de Excelência Nestlé 2026 &nbsp;|&nbsp; Relatório gerado em ${new Date().toLocaleDateString('pt-BR')}</div>
+    <div><h1 style="font-size:20px;color:#1a5c2e;margin:0 0 3px">${anual?'Relatório Anual':'Relatório de Resultados'}</h1>
+    <div style="font-size:11px;color:#666">${anual?'Todas as análises — 2026':'Período: '+lbl} | Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}</div></div>
+  </div>${body}
+  <footer>Crescer + Brokers — Programa de Excelência Nestlé 2026 | ${new Date().toLocaleDateString('pt-BR')}</footer>
   </body></html>`;
-
+}
+function gerarPDF(anual){
+  const html=buildPDF(meses(),plabel(),anual);
+  const nome=anual?'crescer-anual-2026.html':`crescer-${plabel().replace(/[\s()–]/g,'-')}.html`;
   const blob=new Blob([html],{type:'text/html;charset=utf-8'});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download=`crescer-brokers-${label.replace(/\s/g,'-')}.html`;
+  const a=document.createElement('a');a.href=url;a.download=nome;
   document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-  toast('📄 Relatório baixado! Abra e use Ctrl+P → PDF');
+  toast(anual?'📋 Relatório anual baixado!':'📄 Relatório baixado!');
 }
-
+ 
 // ─── BATALHA NAVAL ────────────────────────────────────────────────────────────
 function renderBat(){
-  const tbl=document.getElementById('bn-tbl');
+  const tbl=document.getElementById('bnt');
   let h=`<thead><tr><th class="rh">Critério</th>`;
-  for(const n of MESES)h+=`<th>${n}</th>`;
-  h+=`</tr></thead><tbody>`;
-  let lc=-1;
+  for(const n of M)h+=`<th>${n}</th>`;
+  h+=`</tr></thead><tbody>`;let lc=-1;
   for(const c of CR){
-    if(c.cap!==lc){lc=c.cap;h+=`<tr class="chap-sep"><td class="rh" colspan="${MESES.length+1}">${c.capName}</td></tr>`;}
+    if(c.cap!==lc){lc=c.cap;h+=`<tr class="csep"><td class="rh" colspan="${M.length+1}">${c.capName||''}</td></tr>`;}
     h+=`<tr><td class="rh"><span class="rc">${c.code}</span><span class="rn">${c.name}</span></td>`;
     for(let m=0;m<12;m++){
-      const mx=maxMes(c,m);
+      const mx=mxMes(c,m);
       if(!mx||c.note){h+=`<td><div class="cell na">—</div></td>`;continue;}
       const v=gd(c.code,m);const ok=v!==null&&v!=='';
       h+=`<td><div class="cell ${ok?'green':'red'}" onclick="goLanc('${c.code}',${m})">${ok?'✓':'·'}</div></td>`;
@@ -623,36 +788,74 @@ function renderBat(){
   }
   h+=`</tbody>`;tbl.innerHTML=h;
 }
-
 function goLanc(code,m){
-  document.getElementById('sel-m').value=m;
-  showTab('lanc');renderLanc();
-  setTimeout(()=>{const el=document.getElementById('i-'+code+'-'+m);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},150);
+  const id=sid(code);
+  document.getElementById('sel-m').value=m;showTab('lanc');renderLanc();
+  setTimeout(()=>{const el=document.getElementById('i-'+id+'-'+m);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},150);
 }
-
+ 
+// ─── REGRAS ───────────────────────────────────────────────────────────────────
+function renderRules(filter){
+  const f=(filter||'').toLowerCase();
+  let html='',lc=-1,lg='';
+  for(const c of CR){
+    if(f&&!c.code.toLowerCase().includes(f)&&!c.name.toLowerCase().includes(f)&&!(c.desc||'').toLowerCase().includes(f))continue;
+    if(c.cap!==lc){lc=c.cap;lg='';if(c.capName)html+=`<div class="rct">📌 ${c.capName}</div>`;}
+    if(c.group&&c.group!==lg){lg=c.group;html+=`<div style="font-size:10px;font-weight:600;color:var(--g);background:var(--gl);padding:4px 10px;border-radius:var(--rs);margin:6px 0 4px;border-left:3px solid var(--g)">▸ ${c.group}</div>`;}
+    const mx=mxReal(c),isTri=c.freq==='T';
+    const rid=sid(c.code);
+    let pts='';
+    if(c.ptsTable){
+      pts=`<table class="rpt"><thead><tr><th>Faixa</th><th>Meta</th><th>Ideal</th></tr></thead><tbody>`;
+      for(const r of c.ptsTable)pts+=`<tr><td>${r.l}</td><td><span class="pmb">${r.m} pts</span></td><td>${(r.i||0)>0?`<span class="pib">+${r.i}</span>`:'—'}</td></tr>`;
+      pts+=`</tbody></table>`;
+    }else if(mx>0){
+      const mt=c.meta||0,id2=c.ideal||0;
+      pts=`<table class="rpt"><thead><tr><th>Faixa</th><th>Meta</th><th>Ideal</th></tr></thead><tbody><tr><td>Atingir meta</td><td><span class="pmb">${mt} pts</span></td><td>${id2>0?`<span class="pib">+${id2} pts</span>`:'—'}</td></tr></tbody></table>`;
+    }
+    html+=`<div class="rcard">
+      <div class="rch" onclick="toggleR('rb-${rid}','ra-${rid}')">
+        <span class="rcode">${c.code}</span>
+        <span class="rtit">${c.name}</span>
+        <span class="rarr" id="ra-${rid}">▾</span>
+      </div>
+      <div class="rbody" id="rb-${rid}">
+        <div class="rmr">
+          <span class="rtag ${isTri?'ft':'fm'}">${isTri?'Trimestral':'Mensal'}</span>
+          <span class="rtag av">👤 ${c.avalia||'—'}</span>
+          <span class="rtag av">📎 ${c.como||'—'}</span>
+          ${mx>0?`<span class="rtag av">Máx: ${mx} pts</span>`:''}
+          ${c.note?`<span class="rtag" style="background:#fdf0e0;color:#854f0b">⏳ ${c.note}</span>`:''}
+        </div>
+        ${pts}
+        ${c.desc?`<div class="rdesc">${c.desc}</div>`:''}
+      </div>
+    </div>`;
+  }
+  document.getElementById('rbody').innerHTML=html||'<p class="en2">Nenhum critério encontrado.</p>';
+}
+function toggleR(bid,aid){
+  const b=document.getElementById(bid),a=document.getElementById(aid);
+  if(!b)return;const op=b.classList.toggle('open');if(a)a.classList.toggle('open',op);
+}
+function filterRules(v){renderRules(v);}
+ 
 // ─── TABS ─────────────────────────────────────────────────────────────────────
 function showTab(name){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['lanc','pain','bat'][i]===name));
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('screen-'+name).classList.add('active');
-  if(name==='pain'){subAtual=tipoAtual==='mes'?parseInt(document.getElementById('sel-m').value):subAtual;renderPainel();}
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['lanc','pain','bat','rules'][i]===name));
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('active'));
+  document.getElementById('scr-'+name).classList.add('active');
+  if(name==='pain'){sub=tipo==='mes'?parseInt(document.getElementById('sel-m').value):sub;renderPainel();}
   if(name==='bat')renderBat();
+  if(name==='rules')renderRules(document.getElementById('rsi').value);
 }
-
-// ─── PWA / OFFLINE ────────────────────────────────────────────────────────────
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').catch(()=>{});
-}
-window.addEventListener('online',()=>document.getElementById('offline-badge').classList.remove('show'));
-window.addEventListener('offline',()=>document.getElementById('offline-badge').classList.add('show'));
-if(!navigator.onLine)document.getElementById('offline-badge').classList.add('show');
-
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-const cm=new Date().getMonth();
-document.getElementById('sel-m').value=cm;
-subAtual=cm;
-renderLanc();
-renderBat();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+window.addEventListener('online',()=>document.getElementById('off').classList.remove('show'));
+window.addEventListener('offline',()=>document.getElementById('off').classList.add('show'));
+if(!navigator.onLine)document.getElementById('off').classList.add('show');
+const cm0=new Date().getMonth();
+document.getElementById('sel-m').value=cm0;sub=cm0;
+renderLanc();renderBat();
 </script>
 </body>
 </html>
