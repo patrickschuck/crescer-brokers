@@ -12,43 +12,51 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <title>Crescer + Brokers</title>
 <style>
+/* ── sempre light ── */
 :root{
   --g:#1a5c2e;--gl:#e1f5ee;--gm:#3b6d11;
   --b:#185fa5;--bl:#e6f1fb;
   --a:#854f0b;--al:#faeeda;
   --r:#a32d2d;--rl:#fcebeb;
-  --bd:#e0e0e0;--bg:#f7f7f5;--cd:#fff;
-  --tx:#1a1a1a;--mu:#666;--hi:#999;
+  --bd:#e0e0e0;--bg:#f5f5f3;--cd:#ffffff;
+  --tx:#1a1a1a;--mu:#555;--hi:#999;
   --ra:10px;--rs:6px;
   --sb:env(safe-area-inset-bottom,0px);
 }
-@media(prefers-color-scheme:dark){:root{--bg:#111;--cd:#1e1e1e;--bd:#2e2e2e;--tx:#f0f0f0;--mu:#aaa;--hi:#666;--gl:#0d2e17;--bl:#0a1f35;--al:#2a1a00;--rl:#2a0a0a;}}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
-.app{display:flex;flex-direction:column;min-height:100vh;max-width:480px;margin:0 auto;background:var(--cd);box-shadow:0 0 0 0.5px var(--bd)}
+html,body{background:#fff;color:#1a1a1a}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden}
+.app{display:flex;flex-direction:column;min-height:100vh;max-width:480px;margin:0 auto;background:#fff;box-shadow:0 0 0 0.5px var(--bd)}
+/* header */
 .hdr{background:var(--g);color:#fff;padding:14px 16px 12px;text-align:center;flex-shrink:0}
 .hdr h1{font-size:16px;font-weight:600}
 .hdr p{font-size:11px;opacity:0.75;margin-top:2px}
 .off{display:none;font-size:10px;background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:10px;margin-top:4px}
 .off.show{display:inline-block}
-.tabs{display:flex;border-bottom:0.5px solid var(--bd);background:var(--cd);flex-shrink:0;position:sticky;top:0;z-index:10}
-.tab{flex:1;padding:8px 2px 6px;font-size:9px;text-align:center;cursor:pointer;color:var(--mu);border-bottom:2px solid transparent;font-weight:400}
+/* tabs */
+.tabs{display:flex;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0;position:sticky;top:0;z-index:10}
+.tab{flex:1;padding:8px 2px 6px;font-size:9px;text-align:center;cursor:pointer;color:var(--mu);border-bottom:2px solid transparent;font-weight:400;background:#fff}
 .tab.active{color:var(--g);border-bottom-color:var(--g);font-weight:600}
 .ti{font-size:18px;display:block;margin-bottom:1px}
-.scr{display:none;padding:12px 12px calc(12px + var(--sb));overflow-y:auto;flex:1}
+/* screens */
+.scr{display:none;padding:12px 12px calc(12px + var(--sb));overflow-y:auto;flex:1;background:#fff}
 .scr.active{display:block}
-select,input[type=number]{font-size:14px;padding:8px 10px;border-radius:var(--rs);border:1px solid var(--bd);background:var(--cd);color:var(--tx);width:100%;outline:none;-webkit-appearance:none}
+/* inputs */
+select,input[type=number]{font-size:14px;padding:8px 10px;border-radius:var(--rs);border:1px solid var(--bd);background:#fff;color:var(--tx);width:100%;outline:none;-webkit-appearance:none}
 select:focus,input:focus{border-color:var(--g);box-shadow:0 0 0 2px rgba(26,92,46,0.15)}
-button{cursor:pointer;font-family:inherit;font-size:13px;font-weight:500;border-radius:var(--rs);border:none;transition:opacity 0.1s}
+button{cursor:pointer;font-family:inherit;font-size:13px;font-weight:500;border-radius:var(--rs);border:none;transition:opacity 0.1s;background:#fff}
 button:active{opacity:0.75}
 .mrow{display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .mrow label{font-size:12px;color:var(--mu);white-space:nowrap;flex-shrink:0}
 .mrow select{flex:1}
+/* chapter / group labels */
 .clbl{font-size:11px;font-weight:700;color:#fff;background:var(--g);padding:5px 10px;border-radius:var(--rs);margin:10px 0 4px}
 .glbl{font-size:10px;font-weight:600;color:var(--g);background:var(--gl);padding:4px 10px;border-radius:var(--rs);margin:6px 0 4px;border-left:3px solid var(--g)}
-.cc{background:var(--cd);border:1px solid var(--bd);border-radius:var(--ra);padding:9px 12px;margin-bottom:5px}
+/* criteria cards */
+.cc{background:#fff;border:1px solid var(--bd);border-radius:var(--ra);padding:9px 12px;margin-bottom:5px}
 .cc.err{border-color:var(--r)}
 .cc.dim{opacity:0.4}
+.cc.abonado{background:#f5f5f5;border-color:#ccc}
 .ch{display:flex;align-items:flex-start;gap:8px}
 .ccode{font-size:9px;font-weight:700;color:var(--g);background:var(--gl);padding:2px 6px;border-radius:4px;white-space:nowrap;margin-top:2px;flex-shrink:0}
 .cname{font-size:12px;color:var(--tx);flex:1;line-height:1.4}
@@ -60,18 +68,26 @@ button:active{opacity:0.75}
 .pi{font-size:9px;color:var(--hi)}
 .na{font-size:9px;color:var(--hi);font-style:italic}
 .en{font-size:10px;color:var(--r);margin-top:4px;font-weight:500}
-.ir{margin-top:7px;display:flex;align-items:center;gap:8px}
+/* input row */
+.ir{margin-top:7px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .ir label{font-size:11px;color:var(--mu);white-space:nowrap;flex-shrink:0}
-.ir input[type=number]{width:70px;text-align:center;padding:6px 4px}
+.ir input[type=number]{width:68px;text-align:center;padding:6px 4px}
 .ir .mx{font-size:10px;color:var(--hi);white-space:nowrap}
-.pb{flex:1;height:5px;background:var(--bg);border-radius:3px;overflow:hidden;position:relative}
+.pb{flex:1;min-width:60px;height:5px;background:var(--bg);border-radius:3px;overflow:hidden;position:relative}
 .pbm{height:100%;background:var(--g);position:absolute;top:0;left:0;border-radius:3px;transition:width 0.15s}
 .pbi{height:100%;background:#97c459;position:absolute;top:0;border-radius:3px;transition:width 0.15s}
+/* abonar toggle */
+.abn-row{margin-top:6px;display:flex;align-items:center;gap:8px}
+.abn-btn{font-size:10px;padding:3px 10px;border-radius:20px;border:1px solid var(--bd);background:#fff;color:var(--mu);cursor:pointer;font-weight:500}
+.abn-btn.active{background:#f5f5f5;color:#888;border-color:#bbb;text-decoration:line-through}
+.abn-label{font-size:10px;color:#888;font-style:italic}
+/* save button */
 .sbtn{width:100%;margin-top:12px;padding:12px;background:var(--g);color:#fff;font-size:14px;border-radius:var(--ra);display:flex;align-items:center;justify-content:center;gap:8px}
 .vban{background:var(--rl);border:1px solid #f09595;border-radius:var(--rs);padding:8px 12px;margin-top:10px;font-size:11px;color:var(--r);display:none;line-height:1.5}
 .vban.show{display:block}
+/* painel */
 .frow{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
-.fb{font-size:11px;padding:6px 12px;border-radius:20px;border:1px solid var(--bd);background:var(--cd);color:var(--mu)}
+.fb{font-size:11px;padding:6px 12px;border-radius:20px;border:1px solid var(--bd);background:#fff;color:var(--mu)}
 .fb.active{background:var(--g);color:#fff;border-color:var(--g)}
 .fsub{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
 .fs{font-size:11px;padding:4px 10px;border-radius:var(--rs);border:1px solid var(--bd);background:var(--bg);color:var(--mu)}
@@ -85,7 +101,7 @@ button:active{opacity:0.75}
 .sc.bad .vl{color:var(--r)}
 .st{font-size:10px;font-weight:700;color:var(--mu);margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:6px}
 .st::after{content:'';flex:1;height:1px;background:var(--bd)}
-.ob{background:var(--cd);border:1px solid var(--bd);border-radius:var(--ra);padding:12px;margin-bottom:10px}
+.ob{background:#fff;border:1px solid var(--bd);border-radius:var(--ra);padding:12px;margin-bottom:10px}
 .ot{font-size:12px;font-weight:600;color:var(--tx);margin-bottom:8px}
 .og{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .of label{font-size:10px;color:var(--mu);display:block;margin-bottom:3px}
@@ -107,34 +123,39 @@ button:active{opacity:0.75}
 .ln{font-size:11px;color:var(--tx);flex:1;line-height:1.35}
 .lv{font-size:11px;font-weight:600}
 .psep{height:1px;background:var(--bd);margin:14px 0}
-.pb1{width:100%;padding:12px;background:var(--cd);color:var(--g);font-size:13px;border:1.5px solid var(--g);border-radius:var(--ra);display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px}
+.pb1{width:100%;padding:12px;background:#fff;color:var(--g);font-size:13px;border:1.5px solid var(--g);border-radius:var(--ra);display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px}
 .pb2{width:100%;padding:12px;background:var(--g);color:#fff;font-size:13px;border:none;border-radius:var(--ra);display:flex;align-items:center;justify-content:center;gap:8px}
-.bns{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--bd);border-radius:var(--ra)}
-.bnt{border-collapse:collapse;width:100%;min-width:560px}
-.bnt th{font-size:8px;font-weight:600;color:var(--mu);padding:4px 2px;text-align:center;background:var(--bg);position:sticky;top:0;z-index:5}
-.bnt th.rh{text-align:left;min-width:120px;padding-left:6px;position:sticky;left:0;z-index:6;background:var(--bg)}
-.bnt td{padding:2px}
-.bnt td.rh{text-align:left;padding:3px 6px;background:var(--cd);position:sticky;left:0;z-index:4;border-right:1px solid var(--bd)}
+/* dashboard (ex-batalha) */
+.dash-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--bd);border-radius:var(--ra)}
+.dash-tbl{border-collapse:collapse;width:100%;min-width:600px}
+.dash-tbl th{font-size:8px;font-weight:600;color:var(--mu);padding:4px 3px;text-align:center;background:var(--bg);position:sticky;top:0;z-index:5}
+.dash-tbl th.rh{text-align:left;min-width:130px;padding-left:6px;position:sticky;left:0;z-index:6;background:var(--bg)}
+.dash-tbl td{padding:2px 2px}
+.dash-tbl td.rh{text-align:left;padding:3px 6px;background:#fff;position:sticky;left:0;z-index:4;border-right:1px solid var(--bd)}
 .rc{font-size:8px;color:var(--g);font-weight:600;display:block}
 .rn{font-size:8px;color:var(--mu);line-height:1.3;display:block}
-.cell{width:28px;height:24px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;cursor:pointer;border:1px solid transparent;font-weight:600}
-.cell.green{background:#c0dd97;color:#27500a;border-color:#97c459}
-.cell.red{background:#f7c1c1;color:#791f1f;border-color:#f09595}
-.cell.na{background:var(--bg);color:var(--hi);font-size:7px}
+.dcell{min-width:38px;padding:2px;text-align:center}
+.dcell-inner{font-size:8px;border-radius:4px;padding:2px 1px;line-height:1.3}
+.dcell-inner.full{background:#c0dd97;color:#27500a}
+.dcell-inner.part{background:#faeeda;color:#854f0b}
+.dcell-inner.zero{background:#f7c1c1;color:#791f1f}
+.dcell-inner.na{background:var(--bg);color:var(--hi)}
+.dcell-inner.abon{background:#f0f0f0;color:#999;text-decoration:line-through}
 .csep td{background:var(--gl)}
 .csep td.rh{background:var(--gl);font-size:9px;font-weight:700;color:var(--g)}
+/* regras */
 .rsi{margin-bottom:12px}
-.rsi input{width:100%;font-size:13px;padding:9px 12px;border-radius:var(--ra);border:1px solid var(--bd);background:var(--cd);color:var(--tx);outline:none}
+.rsi input{width:100%;font-size:13px;padding:9px 12px;border-radius:var(--ra);border:1px solid var(--bd);background:#fff;color:var(--tx);outline:none}
 .rsi input:focus{border-color:var(--g)}
 .rct{font-size:12px;font-weight:700;color:#fff;background:var(--g);padding:6px 12px;border-radius:var(--rs);margin:10px 0 6px}
-.rcard{background:var(--cd);border:1px solid var(--bd);border-radius:var(--ra);margin-bottom:8px;overflow:hidden}
-.rch{padding:10px 12px;cursor:pointer;display:flex;align-items:flex-start;gap:10px}
+.rcard{background:#fff;border:1px solid var(--bd);border-radius:var(--ra);margin-bottom:8px;overflow:hidden}
+.rch{padding:10px 12px;cursor:pointer;display:flex;align-items:flex-start;gap:10px;background:#fff}
 .rch:active{background:var(--bg)}
 .rcode{font-size:9px;font-weight:700;color:var(--g);background:var(--gl);padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px}
 .rtit{font-size:12px;font-weight:600;color:var(--tx);flex:1;line-height:1.4}
 .rarr{font-size:14px;color:var(--mu);flex-shrink:0;transition:transform 0.2s}
 .rarr.open{transform:rotate(180deg)}
-.rbody{display:none;padding:0 12px 12px;border-top:1px solid var(--bd)}
+.rbody{display:none;padding:0 12px 12px;border-top:1px solid var(--bd);background:#fff}
 .rbody.open{display:block}
 .rmr{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 6px}
 .rtag{font-size:9px;padding:2px 8px;border-radius:4px;font-weight:600}
@@ -149,6 +170,7 @@ button:active{opacity:0.75}
 .pib{background:#eaf3de;color:var(--gm);font-weight:700;padding:1px 6px;border-radius:3px;font-size:10px}
 .rdesc{font-size:11px;color:var(--mu);line-height:1.6;margin-top:6px}
 .en2{font-size:10px;color:var(--hi);padding:6px 0;font-style:italic}
+/* toast */
 .toast{position:fixed;bottom:calc(80px + var(--sb));left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;font-size:12px;padding:8px 18px;border-radius:20px;display:none;z-index:100;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
 .toast.show{display:block;animation:fi 0.2s}
 @keyframes fi{from{opacity:0;transform:translateX(-50%) translateY(6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
@@ -164,10 +186,11 @@ button:active{opacity:0.75}
   <div class="tabs">
     <div class="tab active" onclick="showTab('lanc')"><span class="ti">✏️</span>Lançar</div>
     <div class="tab" onclick="showTab('pain')"><span class="ti">📊</span>Painel</div>
-    <div class="tab" onclick="showTab('bat')"><span class="ti">🗺️</span>Batalha</div>
+    <div class="tab" onclick="showTab('dash')"><span class="ti">📈</span>Dashboard</div>
     <div class="tab" onclick="showTab('rules')"><span class="ti">📋</span>Regras</div>
   </div>
- 
+
+  <!-- LANÇAMENTO -->
   <div class="scr active" id="scr-lanc">
     <div class="mrow"><label>Período:</label>
       <select id="sel-m" onchange="renderLanc()">
@@ -183,7 +206,8 @@ button:active{opacity:0.75}
     <div class="vban" id="vban"></div>
     <button class="sbtn" onclick="salvar()">💾 Salvar período</button>
   </div>
- 
+
+  <!-- PAINEL -->
   <div class="scr" id="scr-pain">
     <div class="frow">
       <button class="fb active" onclick="setTipo('mes',this)">Mês</button>
@@ -201,280 +225,141 @@ button:active{opacity:0.75}
     <button class="pb1" onclick="gerarPDF(false)">📄 PDF do período selecionado</button>
     <button class="pb2" onclick="gerarPDF(true)">📋 PDF anual completo</button>
   </div>
- 
-  <div class="scr" id="scr-bat">
-    <div style="font-size:11px;color:var(--mu);margin-bottom:8px">Toque em célula vermelha para ir ao lançamento.</div>
-    <div style="display:flex;gap:10px;margin-bottom:8px;font-size:10px;color:var(--mu);align-items:center;flex-wrap:wrap">
-      <div style="width:12px;height:12px;border-radius:3px;background:#c0dd97;border:1px solid #97c459;flex-shrink:0"></div>Preenchido
-      <div style="width:12px;height:12px;border-radius:3px;background:#f7c1c1;border:1px solid #f09595;flex-shrink:0"></div>Pendente
-      <div style="width:12px;height:12px;border-radius:3px;background:var(--bg);flex-shrink:0"></div>N/A
+
+  <!-- DASHBOARD -->
+  <div class="scr" id="scr-dash">
+    <div style="font-size:11px;color:var(--mu);margin-bottom:8px;line-height:1.6">
+      Pontos obtidos vs. possível por critério e mês.<br>
+      <span style="display:inline-flex;align-items:center;gap:4px;margin-top:4px">
+        <span style="background:#c0dd97;border-radius:3px;padding:1px 6px;font-size:9px;color:#27500a">100%</span> meta plena &nbsp;
+        <span style="background:#faeeda;border-radius:3px;padding:1px 6px;font-size:9px;color:#854f0b">parcial</span> &nbsp;
+        <span style="background:#f7c1c1;border-radius:3px;padding:1px 6px;font-size:9px;color:#791f1f">0 pts</span> &nbsp;
+        <span style="background:#f0f0f0;border-radius:3px;padding:1px 6px;font-size:9px;color:#999">abon.</span>
+      </span>
     </div>
-    <div class="bns"><table class="bnt" id="bnt"></table></div>
+    <div class="dash-scroll"><table class="dash-tbl" id="dash-tbl"></table></div>
   </div>
- 
+
+  <!-- REGRAS -->
   <div class="scr" id="scr-rules">
     <div class="rsi"><input type="text" id="rsi" placeholder="🔍 Buscar critério..." oninput="filterRules(this.value)"></div>
     <div id="rbody"></div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
- 
+
 <script>
 const M=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const TM=[2,5,8,11];
 const TN=['Q1 (Jan–Mar)','Q2 (Abr–Jun)','Q3 (Jul–Set)','Q4 (Out–Dez)'];
 const TS=['Q1','Q2','Q3','Q4'];
- 
-// ─── CRITÉRIOS ────────────────────────────────────────────────────────────────
+
+// critérios com passos da venda (sem META/IDEAL separados na exibição)
+const PASSOS=['2.4.1','2.4.2','2.4.3','2.4.4','2.5.1'];
+
 const CR=[
- 
-  // ══════════════════════════════════════════════════════
-  //  CAP I — PERFORMANCE
-  // ══════════════════════════════════════════════════════
- 
-  // 1.1.1.x — VBC por organização de vendas
-  {cap:1, capName:'Cap. I — Performance',
+  {cap:1,capName:'Cap. I — Performance',
    group:'1.1.1 — VBC por Organização de Vendas',
-   code:'1.1.1.1', name:'VBC — Linha Seca',
-   freq:'M', meta:51, ideal:5,
-   avalia:'Sede Nestlé', como:'PRESER',
-   desc:'Alcançar meta de VBC na Linha Seca mensalmente. ≥100% = META. Pontos IDEAL adicionais por performance acima da meta. VBC = NF total descontando ICMS/ST, IPI, devoluções e indenizações.'},
-  {cap:1, code:'1.1.1.2', name:'VBC — Garoto',
-   freq:'M', meta:35, ideal:5,
-   avalia:'Sede Nestlé', como:'PRESER',
-   desc:'Meta de VBC na organização Garoto. ≥100% = META. IDEAL adicional.'},
-  {cap:1, code:'1.1.1.3', name:'VBC — BRP2 Purina Alimentar',
-   freq:'M', meta:11, ideal:2,
-   avalia:'Sede Nestlé', como:'PRESER',
-   desc:'Meta de VBC na organização BRP2 Purina Alimentar.'},
-  {cap:1, code:'1.1.1.4', name:'VBC — BRP2 Purina Especializado',
-   freq:'M', meta:10, ideal:2,
-   avalia:'Sede Nestlé', como:'PRESER',
-   desc:'Meta de VBC na organização BRP2 Purina Especializado.'},
-  {cap:1, code:'1.1.1.5', name:'VBC — BRN2 Professional Food',
-   freq:'M', meta:11, ideal:2,
-   avalia:'Sede Nestlé', como:'PRESER',
-   desc:'Meta de VBC na organização BRN2 Professional Food.'},
-  {cap:1, code:'1.1.1.6', name:'VBC — BRN8 Professional Bebidas',
-   freq:'M', meta:10, ideal:2,
-   avalia:'Sede Nestlé', como:'PRESER',
-   desc:'Meta de VBC na organização BRN8 Professional Bebidas.'},
-  {cap:1, code:'1.1.1.7', name:'VBC — Farma',
-   freq:'M', meta:10, ideal:2,
-   avalia:'Sede Nestlé', como:'PRESER',
-   desc:'Meta de VBC na organização Farma.'},
- 
-  // 1.1.2.x — VBC por grupo de categoria
-  {cap:1, group:'1.1.2 — VBC por Grupo de Categoria',
-   code:'1.1.2.1',  name:'VBC Cat. — Chocolates Nestlé',
-   freq:'M', meta:29, ideal:5,
-   avalia:'Sede Nestlé', como:'Dashboard VBC',
-   desc:'≥100% do efetivo = PONTO META. ≥110% do efetivo = PONTO IDEAL adicional.'},
-  {cap:1, code:'1.1.2.2',  name:'VBC Cat. — Garoto',            freq:'M', meta:20, ideal:5,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.3',  name:'VBC Cat. — Biscoitos',         freq:'M', meta:15, ideal:5,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.4',  name:'VBC Cat. — Nutrição Infantil', freq:'M', meta:12, ideal:5,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.5',  name:'VBC Cat. — Nescafé Soluvel + T&M', freq:'M', meta:7, ideal:2, avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.6',  name:'VBC Cat. — RTD Adultos + Kids', freq:'M', meta:6, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.7',  name:'VBC Cat. — Bebidas POS',       freq:'M', meta:5, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.8',  name:'VBC Cat. — Maggi',             freq:'M', meta:5, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.9',  name:'VBC Cat. — Cereais Família',   freq:'M', meta:4, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.10', name:'VBC Cat. — Cereais Matinais',  freq:'M', meta:4, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.11', name:'VBC Cat. — Leites Culinários', freq:'M', meta:4, ideal:2,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.12', name:'VBC Cat. — Sistema Dolce Gusto', freq:'M', meta:3, ideal:1, avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.13', name:'VBC Cat. — Compatíveis Nespresso', freq:'M', meta:2, ideal:1, avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.14', name:'VBC Cat. — Health Science',    freq:'M', meta:2, ideal:1,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.15', name:'VBC Cat. — Purina Alimentar BRL1', freq:'M', meta:5, ideal:1.25, avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.16', name:'VBC Cat. — Purina Especializado', freq:'M', meta:5, ideal:1.25, avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.17', name:'VBC Cat. — BRN2 Professional', freq:'M', meta:4, ideal:1,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
-  {cap:1, code:'1.1.2.18', name:'VBC Cat. — BRN8 Professional', freq:'M', meta:4, ideal:1,  avalia:'Sede Nestlé', como:'Dashboard VBC', desc:'≥100% META. ≥110% IDEAL.'},
- 
-  // 1.2.1 — Cobertura
-  {cap:1, code:'1.2.1', name:'Cobertura — Categorias',
-   freq:'M', meta:null, ideal:null, note:'Categorias em análise pela Nestlé',
-   avalia:'Sede Nestlé', como:'PRESER',
-   desc:'Meta de coberturas no grupo das categorias mensalmente. Cliente coberto = VBC > R$ 30,00. Devoluções abatidas no mês de registro no SAP. Categorias ainda em análise.'},
- 
-  // 1.3.1 — Sortimento Farma B
-  {cap:1, code:'1.3.1', name:'Sortimento Farma B',
-   freq:'M', meta:4, ideal:4,
-   avalia:'Sede Nestlé', como:'PRESER',
-   desc:'4 pts META = atingir faixa META de Sortimento Prioritário. 4 pts IDEAL = faixa IDEAL. Item coberto = peso líquido total > 0. Devoluções descontadas no mês de registro SAP.'},
- 
-  // 1.4.1.x — BEES VBC por organização
-  {cap:1, group:'1.4.1 — BEES VBC por Organização',
-   code:'1.4.1.1', name:'BEES VBC — BRL1',
-   freq:'M', meta:7, ideal:3,
-   avalia:'Sede Nestlé', como:'BEES',
-   desc:'7 pts = atingir META de VBC no BEES para BRL1. +3 pts adicionais = faixa IDEAL. Mensuração: clientes que compraram no BEES vs. meta do mês.'},
-  {cap:1, code:'1.4.1.2', name:'BEES VBC — BRN2', freq:'M', meta:7, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'7 pts META. +3 pts IDEAL. Organização BRN2.'},
-  {cap:1, code:'1.4.1.3', name:'BEES VBC — BRN8', freq:'M', meta:7, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'7 pts META. +3 pts IDEAL. Organização BRN8.'},
-  {cap:1, code:'1.4.1.4', name:'BEES VBC — BRP2', freq:'M', meta:7, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'7 pts META. +3 pts IDEAL. Organização BRP2.'},
- 
-  // 1.4.2.x — BEES Coberturas por organização
-  {cap:1, group:'1.4.2 — BEES Coberturas por Organização',
-   code:'1.4.2.1', name:'BEES Coberturas — BRL1',
-   freq:'M', meta:5, ideal:3,
-   avalia:'Sede Nestlé', como:'BEES',
-   desc:'5 pts = atingir META de Coberturas no BEES para BRL1. +3 pts adicionais = faixa IDEAL.'},
-  {cap:1, code:'1.4.2.2', name:'BEES Coberturas — BRN2', freq:'M', meta:5, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'5 pts META. +3 pts IDEAL. Organização BRN2.'},
-  {cap:1, code:'1.4.2.3', name:'BEES Coberturas — BRN8', freq:'M', meta:5, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'5 pts META. +3 pts IDEAL. Organização BRN8.'},
-  {cap:1, code:'1.4.2.4', name:'BEES Coberturas — BRP2', freq:'M', meta:5, ideal:3, avalia:'Sede Nestlé', como:'BEES', desc:'5 pts META. +3 pts IDEAL. Organização BRP2.'},
- 
-  // 1.5.1 — Ruptura Zero  |  1.5.2 — Positivação em Rota
-  {cap:1, code:'1.5.1', name:'Ruptura Zero',
-   freq:'M', meta:10, ideal:0,
-   avalia:'Sede Nestlé', como:'Dash Ruptura Zero 3.0',
-   desc:'10 pts = ruptura ≤ 5% para SKUs Hero. Duas validações: (i) target máx. 5% de ruptura; (ii) pesquisa em ≥60% dos PDVs indicados para roteirização. Pesquisa feita pelo promotor via Connect Merchan. Nova pesquisa a cada trimestre com SKUs Hero atuais.'},
-  {cap:1, code:'1.5.2', name:'Positivação em Rota',
-   freq:'M', meta:8, ideal:0,
-   avalia:'Sede Nestlé', como:'Broker 3.0',
-   desc:'8 pts = positivação > 70%. Cálculo: nº de clientes que compraram no dia ÷ nº de clientes previstos no roteiro. Inclui pedidos via BEES. Todas as organizações são consideradas. Clientes fora da rota não contam.'},
- 
-  // ══════════════════════════════════════════════════════
-  //  CAP II — EXCELÊNCIA OPERACIONAL
-  // ══════════════════════════════════════════════════════
-  {cap:2, capName:'Cap. II — Excelência Operacional',
-   code:'2.1.1', name:'Turn-over',
-   freq:'T', meta:8, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'Formulário Padrão',
-   desc:'8 pts = turn-over ≤ 15%. Cálculo: total desligamentos ÷ média funcionários QLP. Não considerar: terceirizados (exceto rep. comerciais), estagiários, óbitos, expansão territorial, mão de obra temporária.'},
-  {cap:2, code:'2.1.2', name:'Manual de Identidade Visual',
-   freq:'T', meta:5, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'5 pts = todos os colaboradores dos departamentos Comercial, Merchandising, Logística e Depósito seguindo o padrão do Manual de Identidade Visual CRESCER + BROKERS. Prestadores: colete/camiseta "Prestador de Serviço" visível nas costas.'},
-  {cap:2, code:'2.2.1', name:'Reunião Matinal',
-   freq:'M', meta:8, ideal:0,
-   avalia:'Broker', como:'Plataforma Crescer+',
-   desc:'8 pts = 5 reuniões matinais/semana de 1h. Sexta-feira presencial para vendedores a ≤25 km. A cada 15 dias: PDV simulado. ATA preenchida até 5º dia útil do mês seguinte — não inserida = pontuação anulada.'},
-  {cap:2, code:'2.2.2', name:'Reunião Semanal (RPS)',
-   freq:'M', meta:5, ideal:0,
-   avalia:'Broker', como:'Plataforma Crescer+',
-   desc:'5 pts = ≥4 RPSs por mês (toda sexta-feira). Participação mínima 90%. Em feriado pode mudar de dia na mesma semana. ATA até 5º dia útil.'},
-  {cap:2, code:'2.2.3', name:'Reunião Ciclo',
-   freq:'M', meta:5, ideal:0,
-   avalia:'Broker', como:'Plataforma Crescer+',
-   desc:'5 pts = reunião mensal na primeira quinzena com ≥90% da equipe de vendas e merchandising. Pelo menos 1 reunião 100% presencial por semestre. ATA até 5º dia útil.'},
-  {cap:2, code:'2.2.4', name:'FLEXX GPS',
-   freq:'T', meta:6, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'6 pts = uso diário do sistema de Gestão de Visitas FLEXX GPS. Funcionário capacitado deve demonstrar familiaridade. Desvio de rota = contactar vendedor imediatamente.'},
-  {cap:2, code:'2.3.1', name:'Prazo de Processamento',
-   freq:'T', meta:8, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'8 pts = ≥90% dos pedidos faturados no prazo Nestlé (48h ou 72h conforme localização). Qualquer desvio no atendimento = perde automaticamente o ponto.'},
-  {cap:2, code:'2.3.2', name:'Frequência de Atendimento',
-   freq:'T', meta:6, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'6 pts = frequência de atendimento ajustada no FLEXX conforme nível de serviço contratado. Variação aceitável ≤5%. Percentual superior ao recomendado = perde total do ponto.'},
-  {cap:2, code:'2.4.1', name:'12 Passos NiM',
-   freq:'T', meta:10, ideal:10,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'Avaliação com ≥2 vendedores aleatórios, mínimo 6 PDVs. Vendedores com <90 dias não avaliados. Produto vencido = zera passos da loja. Kit Básico obrigatório.',
-   ptsTable:[{l:'≥ 95%',m:20,i:0},{l:'85% – 94,99%',m:15,i:0},{l:'80% – 84,99%',m:10,i:0}]},
-  {cap:2, code:'2.4.2', name:'8 Passos Prof. Food — BRN2',
-   freq:'T', meta:6, ideal:9,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'Vendedores especializados BRN2. Kit inclui touca para cozinha industrial. Produto vencido = zera loja.',
-   ptsTable:[{l:'90% – 100%',m:15,i:0},{l:'80% – 89,99%',m:6,i:0}]},
-  {cap:2, code:'2.4.3', name:'9 Passos Prof. Bebidas — BRN8',
-   freq:'T', meta:6, ideal:9,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'Vendedores especializados BRN8. Kit inclui touca para manuseio do produto.',
-   ptsTable:[{l:'90% – 100%',m:15,i:0},{l:'80% – 89,99%',m:6,i:0}]},
-  {cap:2, code:'2.4.4', name:'9 Passos Purina',
-   freq:'T', meta:6, ideal:9,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'Vendedores especializados Canal Especializado Purina.',
-   ptsTable:[{l:'90% – 100%',m:15,i:0},{l:'80% – 89,99%',m:6,i:0}]},
-  {cap:2, code:'2.5.1', name:'8 Passos Promotor',
-   freq:'T', meta:5, ideal:6,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'Promotores escolhidos aleatoriamente. Produto vencido = zera os 8 passos da loja. Kit Básico obrigatório.',
-   ptsTable:[{l:'7 – 8 passos',m:11,i:0},{l:'5 – 6 passos',m:5,i:0}]},
-  {cap:2, code:'2.6.1', name:'Visita Desenvolvimento Rota',
-   freq:'M', meta:6, ideal:0,
-   avalia:'Broker', como:'Connect Merchan / Plataforma',
-   desc:'6 pts = 6 vendedores × 5 PDVs = 30 visitas/mês. Supervisor preenche formulário no Connect Merchan. Envio na plataforma até 5º dia útil do mês seguinte.'},
-  {cap:2, code:'2.7.1', name:'Equipamentos TI',
-   freq:'T', meta:4, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'4 pts = celular + tablet/notebook para toda equipe de vendas + reserva mínima 10% do efetivo. Feristas, Prospectores e Apoios incluídos no quadro efetivo.'},
-  {cap:2, code:'2.8.1', name:'Supply — Performance',
-   freq:'M', meta:3, ideal:7,
-   avalia:'Sede Operações Brokers', como:'Visão Performance BI',
-   desc:'9 itens avaliados. 10 pts = 7–9 itens | 5 pts = 4–6 itens | 3 pts = 3 itens. Mínimo 3 itens para começar a pontuar.'},
-  {cap:2, code:'2.8.2', name:'Supply — Proc. Operacionais',
-   freq:'T', meta:14, ideal:0,
-   avalia:'Sede Operações Brokers', como:'In Loco',
-   desc:'14 pts = ≥80% dos itens do Check List — Processos Operacionais. Autoavaliação mensal obrigatória.'},
-  {cap:2, code:'2.8.3', name:'Supply — Gestão/Performance',
-   freq:'T', meta:14, ideal:0,
-   avalia:'Sede Operações Brokers', como:'In Loco',
-   desc:'14 pts = ≥80% dos itens do Check List — Gestão e Performance. Autoavaliação mensal obrigatória.'},
-  {cap:2, code:'2.8.4', name:'Supply — Distribuição',
-   freq:'T', meta:14, ideal:0,
-   avalia:'Sede Operações Brokers', como:'In Loco',
-   desc:'14 pts = ≥80% dos itens do Check List — Processos de Distribuição.'},
-  {cap:2, code:'2.8.5', name:'Supply — Qualidade',
-   freq:'T', meta:14, ideal:0,
-   avalia:'Sede Operações Brokers', como:'In Loco',
-   desc:'14 pts = ≥95% dos itens do Check List — Processos de Qualidade.'},
-  {cap:2, code:'2.8.6', name:'Supply — SHE',
-   freq:'T', meta:14, ideal:0,
-   avalia:'Sede Operações Brokers', como:'In Loco',
-   desc:'14 pts = ≥95% dos itens do Check List — SHE (Segurança, Saúde, Meio Ambiente).'},
-  {cap:2, code:'2.9.1', name:'Crédito — 30 dias',
-   freq:'T', meta:5, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'5 pts = 100% das notas indenizadas (Indenização, Pallet, MPDVs) processadas em ≤30 dias. Data FI posterior à NFD = pontuação anulada sem exceção.'},
-  {cap:2, code:'2.9.2', name:'Processo Indenização',
-   freq:'T', meta:5, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'5 pts = processo de indenização estabelecido conforme regras Nestlé. Indenização manual = perde ponto. Ausência de conferência no recolhimento = invalida pontuação.'},
-  {cap:2, code:'2.9.3', name:'Produtos Destruídos',
-   freq:'T', meta:1, ideal:4,
-   avalia:'Sede Nestlé', como:'Dash DSP',
-   desc:'Redução percentual vs. 2025 no acumulado do trimestre. Se broker tinha 0% de destruição no período anterior, não pode ter nenhuma destruição no atual.',
-   ptsTable:[{l:'Redução ≥ 10%',m:5,i:0},{l:'Redução ≥ 8%',m:2,i:0},{l:'Redução ≥ 6%',m:1,i:0}]},
- 
-  // ══════════════════════════════════════════════════════
-  //  COMPLIANCE
-  // ══════════════════════════════════════════════════════
-  {cap:3, capName:'Compliance',
-   code:'2.11.1', name:'Verbas em aberto',
-   freq:'M', meta:5, ideal:0,
-   avalia:'Sede Nestlé', como:'SUV',
-   desc:'5 pts = sem verbas pendentes de comprovação por mais de 60 dias. Monitorar semanalmente o arquivo da sede. Status 30 ou 27 há >60 dias = perde pontuação.'},
-  {cap:3, code:'2.12.1', name:'Alvarás atualizados',
-   freq:'T', meta:10, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'10 pts = Alvará de Funcionamento, AVCB e Vigilância Sanitária atualizados. Sem alvará: protocolo a cada 6 meses. Solicitação após vencimento = perde ponto. Nenhuma exceção aceita.'},
-  {cap:3, code:'2.12.2', name:'Certidões negativas',
-   freq:'T', meta:10, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'10 pts = CND Federal, TST, CEF, TEM, TRCT, Estadual, IPTU, ISSQN sem restrições. Enviadas via Forms ao final de cada trimestre. Certidão Positiva sem comprovante de parcelamento = perde.'},
-  {cap:3, code:'2.13.1', name:'Produtos salvage/bloqueados',
-   freq:'M', meta:5, ideal:0,
-   avalia:'Sede Operações Brokers', como:'Visão Performance BI',
-   desc:'5 pts = sem expedição de produtos com status salvage, bloqueados ou restritos com vencimento ≤15 dias. Verificação via MB51 no último dia do mês.'},
-  {cap:3, code:'2.14.1', name:'Transpasse',
-   freq:'T', meta:12, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'12 pts = toda NF emitida expedida no mesmo dia. NFs do último dia do mês expedidas no mesmo mês. Sem intervalos (exceto sáb/dom/feriados nacionais). Expedições T2 seguem as mesmas normas. Verificação dos 6 meses anteriores via CEM.'},
-  {cap:3, code:'2.15.1', name:'Escrituração',
-   freq:'M', meta:9, ideal:0,
-   avalia:'NBS', como:'SAP',
-   desc:'9 pts = todas as NFs registradas nos livros contábeis em ≤30 dias da emissão. Inclui: Indenização, Pallets, MPDVs, NFs não reconhecidas. NFs com obs. "Nestlé Verificando Internamente" não são consideradas.'},
-  {cap:3, code:'2.16.1', name:'Produtos vencidos no PDV',
-   freq:'T', meta:11, ideal:0,
-   avalia:'Coordenadores de Excelência', como:'In Loco',
-   desc:'11 pts = sem produtos vencidos no PDV. Qualquer unidade vencida = perde. Sem data legível = classificado como vencido. Inclui Purina a granel (validade no recipiente ou orientação do vendedor).'},
+   code:'1.1.1.1',name:'VBC — Linha Seca',freq:'M',meta:51,ideal:5,
+   avalia:'Sede Nestlé',como:'PRESER',desc:'≥100% META. Ideal adicional. VBC = NF total descontando ICMS/ST, IPI, devoluções e indenizações.'},
+  {cap:1,code:'1.1.1.2',name:'VBC — Garoto',freq:'M',meta:35,ideal:5,avalia:'Sede Nestlé',como:'PRESER',desc:'≥100% META. Ideal adicional.'},
+  {cap:1,code:'1.1.1.3',name:'VBC — BRP2 Purina Alimentar',freq:'M',meta:11,ideal:2,avalia:'Sede Nestlé',como:'PRESER',desc:'≥100% META.'},
+  {cap:1,code:'1.1.1.4',name:'VBC — BRP2 Purina Especializado',freq:'M',meta:10,ideal:2,avalia:'Sede Nestlé',como:'PRESER',desc:'≥100% META.'},
+  {cap:1,code:'1.1.1.5',name:'VBC — BRN2 Professional Food',freq:'M',meta:11,ideal:2,avalia:'Sede Nestlé',como:'PRESER',desc:'≥100% META.'},
+  {cap:1,code:'1.1.1.6',name:'VBC — BRN8 Professional Bebidas',freq:'M',meta:10,ideal:2,avalia:'Sede Nestlé',como:'PRESER',desc:'≥100% META.'},
+  {cap:1,code:'1.1.1.7',name:'VBC — Farma',freq:'M',meta:10,ideal:2,avalia:'Sede Nestlé',como:'PRESER',desc:'≥100% META.'},
+  {cap:1,group:'1.1.2 — VBC por Grupo de Categoria',
+   code:'1.1.2.1',name:'VBC Cat. — Chocolates Nestlé',freq:'M',meta:29,ideal:5,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.2',name:'VBC Cat. — Garoto',freq:'M',meta:20,ideal:5,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.3',name:'VBC Cat. — Biscoitos',freq:'M',meta:15,ideal:5,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.4',name:'VBC Cat. — Nutrição Infantil',freq:'M',meta:12,ideal:5,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.5',name:'VBC Cat. — Nescafé Soluvel + T&M',freq:'M',meta:7,ideal:2,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.6',name:'VBC Cat. — RTD Adultos + Kids',freq:'M',meta:6,ideal:2,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.7',name:'VBC Cat. — Bebidas POS',freq:'M',meta:5,ideal:2,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.8',name:'VBC Cat. — Maggi',freq:'M',meta:5,ideal:2,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.9',name:'VBC Cat. — Cereais Família',freq:'M',meta:4,ideal:2,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.10',name:'VBC Cat. — Cereais Matinais',freq:'M',meta:4,ideal:2,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.11',name:'VBC Cat. — Leites Culinários',freq:'M',meta:4,ideal:2,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.12',name:'VBC Cat. — Sistema Dolce Gusto',freq:'M',meta:3,ideal:1,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.13',name:'VBC Cat. — Compatíveis Nespresso',freq:'M',meta:2,ideal:1,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.14',name:'VBC Cat. — Health Science',freq:'M',meta:2,ideal:1,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.15',name:'VBC Cat. — Purina Alimentar BRL1',freq:'M',meta:5,ideal:1.25,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.16',name:'VBC Cat. — Purina Especializado',freq:'M',meta:5,ideal:1.25,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.17',name:'VBC Cat. — BRN2 Professional',freq:'M',meta:4,ideal:1,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.1.2.18',name:'VBC Cat. — BRN8 Professional',freq:'M',meta:4,ideal:1,avalia:'Sede Nestlé',como:'Dashboard VBC',desc:'≥100% META. ≥110% IDEAL.'},
+  {cap:1,code:'1.2.1',name:'Cobertura — Categorias',freq:'M',meta:null,ideal:null,note:'Categorias em análise pela Nestlé',avalia:'Sede Nestlé',como:'PRESER',desc:'Meta de coberturas. Cliente coberto = VBC > R$30. Em análise.'},
+  {cap:1,code:'1.3.1',name:'Sortimento Farma B',freq:'M',meta:4,ideal:4,avalia:'Sede Nestlé',como:'PRESER',desc:'4 pts META + 4 pts IDEAL. Item coberto = peso líquido > 0.'},
+  {cap:1,group:'1.4.1 — BEES VBC por Organização',
+   code:'1.4.1.1',name:'BEES VBC — BRL1',freq:'M',meta:7,ideal:3,avalia:'Sede Nestlé',como:'BEES',desc:'7 pts META. +3 pts IDEAL.'},
+  {cap:1,code:'1.4.1.2',name:'BEES VBC — BRN2',freq:'M',meta:7,ideal:3,avalia:'Sede Nestlé',como:'BEES',desc:'7 pts META. +3 pts IDEAL.'},
+  {cap:1,code:'1.4.1.3',name:'BEES VBC — BRN8',freq:'M',meta:7,ideal:3,avalia:'Sede Nestlé',como:'BEES',desc:'7 pts META. +3 pts IDEAL.'},
+  {cap:1,code:'1.4.1.4',name:'BEES VBC — BRP2',freq:'M',meta:7,ideal:3,avalia:'Sede Nestlé',como:'BEES',desc:'7 pts META. +3 pts IDEAL.'},
+  {cap:1,group:'1.4.2 — BEES Coberturas por Organização',
+   code:'1.4.2.1',name:'BEES Coberturas — BRL1',freq:'M',meta:5,ideal:3,avalia:'Sede Nestlé',como:'BEES',desc:'5 pts META. +3 pts IDEAL.'},
+  {cap:1,code:'1.4.2.2',name:'BEES Coberturas — BRN2',freq:'M',meta:5,ideal:3,avalia:'Sede Nestlé',como:'BEES',desc:'5 pts META. +3 pts IDEAL.'},
+  {cap:1,code:'1.4.2.3',name:'BEES Coberturas — BRN8',freq:'M',meta:5,ideal:3,avalia:'Sede Nestlé',como:'BEES',desc:'5 pts META. +3 pts IDEAL.'},
+  {cap:1,code:'1.4.2.4',name:'BEES Coberturas — BRP2',freq:'M',meta:5,ideal:3,avalia:'Sede Nestlé',como:'BEES',desc:'5 pts META. +3 pts IDEAL.'},
+  {cap:1,code:'1.5.1',name:'Ruptura Zero',freq:'M',meta:10,ideal:0,avalia:'Sede Nestlé',como:'Dash Ruptura Zero 3.0',desc:'10 pts = ruptura ≤5% para SKUs Hero. Pesquisa em ≥60% dos PDVs roteirizados.'},
+  {cap:1,code:'1.5.2',name:'Positivação em Rota',freq:'M',meta:8,ideal:0,avalia:'Sede Nestlé',como:'Broker 3.0',desc:'8 pts = positivação >70%. Clientes que compraram ÷ clientes previstos no roteiro. Inclui BEES.'},
+
+  {cap:2,capName:'Cap. II — Excelência Operacional',
+   code:'2.1.1',name:'Turn-over',freq:'T',meta:8,ideal:0,avalia:'Coordenadores de Excelência',como:'Formulário Padrão',desc:'8 pts = turn-over ≤15%. Total desligamentos ÷ média funcionários QLP.'},
+  {cap:2,code:'2.1.2',name:'Manual de Identidade Visual',freq:'T',meta:5,ideal:0,avalia:'Coordenadores de Excelência',como:'In Loco',desc:'5 pts = colaboradores seguindo o Manual de Identidade Visual CRESCER+BROKERS.'},
+  {cap:2,code:'2.2.1',name:'Reunião Matinal',freq:'M',meta:8,ideal:0,avalia:'Broker',como:'Plataforma Crescer+',desc:'8 pts = 5 reuniões/semana de 1h. Sexta presencial ≤25km. ATA até 5º dia útil.'},
+  {cap:2,code:'2.2.2',name:'Reunião Semanal (RPS)',freq:'M',meta:5,ideal:0,avalia:'Broker',como:'Plataforma Crescer+',desc:'5 pts = ≥4 RPSs/mês toda sexta. Participação mínima 90%.'},
+  {cap:2,code:'2.2.3',name:'Reunião Ciclo',freq:'M',meta:5,ideal:0,avalia:'Broker',como:'Plataforma Crescer+',desc:'5 pts = reunião mensal na primeira quinzena com ≥90% da equipe.'},
+  {cap:2,code:'2.2.4',name:'FLEXX GPS',freq:'T',meta:6,ideal:0,avalia:'Coordenadores de Excelência',como:'In Loco',desc:'6 pts = uso diário FLEXX GPS. Funcionário capacitado deve demonstrar familiaridade.'},
+  {cap:2,code:'2.3.1',name:'Prazo de Processamento',freq:'T',meta:8,ideal:0,avalia:'Coordenadores de Excelência',como:'In Loco',desc:'8 pts = ≥90% dos pedidos faturados no prazo (48h ou 72h).'},
+  {cap:2,code:'2.3.2',name:'Frequência de Atendimento',freq:'T',meta:6,ideal:0,avalia:'Coordenadores de Excelência',como:'In Loco',desc:'6 pts = frequência no FLEXX conforme nível de serviço. Variação aceitável ≤5%.'},
+  {cap:2,code:'2.4.1',name:'12 Passos NiM',freq:'T',meta:20,ideal:0,
+   avalia:'Coordenadores de Excelência',como:'In Loco',
+   desc:'Pontuação por faixa de atingimento: ≥95% = 20 pts | 85–94,99% = 15 pts | 80–84,99% = 10 pts. Avaliação com ≥2 vendedores, mín. 6 PDVs. Produto vencido = zera loja.',
+   ptsTable:[{l:'≥ 95%',m:20},{l:'85% – 94,99%',m:15},{l:'80% – 84,99%',m:10}]},
+  {cap:2,code:'2.4.2',name:'8 Passos Prof. Food — BRN2',freq:'T',meta:15,ideal:0,
+   avalia:'Coordenadores de Excelência',como:'In Loco',
+   desc:'Pontuação por faixa: 90–100% = 15 pts | 80–89,99% = 6 pts. Produto vencido = zera loja.',
+   ptsTable:[{l:'90% – 100%',m:15},{l:'80% – 89,99%',m:6}]},
+  {cap:2,code:'2.4.3',name:'9 Passos Prof. Bebidas — BRN8',freq:'T',meta:15,ideal:0,
+   avalia:'Coordenadores de Excelência',como:'In Loco',
+   desc:'Pontuação por faixa: 90–100% = 15 pts | 80–89,99% = 6 pts.',
+   ptsTable:[{l:'90% – 100%',m:15},{l:'80% – 89,99%',m:6}]},
+  {cap:2,code:'2.4.4',name:'9 Passos Purina',freq:'T',meta:15,ideal:0,
+   avalia:'Coordenadores de Excelência',como:'In Loco',
+   desc:'Pontuação por faixa: 90–100% = 15 pts | 80–89,99% = 6 pts.',
+   ptsTable:[{l:'90% – 100%',m:15},{l:'80% – 89,99%',m:6}]},
+  {cap:2,code:'2.5.1',name:'8 Passos Promotor',freq:'T',meta:11,ideal:0,
+   avalia:'Coordenadores de Excelência',como:'In Loco',
+   desc:'Pontuação por faixa: 7–8 passos = 11 pts | 5–6 passos = 5 pts. Produto vencido = zera loja.',
+   ptsTable:[{l:'7 – 8 passos',m:11},{l:'5 – 6 passos',m:5}]},
+  {cap:2,code:'2.6.1',name:'Visita Desenvolvimento Rota',freq:'M',meta:6,ideal:0,avalia:'Broker',como:'Connect Merchan / Plataforma',desc:'6 pts = 6 vendedores × 5 PDVs = 30 visitas/mês. Envio até 5º dia útil.'},
+  {cap:2,code:'2.7.1',name:'Equipamentos TI',freq:'T',meta:4,ideal:0,avalia:'Coordenadores de Excelência',como:'In Loco',desc:'4 pts = equipamentos para toda equipe + reserva mínima 10%.'},
+  {cap:2,code:'2.8.1',name:'Supply — Performance',freq:'M',meta:10,ideal:0,avalia:'Sede Operações Brokers',como:'Visão Performance BI',desc:'10 pts = 7–9 itens | 5 pts = 4–6 itens | 3 pts = 3 itens.',ptsTable:[{l:'7–9 itens',m:10},{l:'4–6 itens',m:5},{l:'3 itens',m:3}]},
+  {cap:2,code:'2.8.2',name:'Supply — Proc. Operacionais',freq:'T',meta:14,ideal:0,avalia:'Sede Operações Brokers',como:'In Loco',desc:'14 pts = ≥80% do Check List Processos Operacionais.'},
+  {cap:2,code:'2.8.3',name:'Supply — Gestão/Performance',freq:'T',meta:14,ideal:0,avalia:'Sede Operações Brokers',como:'In Loco',desc:'14 pts = ≥80% do Check List Gestão e Performance.'},
+  {cap:2,code:'2.8.4',name:'Supply — Distribuição',freq:'T',meta:14,ideal:0,avalia:'Sede Operações Brokers',como:'In Loco',desc:'14 pts = ≥80% do Check List Processos de Distribuição.'},
+  {cap:2,code:'2.8.5',name:'Supply — Qualidade',freq:'T',meta:14,ideal:0,avalia:'Sede Operações Brokers',como:'In Loco',desc:'14 pts = ≥95% do Check List Processos de Qualidade.'},
+  {cap:2,code:'2.8.6',name:'Supply — SHE',freq:'T',meta:14,ideal:0,avalia:'Sede Operações Brokers',como:'In Loco',desc:'14 pts = ≥95% do Check List SHE.'},
+  {cap:2,code:'2.9.1',name:'Crédito — 30 dias',freq:'T',meta:5,ideal:0,avalia:'Coordenadores de Excelência',como:'In Loco',desc:'5 pts = 100% das notas indenizadas processadas em ≤30 dias.'},
+  {cap:2,code:'2.9.2',name:'Processo Indenização',freq:'T',meta:5,ideal:0,avalia:'Coordenadores de Excelência',como:'In Loco',desc:'5 pts = processo conforme regras Nestlé. Manual = perde ponto.'},
+  {cap:2,code:'2.9.3',name:'Produtos Destruídos',freq:'T',meta:5,ideal:0,avalia:'Sede Nestlé',como:'Dash DSP',
+   desc:'Redução vs. 2025. ≥10% = 5 pts | ≥8% = 2 pts | ≥6% = 1 pt.',
+   ptsTable:[{l:'Redução ≥ 10%',m:5},{l:'Redução ≥ 8%',m:2},{l:'Redução ≥ 6%',m:1}]},
+
+  {cap:3,capName:'Compliance',
+   code:'2.11.1',name:'Verbas em aberto',freq:'M',meta:5,ideal:0,avalia:'Sede Nestlé',como:'SUV',desc:'5 pts = sem verbas pendentes >60 dias.'},
+  {cap:3,code:'2.12.1',name:'Alvarás atualizados',freq:'T',meta:10,ideal:0,avalia:'Coordenadores de Excelência',como:'In Loco',desc:'10 pts = Alvará de Funcionamento, AVCB e Vigilância Sanitária atualizados.'},
+  {cap:3,code:'2.12.2',name:'Certidões negativas',freq:'T',meta:10,ideal:0,avalia:'Coordenadores de Excelência',como:'In Loco',desc:'10 pts = CND Federal, TST, CEF, TEM, TRCT, Estadual, IPTU, ISSQN sem restrições.'},
+  {cap:3,code:'2.13.1',name:'Produtos salvage/bloqueados',freq:'M',meta:5,ideal:0,avalia:'Sede Operações Brokers',como:'Visão Performance BI',desc:'5 pts = sem expedição de salvage/bloqueados com vencimento ≤15 dias.'},
+  {cap:3,code:'2.14.1',name:'Transpasse',freq:'T',meta:12,ideal:0,avalia:'Coordenadores de Excelência',como:'In Loco',desc:'12 pts = toda NF emitida expedida no mesmo dia. Verificação dos 6 meses anteriores.'},
+  {cap:3,code:'2.15.1',name:'Escrituração',freq:'M',meta:9,ideal:0,avalia:'NBS',como:'SAP',desc:'9 pts = todas as NFs registradas em ≤30 dias da emissão.'},
+  {cap:3,code:'2.16.1',name:'Produtos vencidos no PDV',freq:'T',meta:11,ideal:0,avalia:'Coordenadores de Excelência',como:'In Loco',desc:'11 pts = sem produtos vencidos no PDV. Qualquer unidade = perde.'},
 ];
- 
-// ─── HELPERS ──────────────────────────────────────────────────────────────────
+
+// ─── helpers ──────────────────────────────────────────────────────────────────
+function isPasso(c){return PASSOS.includes(c.code);}
 function mxReal(c){
   if(c.note||(!c.meta&&!c.ptsTable&&!c.ideal))return 0;
-  if(c.ptsTable)return c.ptsTable.reduce((s,r)=>Math.max(s,r.m||0),0);
+  if(c.ptsTable)return Math.max(...c.ptsTable.map(r=>r.m||0));
   return(c.meta||0)+(c.ideal||0);
 }
 function mxMes(c,m){
@@ -483,23 +368,28 @@ function mxMes(c,m){
   return TM.includes(m)?mx:0;
 }
 function metaMes(c){
-  if(c.ptsTable)return c.ptsTable.reduce((s,r)=>Math.max(s,r.m||0),0);
+  if(c.ptsTable)return Math.max(...c.ptsTable.map(r=>r.m||0));
   return c.meta||0;
 }
-// safe id: replace dots and spaces
 function sid(code){return code.replace(/\./g,'-');}
- 
-const SK='cb2026v5',OK='cb2026ogv5';
+
+// ─── storage ──────────────────────────────────────────────────────────────────
+const SK='cb2026v6',OK='cb2026ogv6',AK='cb2026abv6';
 function load(){try{return JSON.parse(localStorage.getItem(SK)||'{}');}catch{return {};}}
 function saveD(d){localStorage.setItem(SK,JSON.stringify(d));}
 function loadOG(){try{return JSON.parse(localStorage.getItem(OK)||'{}');}catch{return {};}}
 function saveOG(d){localStorage.setItem(OK,JSON.stringify(d));}
-let D=load(),OG=loadOG();
+function loadAB(){try{return JSON.parse(localStorage.getItem(AK)||'{}');}catch{return {};}}
+function saveAB(d){localStorage.setItem(AK,JSON.stringify(d));}
+
+let D=load(),OG=loadOG(),AB=loadAB();
 function gd(c,m){return D[c+'_'+m]??null;}
 function sd(c,m,v){D[c+'_'+m]=v;saveD(D);}
+function isAb(c,m){return AB[c+'_'+m]===true;}
+function toggleAb(c,m){AB[c+'_'+m]=!isAb(c,m);saveAB(AB);}
 function getOG(t){return OG['t'+t]??{a:0,b:0};}
 function setOG(t,a,b){OG['t'+t]={a:parseFloat(a)||0,b:parseFloat(b)||0};saveOG(OG);}
- 
+
 let tipo='mes',sub=new Date().getMonth();
 function meses(){
   if(tipo==='mes')return[sub];
@@ -524,7 +414,7 @@ function toast(msg,ms=2500){
   const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),ms);
 }
- 
+
 // ─── LANÇAMENTO ───────────────────────────────────────────────────────────────
 function renderLanc(){
   const m=parseInt(document.getElementById('sel-m').value);
@@ -532,9 +422,11 @@ function renderLanc(){
   for(const c of CR){
     if(c.cap!==lc){lc=c.cap;lg='';if(c.capName)html+=`<div class="clbl">📌 ${c.capName}</div>`;}
     if(c.group&&c.group!==lg){lg=c.group;html+=`<div class="glbl">▸ ${c.group}</div>`;}
-    const mx=mxMes(c,m),mt=metaMes(c),hasI=(c.ideal||0)>0,isTri=c.freq==='T';
+    const mx=mxMes(c,m),mt=metaMes(c),hasI=!isPasso(c)&&(c.ideal||0)>0,isTri=c.freq==='T';
     const badge=isTri?'<span class="bm bt">Trimestral</span>':'<span class="bm bmo">Mensal</span>';
     const id=sid(c.code);
+    const ab=isAb(c.code,m);
+
     if(c.note){
       html+=`<div class="cc dim"><div class="ch"><span class="ccode">${c.code}</span><span class="cname">${c.name}</span></div><div class="cm">${badge}<span class="na">${c.note}</span></div></div>`;
       continue;
@@ -543,15 +435,26 @@ function renderLanc(){
       html+=`<div class="cc dim"><div class="ch"><span class="ccode">${c.code}</span><span class="cname">${c.name}</span></div><div class="cm">${badge}<span class="na">Apurado em Mar / Jun / Set / Dez</span></div></div>`;
       continue;
     }
-    const val=gd(c.code,m)??'';
+    const val=ab?'':( gd(c.code,m)??'' );
     const fv=parseFloat(val)||0;
-    const isEmpty=val===''||val===null;
-    const wM=!isEmpty?Math.min(mt/mx*100,fv/mx*100):0;
-    const wI=!isEmpty&&hasI&&fv>mt?Math.min((c.ideal||0)/mx*100,(fv-mt)/mx*100):0;
-    html+=`<div class="cc${isEmpty?' err':''}" id="cc-${id}-${m}">
+    const isEmpty=!ab&&(val===''||val===null);
+    const wM=!isEmpty&&!ab?Math.min(mt/mx*100,fv/mx*100):0;
+    const wI=!isEmpty&&!ab&&hasI&&fv>mt?Math.min((c.ideal||0)/mx*100,(fv-mt)/mx*100):0;
+
+    // descrição de pontos
+    let ptsDesc='';
+    if(isPasso(c)){
+      ptsDesc=`<span class="pi">Máx: ${mx} pts</span>`;
+    }else if(hasI){
+      ptsDesc=`<span class="pi">Meta: ${mt} pts · Ideal: +${c.ideal} pts</span><span class="bi2">Máx: ${mx} pts</span>`;
+    }else{
+      ptsDesc=`<span class="pi">Máx: ${mx} pts</span>`;
+    }
+
+    html+=`<div class="cc${isEmpty&&!ab?' err':''}${ab?' abonado':''}" id="cc-${id}-${m}">
       <div class="ch"><span class="ccode">${c.code}</span><span class="cname">${c.name}</span></div>
-      <div class="cm">${badge}<span class="pi">Meta: ${mt} pts${hasI?` · Ideal: +${c.ideal} pts`:''}</span>${hasI?`<span class="bi2">Máx: ${mx} pts</span>`:''}</div>
-      <div class="ir">
+      <div class="cm">${badge}${ptsDesc}</div>
+      ${!ab?`<div class="ir">
         <label>Pts:</label>
         <input type="number" min="0" max="${mx}" step="0.5" value="${val}"
           id="i-${id}-${m}" inputmode="decimal" placeholder="obrigatório"
@@ -562,13 +465,31 @@ function renderLanc(){
           <div class="pbi" id="bi-${id}-${m}" style="left:${mt/mx*100}%;width:${wI}%"></div>
         </div>
       </div>
-      <div class="en" id="en-${id}-${m}" style="${isEmpty?'':'display:none'}">⚠ Campo obrigatório</div>
+      <div class="en" id="en-${id}-${m}" style="${isEmpty?'':'display:none'}">⚠ Campo obrigatório</div>`
+      :''}
+      <div class="abn-row">
+        <button class="abn-btn${ab?' active':''}" id="abn-${id}-${m}"
+          onclick="toggleAbonado('${c.code}','${id}',${m})">
+          ${ab?'✓ Abonado':'Abonar'}
+        </button>
+        ${ab?`<span class="abn-label">Critério abonado — excluído dos totais</span>`:''}
+      </div>
     </div>`;
   }
   document.getElementById('lanc-body').innerHTML=html;
   document.getElementById('vban').classList.remove('show');
 }
- 
+
+function toggleAbonado(code,id,m){
+  toggleAb(code,m);
+  renderLanc();
+  // scroll back to position
+  setTimeout(()=>{
+    const el=document.getElementById('cc-'+id+'-'+m);
+    if(el)el.scrollIntoView({block:'nearest'});
+  },50);
+}
+
 function onInp(el,code,id,m,meta,ideal,mx){
   const raw=el.value;
   const cc=document.getElementById('cc-'+id+'-'+m);
@@ -582,10 +503,10 @@ function onInp(el,code,id,m,meta,ideal,mx){
   if(bi&&ideal>0){const ov=Math.max(0,v-meta);bi.style.width=Math.min(ideal/mx*100,ov/mx*100)+'%';}
   document.getElementById('vban').classList.remove('show');
 }
- 
+
 function salvar(){
   const m=parseInt(document.getElementById('sel-m').value);
-  const ativos=CR.filter(c=>!c.note&&mxMes(c,m)>0);
+  const ativos=CR.filter(c=>!c.note&&mxMes(c,m)>0&&!isAb(c.code,m));
   const vazios=[];
   for(const c of ativos){
     const id=sid(c.code);
@@ -609,9 +530,9 @@ function salvar(){
     if(el)sd(c.code,m,parseFloat(el.value)||0);
   }
   document.getElementById('vban').classList.remove('show');
-  renderBat();toast('✓ '+M[m]+' salvo!');
+  renderDash();toast('✓ '+M[m]+' salvo!');
 }
- 
+
 // ─── PAINEL ───────────────────────────────────────────────────────────────────
 function setTipo(t,btn){
   tipo=t;
@@ -629,6 +550,7 @@ function renderFsub(){
   else opts=[{l:'2026',v:0}];
   document.getElementById('fsub').innerHTML=opts.map(o=>`<button class="fs${o.v===sub?' active':''}" onclick="setSub(${o.v},this)">${o.l}</button>`).join('');
 }
+
 function calcP(ms){
   ms=ms||meses();
   let tp=0,tm=0,cp=0,cm=0;
@@ -638,6 +560,7 @@ function calcP(ms){
     if(c.note)continue;
     for(const m of ms){
       const mx=mxMes(c,m);if(!mx)continue;
+      if(isAb(c.code,m))continue; // abonado: fora dos totais
       const v=gd(c.code,m);if(v===null||v==='')continue;
       const fv=parseFloat(v)||0;
       tp+=fv;tm+=mx;
@@ -650,6 +573,7 @@ function calcP(ms){
   const tf=[...new Set(ms.filter(m=>TM.includes(m)).map(m=>Math.floor(m/3)))];
   return{tp,tm,cp,cm,cd,pm,tf,ms};
 }
+
 function renderPainel(){
   renderFsub();
   const{tp,tm,cp,cm,cd,pm,tf,ms}=calcP();
@@ -667,8 +591,7 @@ function renderPainel(){
     for(const t of tf){
       const d=getOG(t),{pct,pts}=ogPts(t);
       const pc=pts===0?'p0':pts===100?'p100':pts===150?'p150':pts===200?'p200':'p300';
-      ogH+=`<div class="ob">
-        <div class="ot">📈 ${TN[t]}</div>
+      ogH+=`<div class="ob"><div class="ot">📈 ${TN[t]}</div>
         <div class="og">
           <div class="of"><label>NNS ref. anterior (R$)</label><input type="number" step="0.01" value="${d.a||''}" placeholder="0,00" id="oa-${t}" inputmode="decimal" oninput="updOG(${t})"></div>
           <div class="of"><label>NNS ${TS[t]} 2026 (R$)</label><input type="number" step="0.01" value="${d.b||''}" placeholder="0,00" id="ob-${t}" inputmode="decimal" oninput="updOG(${t})"></div>
@@ -705,8 +628,74 @@ function updOG(t){
   if(pe)pe.textContent=pct!==null?pct.toFixed(1)+'%':'—';
   if(se){se.textContent='+'+pts+' pts';se.className='op '+(pts===0?'p0':pts===100?'p100':pts===150?'p150':pts===200?'p200':'p300');}
 }
- 
+
+// ─── DASHBOARD ────────────────────────────────────────────────────────────────
+function renderDash(){
+  const tbl=document.getElementById('dash-tbl');
+  let h=`<thead><tr><th class="rh">Critério</th>`;
+  for(const n of M)h+=`<th>${n}</th>`;
+  h+=`</tr></thead><tbody>`;
+  let lc=-1;
+  for(const c of CR){
+    if(c.cap!==lc){lc=c.cap;if(c.capName)h+=`<tr class="csep"><td class="rh" colspan="${M.length+1}">${c.capName}</td></tr>`;}
+    h+=`<tr><td class="rh"><span class="rc">${c.code}</span><span class="rn">${c.name}</span></td>`;
+    for(let m=0;m<12;m++){
+      const mx=mxMes(c,m);
+      if(!mx||c.note){h+=`<td class="dcell"><div class="dcell-inner na">—</div></td>`;continue;}
+      if(isAb(c.code,m)){h+=`<td class="dcell"><div class="dcell-inner abon">abon</div></td>`;continue;}
+      const v=gd(c.code,m);
+      if(v===null||v===''){
+        h+=`<td class="dcell"><div class="dcell-inner na" style="cursor:pointer" onclick="goLanc('${c.code}',${m})">—</div></td>`;
+      }else{
+        const fv=parseFloat(v)||0;
+        const pct=mx>0?fv/mx:0;
+        let cls='zero',txt=`${fv}/${mx}`;
+        if(pct>=1)cls='full';
+        else if(pct>0)cls='part';
+        h+=`<td class="dcell"><div class="dcell-inner ${cls}" onclick="goLanc('${c.code}',${m})" style="cursor:pointer">${txt}</div></td>`;
+      }
+    }
+    h+=`</tr>`;
+  }
+  h+=`</tbody>`;tbl.innerHTML=h;
+}
+
+function goLanc(code,m){
+  const id=sid(code);
+  document.getElementById('sel-m').value=m;showTab('lanc');renderLanc();
+  setTimeout(()=>{const el=document.getElementById('i-'+id+'-'+m)||document.getElementById('cc-'+id+'-'+m);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},150);
+}
+
 // ─── PDF ──────────────────────────────────────────────────────────────────────
+function buildDashHTML(){
+  const cN={1:'Cap. I — Performance',2:'Cap. II — Excelência Operacional',3:'Compliance'};
+  let h=`<table style="width:100%;border-collapse:collapse;font-size:9px">
+    <thead><tr><th style="text-align:left;padding:4px 6px;background:#e8f4ee;min-width:140px">Critério</th>`;
+  for(const n of M)h+=`<th style="padding:3px 2px;text-align:center;background:#e8f4ee;width:38px">${n}</th>`;
+  h+=`</tr></thead><tbody>`;
+  let lc=-1;
+  for(const c of CR){
+    if(c.cap!==lc){lc=c.cap;if(c.capName)h+=`<tr><td colspan="${M.length+1}" style="padding:5px 6px;background:#1a5c2e;color:#fff;font-weight:700;font-size:10px">${c.capName}</td></tr>`;}
+    h+=`<tr><td style="padding:3px 6px;border-bottom:1px solid #f0f0f0;font-size:9px"><span style="color:#1a5c2e;font-weight:700">${c.code}</span> ${c.name}</td>`;
+    for(let m=0;m<12;m++){
+      const mx=mxMes(c,m);
+      if(!mx||c.note){h+=`<td style="text-align:center;color:#ccc">—</td>`;continue;}
+      if(isAb(c.code,m)){h+=`<td style="text-align:center;background:#f5f5f5;color:#aaa;font-size:8px">abon</td>`;continue;}
+      const v=gd(c.code,m);
+      if(v===null||v===''){h+=`<td style="text-align:center;color:#ccc">—</td>`;continue;}
+      const fv=parseFloat(v)||0;
+      const pct=mx>0?fv/mx:0;
+      let bg='#f7c1c1',co='#791f1f';
+      if(pct>=1){bg='#c0dd97';co='#27500a';}
+      else if(pct>0){bg='#faeeda';co='#854f0b';}
+      h+=`<td style="text-align:center;background:${bg};color:${co};font-weight:600;font-size:8px;padding:2px 1px">${fv}/${mx}</td>`;
+    }
+    h+=`</tr>`;
+  }
+  h+=`</tbody></table>`;
+  return h;
+}
+
 function buildPDF(msTarget,lbl,anual){
   const cN={1:'Cap. I — Performance',2:'Cap. II — Excelência Operacional',3:'Compliance'};
   const cC={1:'#1a5c2e',2:'#185fa5',3:'#854f0b'};
@@ -734,10 +723,13 @@ function buildPDF(msTarget,lbl,anual){
     body+='<div class="pg"></div><div class="sh">Por Trimestre</div>';
     for(let t=0;t<4;t++){const b=t*3;body+=sec([b,b+1,b+2],TN[t]+' 2026');}
     body+='<div class="pg"></div><div class="sh">Por Mês</div>';
-    for(let m=0;m<12;m++){if(CR.some(c=>!c.note&&mxMes(c,m)>0&&gd(c.code,m)!==null))body+=sec([m],M[m]+' 2026');}
+    for(let m=0;m<12;m++){if(CR.some(c=>!c.note&&mxMes(c,m)>0&&!isAb(c.code,m)&&gd(c.code,m)!==null))body+=sec([m],M[m]+' 2026');}
+    // acompanhamento total no final
+    body+=`<div class="pg"></div><div class="sh">Acompanhamento Total — Pontos por Critério e Mês</div>${buildDashHTML()}`;
   }else{body+=sec(msTarget,lbl);}
+
   return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Crescer+</title>
-  <style>body{font-family:Arial,sans-serif;padding:24px 28px;color:#1a1a1a;max-width:960px;margin:0 auto}
+  <style>body{font-family:Arial,sans-serif;padding:24px 28px;color:#1a1a1a;max-width:1000px;margin:0 auto}
   .cs{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}.cd{flex:1;min-width:110px;background:#f5f5f5;border-radius:8px;padding:10px 12px}
   .cl{font-size:9px;color:#666;margin-bottom:3px;text-transform:uppercase}.cv{font-size:20px;font-weight:700}.cs2{font-size:10px;color:#999}
   .se{font-size:10px;font-weight:700;color:#555;text-transform:uppercase;margin:14px 0 6px;padding-bottom:3px;border-bottom:2px solid #1a5c2e}
@@ -749,7 +741,7 @@ function buildPDF(msTarget,lbl,anual){
   td{padding:5px 8px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
   .pg{page-break-before:always;margin:32px 0}
   footer{margin-top:30px;font-size:10px;color:#aaa;border-top:1px solid #eee;padding-top:8px;text-align:center}
-  @media print{body{padding:10px}@page{margin:1.2cm;size:A4}.pg{page-break-before:always}}</style>
+  @media print{body{padding:10px}@page{margin:1.2cm;size:A4 landscape}.pg{page-break-before:always}}</style>
   </head><body>
   <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px">
     <div style="background:#1a5c2e;color:#fff;padding:8px 16px;border-radius:8px;font-size:14px;font-weight:700">Crescer + Brokers</div>
@@ -768,32 +760,7 @@ function gerarPDF(anual){
   document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
   toast(anual?'📋 Relatório anual baixado!':'📄 Relatório baixado!');
 }
- 
-// ─── BATALHA NAVAL ────────────────────────────────────────────────────────────
-function renderBat(){
-  const tbl=document.getElementById('bnt');
-  let h=`<thead><tr><th class="rh">Critério</th>`;
-  for(const n of M)h+=`<th>${n}</th>`;
-  h+=`</tr></thead><tbody>`;let lc=-1;
-  for(const c of CR){
-    if(c.cap!==lc){lc=c.cap;h+=`<tr class="csep"><td class="rh" colspan="${M.length+1}">${c.capName||''}</td></tr>`;}
-    h+=`<tr><td class="rh"><span class="rc">${c.code}</span><span class="rn">${c.name}</span></td>`;
-    for(let m=0;m<12;m++){
-      const mx=mxMes(c,m);
-      if(!mx||c.note){h+=`<td><div class="cell na">—</div></td>`;continue;}
-      const v=gd(c.code,m);const ok=v!==null&&v!=='';
-      h+=`<td><div class="cell ${ok?'green':'red'}" onclick="goLanc('${c.code}',${m})">${ok?'✓':'·'}</div></td>`;
-    }
-    h+=`</tr>`;
-  }
-  h+=`</tbody>`;tbl.innerHTML=h;
-}
-function goLanc(code,m){
-  const id=sid(code);
-  document.getElementById('sel-m').value=m;showTab('lanc');renderLanc();
-  setTimeout(()=>{const el=document.getElementById('i-'+id+'-'+m);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},150);
-}
- 
+
 // ─── REGRAS ───────────────────────────────────────────────────────────────────
 function renderRules(filter){
   const f=(filter||'').toLowerCase();
@@ -801,17 +768,21 @@ function renderRules(filter){
   for(const c of CR){
     if(f&&!c.code.toLowerCase().includes(f)&&!c.name.toLowerCase().includes(f)&&!(c.desc||'').toLowerCase().includes(f))continue;
     if(c.cap!==lc){lc=c.cap;lg='';if(c.capName)html+=`<div class="rct">📌 ${c.capName}</div>`;}
-    if(c.group&&c.group!==lg){lg=c.group;html+=`<div style="font-size:10px;font-weight:600;color:var(--g);background:var(--gl);padding:4px 10px;border-radius:var(--rs);margin:6px 0 4px;border-left:3px solid var(--g)">▸ ${c.group}</div>`;}
+    if(c.group&&c.group!==lg){lg=c.group;html+=`<div class="glbl" style="margin:6px 0 4px">▸ ${c.group}</div>`;}
     const mx=mxReal(c),isTri=c.freq==='T';
     const rid=sid(c.code);
     let pts='';
     if(c.ptsTable){
-      pts=`<table class="rpt"><thead><tr><th>Faixa</th><th>Meta</th><th>Ideal</th></tr></thead><tbody>`;
-      for(const r of c.ptsTable)pts+=`<tr><td>${r.l}</td><td><span class="pmb">${r.m} pts</span></td><td>${(r.i||0)>0?`<span class="pib">+${r.i}</span>`:'—'}</td></tr>`;
+      pts=`<table class="rpt"><thead><tr><th>Faixa</th><th>Pontos</th></tr></thead><tbody>`;
+      for(const r of c.ptsTable)pts+=`<tr><td>${r.l}</td><td><span class="pmb">${r.m} pts</span></td></tr>`;
       pts+=`</tbody></table>`;
     }else if(mx>0){
-      const mt=c.meta||0,id2=c.ideal||0;
-      pts=`<table class="rpt"><thead><tr><th>Faixa</th><th>Meta</th><th>Ideal</th></tr></thead><tbody><tr><td>Atingir meta</td><td><span class="pmb">${mt} pts</span></td><td>${id2>0?`<span class="pib">+${id2} pts</span>`:'—'}</td></tr></tbody></table>`;
+      const mt=c.meta||0,id2=isPasso(c)?0:(c.ideal||0);
+      if(isPasso(c)){
+        pts=`<table class="rpt"><thead><tr><th>Pontuação máxima</th></tr></thead><tbody><tr><td><span class="pmb">${mx} pts</span></td></tr></tbody></table>`;
+      }else{
+        pts=`<table class="rpt"><thead><tr><th>Faixa</th><th>Meta</th><th>Ideal</th></tr></thead><tbody><tr><td>Atingir meta</td><td><span class="pmb">${mt} pts</span></td><td>${id2>0?`<span class="pib">+${id2} pts</span>`:'—'}</td></tr></tbody></table>`;
+      }
     }
     html+=`<div class="rcard">
       <div class="rch" onclick="toggleR('rb-${rid}','ra-${rid}')">
@@ -839,23 +810,24 @@ function toggleR(bid,aid){
   if(!b)return;const op=b.classList.toggle('open');if(a)a.classList.toggle('open',op);
 }
 function filterRules(v){renderRules(v);}
- 
+
 // ─── TABS ─────────────────────────────────────────────────────────────────────
 function showTab(name){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['lanc','pain','bat','rules'][i]===name));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['lanc','pain','dash','rules'][i]===name));
   document.querySelectorAll('.scr').forEach(s=>s.classList.remove('active'));
   document.getElementById('scr-'+name).classList.add('active');
   if(name==='pain'){sub=tipo==='mes'?parseInt(document.getElementById('sel-m').value):sub;renderPainel();}
-  if(name==='bat')renderBat();
+  if(name==='dash')renderDash();
   if(name==='rules')renderRules(document.getElementById('rsi').value);
 }
+
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 window.addEventListener('online',()=>document.getElementById('off').classList.remove('show'));
 window.addEventListener('offline',()=>document.getElementById('off').classList.add('show'));
 if(!navigator.onLine)document.getElementById('off').classList.add('show');
 const cm0=new Date().getMonth();
 document.getElementById('sel-m').value=cm0;sub=cm0;
-renderLanc();renderBat();
+renderLanc();renderDash();
 </script>
 </body>
 </html>
