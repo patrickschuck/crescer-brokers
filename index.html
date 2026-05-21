@@ -481,13 +481,85 @@ function renderLanc(){
 }
 
 function toggleAbonado(code,id,m){
+  // Antes de abonar, salva os valores atuais de todos os campos visíveis
+  // para não perder o que foi digitado
+  const allInputs=document.querySelectorAll('#lanc-body input[type=number]');
+  allInputs.forEach(el=>{
+    // id format: i-CODE-M  onde CODE pode ter hífens
+    const raw=el.id; // "i-1-1-1-1-0" por exemplo
+    const suffix='-'+m;
+    if(!raw.endsWith(suffix))return;
+    const codeFromId=raw.slice(2,-suffix.length).replace(/-/g,'.');
+    const c=CR.find(x=>x.code===codeFromId);
+    if(c&&el.value!=='')sd(c.code,m,parseFloat(el.value)||0);
+  });
+
   toggleAb(code,m);
-  renderLanc();
-  // scroll back to position
-  setTimeout(()=>{
-    const el=document.getElementById('cc-'+id+'-'+m);
-    if(el)el.scrollIntoView({block:'nearest'});
-  },50);
+  const ab=isAb(code,m);
+  const card=document.getElementById('cc-'+id+'-'+m);
+  if(!card)return;
+
+  const c=CR.find(x=>x.code===code);
+  if(!c)return;
+  const mx=mxMes(c,m),mt=metaMes(c);
+  const hasI=!isPasso(c)&&(c.ideal||0)>0;
+
+  // Atualiza classe do card
+  card.classList.toggle('abonado',ab);
+  card.classList.remove('err');
+
+  // Reconstrói só o interior do card a partir do crit-meta em diante
+  const cmDiv=card.querySelector('.cm');
+  let ptsDesc='';
+  if(isPasso(c)){ptsDesc=`<span class="pi">Máx: ${mx} pts</span>`;}
+  else if(hasI){ptsDesc=`<span class="pi">Meta: ${mt} pts · Ideal: +${c.ideal} pts</span><span class="bi2">Máx: ${mx} pts</span>`;}
+  else{ptsDesc=`<span class="pi">Máx: ${mx} pts</span>`;}
+  const badge=c.freq==='T'?'<span class="bm bt">Trimestral</span>':'<span class="bm bmo">Mensal</span>';
+  cmDiv.innerHTML=badge+ptsDesc;
+
+  // Remove ou restaura o bloco de input
+  const existingIr=card.querySelector('.ir');
+  const existingEn=card.querySelector('.en');
+  const existingAbnRow=card.querySelector('.abn-row');
+
+  if(ab){
+    // Remover input e erro se existirem
+    if(existingIr)existingIr.remove();
+    if(existingEn)existingEn.remove();
+  }else{
+    // Restaurar input se não existir
+    if(!existingIr){
+      const val=gd(code,m)??'';
+      const fv=parseFloat(val)||0;
+      const wM=val!==''?Math.min(mt/mx*100,fv/mx*100):0;
+      const wI=val!==''&&hasI&&fv>mt?Math.min((c.ideal||0)/mx*100,(fv-mt)/mx*100):0;
+      const irHTML=`<div class="ir">
+        <label>Pts:</label>
+        <input type="number" min="0" max="${mx}" step="0.5" value="${val}"
+          id="i-${id}-${m}" inputmode="decimal" placeholder="obrigatório"
+          oninput="onInp(this,'${code}','${id}',${m},${mt},${c.ideal||0},${mx})">
+        <span class="mx">/ ${mx}</span>
+        <div class="pb">
+          <div class="pbm" id="bm-${id}-${m}" style="width:${wM}%"></div>
+          <div class="pbi" id="bi-${id}-${m}" style="left:${mt/mx*100}%;width:${wI}%"></div>
+        </div>
+      </div>
+      <div class="en" id="en-${id}-${m}" style="display:none">⚠ Campo obrigatório</div>`;
+      cmDiv.insertAdjacentHTML('afterend',irHTML);
+    }
+  }
+
+  // Atualiza botão abonar
+  if(existingAbnRow){
+    existingAbnRow.innerHTML=`
+      <button class="abn-btn${ab?' active':''}" id="abn-${id}-${m}"
+        onclick="toggleAbonado('${code}','${id}',${m})">
+        ${ab?'✓ Abonado':'Abonar'}
+      </button>
+      ${ab?`<span class="abn-label">Critério abonado — excluído dos totais</span>`:''}`;
+  }
+
+  card.scrollIntoView({block:'nearest'});
 }
 
 function onInp(el,code,id,m,meta,ideal,mx){
