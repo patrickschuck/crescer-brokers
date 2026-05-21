@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1a5c2e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Crescer+">
+<meta name="description" content="Crescer + Brokers — Programa de Excelência Nestlé 2026">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Crescer + Brokers</title>
+<style>
+:root{
+  --green:#1a5c2e;--green-light:#e1f5ee;--green-mid:#3b6d11;
+  --blue:#185fa5;--blue-light:#e6f1fb;
+  --amber:#854f0b;--amber-light:#faeeda;
+  --red:#a32d2d;--red-light:#fcebeb;
+  --border:#e0e0e0;--bg:#f7f7f5;--card:#fff;
+  --text:#1a1a1a;--muted:#666;--hint:#999;
+  --radius:10px;--radius-sm:6px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#111;--card:#1e1e1e;--border:#2e2e2e;
+    --text:#f0f0f0;--muted:#aaa;--hint:#666;
+    --green-light:#0d2e17;--blue-light:#0a1f35;
+    --amber-light:#2a1a00;--red-light:#2a0a0a;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.app{display:flex;flex-direction:column;min-height:100vh;max-width:480px;margin:0 auto;background:var(--card);box-shadow:0 0 0 0.5px var(--border)}
+
+/* HEADER */
+.header{background:var(--green);color:#fff;padding:14px 16px 12px;text-align:center;flex-shrink:0}
+.header h1{font-size:16px;font-weight:600;letter-spacing:0.2px}
+.header p{font-size:11px;opacity:0.75;margin-top:2px}
+.offline-badge{display:none;font-size:10px;background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:10px;margin-top:4px}
+.offline-badge.show{display:inline-block}
+
+/* TABS */
+.tabs{display:flex;border-bottom:0.5px solid var(--border);background:var(--card);flex-shrink:0;position:sticky;top:0;z-index:10}
+.tab{flex:1;padding:10px 4px 8px;font-size:10px;text-align:center;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;font-weight:400;transition:color 0.15s}
+.tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:600}
+.tab-icon{font-size:20px;display:block;margin-bottom:2px}
+
+/* SCREENS */
+.screen{display:none;padding:12px 12px calc(12px + var(--safe-bottom));overflow-y:auto;flex:1}
+.screen.active{display:block}
+
+/* FORM CONTROLS */
+select,input[type=number],input[type=text]{
+  font-size:14px;padding:8px 10px;border-radius:var(--radius-sm);
+  border:1px solid var(--border);background:var(--card);color:var(--text);
+  width:100%;outline:none;-webkit-appearance:none;appearance:none
+}
+select:focus,input:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(26,92,46,0.15)}
+button{cursor:pointer;font-family:inherit;font-size:13px;font-weight:500;border-radius:var(--radius-sm);border:none;transition:opacity 0.1s}
+button:active{opacity:0.75}
+
+/* MONTH ROW */
+.month-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.month-row label{font-size:12px;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.month-row select{flex:1}
+
+/* CHAPTER LABEL */
+.chap-label{font-size:11px;font-weight:600;color:#fff;background:var(--green);padding:5px 10px;border-radius:var(--radius-sm);margin:10px 0 6px;display:flex;align-items:center;gap:6px}
+
+/* CRITERIA CARDS */
+.crit-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;margin-bottom:6px}
+.crit-card.dimmed{opacity:0.4}
+.crit-head{display:flex;align-items:flex-start;gap:8px}
+.crit-code{font-size:9px;font-weight:600;color:var(--green);background:var(--green-light);padding:2px 6px;border-radius:4px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.crit-name{font-size:12px;color:var(--text);flex:1;line-height:1.4}
+.crit-meta{display:flex;align-items:center;gap:5px;margin-top:4px;flex-wrap:wrap}
+.badge{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600}
+.badge-t{background:var(--amber-light);color:var(--amber)}
+.badge-m{background:var(--blue-light);color:var(--blue)}
+.pts-info{font-size:9px;color:var(--hint)}
+.badge-ideal{font-size:9px;background:var(--green-light);color:var(--green-mid);padding:2px 6px;border-radius:4px;font-weight:600}
+.na-note{font-size:9px;color:var(--hint);font-style:italic}
+
+/* INPUT ROW */
+.inp-row{margin-top:8px;display:flex;align-items:center;gap:8px}
+.inp-row label{font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.inp-row input[type=number]{width:70px;text-align:center;padding:6px 4px}
+.inp-row .mx{font-size:10px;color:var(--hint);white-space:nowrap}
+.pbar{flex:1;height:5px;background:var(--bg);border-radius:3px;overflow:hidden;position:relative}
+.pbar-meta{height:100%;background:var(--green);position:absolute;top:0;left:0;border-radius:3px;transition:width 0.15s}
+.pbar-ideal{height:100%;background:#97c459;position:absolute;top:0;border-radius:3px;transition:width 0.15s}
+
+/* SAVE BTN */
+.save-btn{width:100%;margin-top:12px;padding:12px;background:var(--green);color:#fff;font-size:14px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* PAINEL FILTERS */
+.filter-row{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.fbtn{font-size:11px;padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted)}
+.fbtn.active{background:var(--green);color:#fff;border-color:var(--green)}
+.filter-sub{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
+.fsub{font-size:11px;padding:4px 10px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--muted)}
+.fsub.active{border-color:var(--green);color:var(--green);font-weight:600;background:var(--green-light)}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.stat-card{background:var(--bg);border-radius:var(--radius);padding:10px 12px}
+.stat-card .lbl{font-size:9px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.3px}
+.stat-card .val{font-size:22px;font-weight:700;color:var(--text);line-height:1}
+.stat-card .sub{font-size:10px;color:var(--hint);margin-top:2px}
+.stat-card.ok .val{color:var(--green-mid)}
+.stat-card.bad .val{color:var(--red)}
+
+/* SECTION TITLE */
+.sec-title{font-size:10px;font-weight:700;color:var(--muted);margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:6px}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* OG BOX */
+.og-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:10px}
+.og-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.og-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.og-field label{font-size:10px;color:var(--muted);display:block;margin-bottom:3px}
+.og-result{margin-top:10px;padding-top:8px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.og-lbl{font-size:10px;color:var(--muted)}
+.og-val{font-size:15px;font-weight:700;color:var(--text)}
+.og-pts{font-size:12px;font-weight:700;padding:4px 12px;border-radius:var(--radius-sm)}
+.og-pts.p0{background:var(--red-light);color:var(--red)}
+.og-pts.p100,.og-pts.p150{background:var(--amber-light);color:var(--amber)}
+.og-pts.p200,.og-pts.p300{background:var(--green-light);color:var(--green-mid)}
+
+/* CAP BARS */
+.cap-bar-row{margin-bottom:10px}
+.cap-bar-lbl{display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px}
+.cap-bar-lbl span:last-child{color:var(--muted)}
+.cap-bar-track{height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
+.cap-bar-fill{height:100%;border-radius:4px;transition:width 0.3s}
+
+/* WORST / IMPACT LIST */
+.list-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)}
+.list-item:last-child{border-bottom:none}
+.list-rk{font-size:11px;font-weight:700;color:var(--red);min-width:20px}
+.list-name{font-size:11px;color:var(--text);flex:1;line-height:1.35}
+.list-val{font-size:11px;font-weight:600}
+
+/* PDF BTN */
+.pdf-sep{height:1px;background:var(--border);margin:14px 0}
+.pdf-btn{width:100%;padding:12px;background:var(--card);color:var(--green);font-size:13px;border:1.5px solid var(--green);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* BATALHA NAVAL */
+.bn-info{font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5}
+.bn-legend{display:flex;gap:12px;margin-bottom:8px;font-size:10px;color:var(--muted);align-items:center;flex-wrap:wrap}
+.bld{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.bn-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:var(--radius)}
+.bn-table{border-collapse:collapse;width:100%;min-width:560px}
+.bn-table th{font-size:8px;font-weight:600;color:var(--muted);padding:4px 2px;text-align:center;background:var(--bg);position:sticky;top:0;z-index:5}
+.bn-table th.rh{text-align:left;min-width:120px;padding-left:6px;position:sticky;left:0;z-index:6;background:var(--bg)}
+.bn-table td{padding:2px}
+.bn-table td.rh{text-align:left;padding:3px 6px;background:var(--card);position:sticky;left:0;z-index:4;border-right:1px solid var(--border)}
+.rc{font-size:8px;color:var(--green);font-weight:600;display:block}
+.rn{font-size:8px;color:var(--muted);line-height:1.3;display:block}
+.cell{width:28px;height:24px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;cursor:pointer;border:1px solid transparent;font-weight:600}
+.cell.green{background:#c0dd97;color:#27500a;border-color:#97c459}
+.cell.red{background:#f7c1c1;color:#791f1f;border-color:#f09595}
+.cell.na{background:var(--bg);color:var(--hint);font-size:7px}
+.chap-sep td{background:var(--green-light)}
+.chap-sep td.rh{background:var(--green-light);font-size:9px;font-weight:700;color:var(--green)}
+
+/* EMPTY NOTE */
+.empty-note{font-size:11px;color:var(--muted);padding:6px 0;font-style:italic}
+
+/* TOAST */
+.toast{position:fixed;bottom:calc(80px + var(--safe-bottom));left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;font-size:12px;padding:8px 18px;border-radius:20px;display:none;z-index:100;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+.toast.show{display:block;animation:fadein 0.2s}
+@keyframes fadein{from{opacity:0;transform:translateX(-50%) translateY(6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1>🌿 Crescer + Brokers</h1>
+    <p>Programa de Excelência Nestlé 2026</p>
+    <div class="offline-badge" id="offline-badge">● Offline</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('lanc')">
+      <span class="tab-icon">✏️</span>Lançamento
+    </div>
+    <div class="tab" onclick="showTab('pain')">
+      <span class="tab-icon">📊</span>Painel
+    </div>
+    <div class="tab" onclick="showTab('bat')">
+      <span class="tab-icon">🗺️</span>Batalha
+    </div>
+  </div>
+
+  <!-- LANÇAMENTO -->
+  <div class="screen active" id="screen-lanc">
+    <div class="month-row">
+      <label>Período:</label>
+      <select id="sel-m" onchange="renderLanc()">
+        <option value="0">Jan 2026</option><option value="1">Fev 2026</option>
+        <option value="2">Mar 2026</option><option value="3">Abr 2026</option>
+        <option value="4">Mai 2026</option><option value="5">Jun 2026</option>
+        <option value="6">Jul 2026</option><option value="7">Ago 2026</option>
+        <option value="8">Set 2026</option><option value="9">Out 2026</option>
+        <option value="10">Nov 2026</option><option value="11">Dez 2026</option>
+      </select>
+    </div>
+    <div id="lanc-body"></div>
+    <button class="save-btn" onclick="salvar()">💾 Salvar período</button>
+  </div>
+
+  <!-- PAINEL -->
+  <div class="screen" id="screen-pain">
+    <div class="filter-row">
+      <button class="fbtn active" onclick="setTipo('mes',this)">Mês</button>
+      <button class="fbtn" onclick="setTipo('tri',this)">Trimestre</button>
+      <button class="fbtn" onclick="setTipo('sem',this)">Semestre</button>
+      <button class="fbtn" onclick="setTipo('ano',this)">Ano</button>
+    </div>
+    <div class="filter-sub" id="filter-sub"></div>
+    <div class="sec-title">Resumo</div>
+    <div class="stat-grid" id="stats-top"></div>
+    <div class="sec-title">Booster OG</div>
+    <div id="og-section"></div>
+    <div class="sec-title">Por capítulo</div>
+    <div id="cap-bars"></div>
+    <div class="sec-title">Piores indicadores</div>
+    <div id="worst"></div>
+    <div class="sec-title">Maior impacto (pts perdidos)</div>
+    <div id="impact"></div>
+    <div class="pdf-sep"></div>
+    <button class="pdf-btn" onclick="gerarPDF()">📄 Exportar relatório PDF</button>
+  </div>
+
+  <!-- BATALHA NAVAL -->
+  <div class="screen" id="screen-bat">
+    <div class="bn-info">Toque em uma célula vermelha para ir direto ao lançamento.</div>
+    <div class="bn-legend">
+      <div class="bld" style="background:#c0dd97;border:1px solid #97c459"></div> Preenchido
+      <div class="bld" style="background:#f7c1c1;border:1px solid #f09595"></div> Pendente
+      <div class="bld" style="background:var(--bg)"></div> N/A
+    </div>
+    <div class="bn-scroll">
+      <table class="bn-table" id="bn-tbl"></table>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DADOS ───────────────────────────────────────────────────────────────────
+const MESES=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const TRI_M=[2,5,8,11];
+const TRI_NAMES=['Q1 (Jan–Mar)','Q2 (Abr–Jun)','Q3 (Jul–Set)','Q4 (Out–Dez)'];
+const TRI_SHORT=['Q1','Q2','Q3','Q4'];
+
+const CR=[
+  {cap:1,capName:'Cap. I — Performance',code:'1.1.1',name:'VBC — Linha Seca',freq:'M',meta:51,ideal:5},
+  {cap:1,code:'1.1.2',name:'VBC — Garoto',freq:'M',meta:35,ideal:5},
+  {cap:1,code:'1.1.3',name:'VBC — BRP2 Purina Alimentar',freq:'M',meta:11,ideal:2},
+  {cap:1,code:'1.1.4',name:'VBC — BRP2 Purina Especializado',freq:'M',meta:10,ideal:2},
+  {cap:1,code:'1.1.5',name:'VBC — BRN2 Professional Food',freq:'M',meta:11,ideal:2},
+  {cap:1,code:'1.1.6',name:'VBC — BRN8 Professional Bebidas',freq:'M',meta:10,ideal:2},
+  {cap:1,code:'1.1.7',name:'VBC — Farma',freq:'M',meta:10,ideal:2},
+  {cap:1,code:'1.2.1',name:'Cobertura — Categorias',freq:'M',meta:null,ideal:null,note:'Categorias em análise pela Nestlé'},
+  {cap:1,code:'1.3.1',name:'Sortimento Farma B',freq:'M',meta:4,ideal:4},
+  {cap:1,code:'1.4.1',name:'BEES — VBC (por org.)',freq:'M',meta:7,ideal:3},
+  {cap:1,code:'1.4.2',name:'BEES — Coberturas (por org.)',freq:'M',meta:5,ideal:3},
+  {cap:1,code:'1.5.2',name:'Ruptura Zero',freq:'M',meta:10,ideal:0},
+  {cap:1,code:'1.5.3',name:'Positivação em Rota',freq:'M',meta:8,ideal:0},
+  {cap:2,capName:'Cap. II — Excelência Operacional',code:'2.1.1',name:'Turn-over',freq:'T',meta:8,ideal:0},
+  {cap:2,code:'2.1.2',name:'Manual de Identidade',freq:'T',meta:5,ideal:0},
+  {cap:2,code:'2.2.1',name:'Reunião Matinal',freq:'M',meta:8,ideal:0},
+  {cap:2,code:'2.2.2',name:'Reunião Semanal (RPS)',freq:'M',meta:5,ideal:0},
+  {cap:2,code:'2.2.3',name:'Reunião Ciclo',freq:'M',meta:5,ideal:0},
+  {cap:2,code:'2.2.4',name:'FLEXX GPS',freq:'T',meta:6,ideal:0},
+  {cap:2,code:'2.3.1',name:'Prazo de Processamento',freq:'T',meta:8,ideal:0},
+  {cap:2,code:'2.3.2',name:'Frequência de Atendimento',freq:'T',meta:6,ideal:0},
+  {cap:2,code:'2.4.1',name:'12 Passos NiM',freq:'T',meta:10,ideal:10},
+  {cap:2,code:'2.4.2',name:'8 Passos Professional Food',freq:'T',meta:6,ideal:9},
+  {cap:2,code:'2.4.3',name:'9 Passos Prof. Bebidas',freq:'T',meta:6,ideal:9},
+  {cap:2,code:'2.4.4',name:'9 Passos Purina',freq:'T',meta:6,ideal:9},
+  {cap:2,code:'2.5.1',name:'8 Passos Promotor',freq:'T',meta:5,ideal:6},
+  {cap:2,code:'2.6.1',name:'Visita Desenvolvimento Rota',freq:'M',meta:6,ideal:0},
+  {cap:2,code:'2.7.1',name:'Equipamentos TI',freq:'T',meta:4,ideal:0},
+  {cap:2,code:'2.8.1',name:'Supply — Performance',freq:'M',meta:3,ideal:7},
+  {cap:2,code:'2.8.2',name:'Supply — Proc. Operacionais',freq:'T',meta:14,ideal:0},
+  {cap:2,code:'2.8.3',name:'Supply — Gestão/Performance',freq:'T',meta:14,ideal:0},
+  {cap:2,code:'2.8.4',name:'Supply — Distribuição',freq:'T',meta:14,ideal:0},
+  {cap:2,code:'2.8.5',name:'Supply — Qualidade',freq:'T',meta:14,ideal:0},
+  {cap:2,code:'2.8.6',name:'Supply — SHE',freq:'T',meta:14,ideal:0},
+  {cap:2,code:'2.9.1',name:'Crédito — 30 dias',freq:'T',meta:5,ideal:0},
+  {cap:2,code:'2.9.2',name:'Processo Indenização',freq:'T',meta:5,ideal:0},
+  {cap:2,code:'2.9.3',name:'Produtos Destruídos',freq:'T',meta:1,ideal:4},
+  {cap:3,capName:'Compliance',code:'2.11.1',name:'Verbas em aberto',freq:'M',meta:5,ideal:0},
+  {cap:3,code:'2.12.1',name:'Alvarás atualizados',freq:'T',meta:10,ideal:0},
+  {cap:3,code:'2.12.2',name:'Certidões negativas',freq:'T',meta:10,ideal:0},
+  {cap:3,code:'2.13.1',name:'Produtos salvage/bloqueados',freq:'M',meta:5,ideal:0},
+  {cap:3,code:'2.14.1',name:'Transpasse',freq:'T',meta:12,ideal:0},
+  {cap:3,code:'2.15.1',name:'Escrituração',freq:'M',meta:9,ideal:0},
+  {cap:3,code:'2.16.1',name:'Produtos vencidos no PDV',freq:'T',meta:11,ideal:0},
+];
+
+// ─── STORAGE (localStorage) ───────────────────────────────────────────────────
+const STORE_KEY='cb2026_data';
+const OG_KEY='cb2026_og';
+
+function loadAll(){
+  try{return JSON.parse(localStorage.getItem(STORE_KEY)||'{}');}catch{return {};}
+}
+function saveAll(d){localStorage.setItem(STORE_KEY,JSON.stringify(d));}
+function loadOG(){
+  try{return JSON.parse(localStorage.getItem(OG_KEY)||'{}');}catch{return {};}
+}
+function saveOG(d){localStorage.setItem(OG_KEY,JSON.stringify(d));}
+
+let DATA=loadAll();
+let OG_DATA=loadOG();
+
+function gd(code,m){return DATA[code+'_'+m]??null;}
+function sd(code,m,v){DATA[code+'_'+m]=v;saveAll(DATA);}
+function getOG(t){return OG_DATA['og_'+t]??{ant:0,atu:0};}
+function setOG(t,a,b){OG_DATA['og_'+t]={ant:parseFloat(a)||0,atu:parseFloat(b)||0};saveOG(OG_DATA);}
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function maxReal(c){return c.note?0:(c.meta||0)+(c.ideal||0);}
+function maxMes(c,m){if(c.note)return 0;if(c.freq==='M')return maxReal(c);return TRI_M.includes(m)?maxReal(c):0;}
+function metaMes(c,m){if(c.freq==='M')return c.meta||0;return TRI_M.includes(m)?(c.meta||0):0;}
+
+let tipoAtual='mes';
+let subAtual=new Date().getMonth();
+
+function mesesPeriodo(){
+  if(tipoAtual==='mes')return[subAtual];
+  if(tipoAtual==='tri'){const b=subAtual*3;return[b,b+1,b+2];}
+  if(tipoAtual==='sem'){const b=subAtual*6;return Array.from({length:6},(_,i)=>b+i);}
+  return Array.from({length:12},(_,i)=>i);
+}
+
+function periodoLabel(){
+  if(tipoAtual==='mes')return MESES[subAtual]+' 2026';
+  if(tipoAtual==='tri')return TRI_NAMES[subAtual]+' 2026';
+  if(tipoAtual==='sem')return(subAtual===0?'1º Semestre':'2º Semestre')+' 2026';
+  return 'Ano 2026';
+}
+
+function calcOGPts(t){
+  const d=getOG(t);if(!d.ant||!d.atu)return{pct:null,pts:0};
+  const pct=((d.atu-d.ant)/d.ant)*100;
+  let pts=0;
+  if(pct>=20)pts=300;else if(pct>=15)pts=200;else if(pct>=10)pts=150;else if(pct>=7.01)pts=100;
+  return{pct,pts};
+}
+
+function toast(msg,ms=2000){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),ms);
+}
+
+// ─── LANÇAMENTO ───────────────────────────────────────────────────────────────
+function renderLanc(){
+  const m=parseInt(document.getElementById('sel-m').value);
+  let html='';let lc=-1;
+  for(const c of CR){
+    if(c.cap!==lc){lc=c.cap;if(c.capName)html+=`<div class="chap-label">📌 ${c.capName}</div>`;}
+    const mx=maxMes(c,m),mt=metaMes(c,m),hasI=(c.ideal||0)>0,isTri=c.freq==='T';
+    const badge=isTri?'<span class="badge badge-t">Trimestral</span>':'<span class="badge badge-m">Mensal</span>';
+    if(c.note){
+      html+=`<div class="crit-card dimmed"><div class="crit-head"><span class="crit-code">${c.code}</span><span class="crit-name">${c.name}</span></div><div class="crit-meta">${badge}<span class="na-note">${c.note}</span></div></div>`;
+      continue;
+    }
+    if(!mx){
+      html+=`<div class="crit-card dimmed"><div class="crit-head"><span class="crit-code">${c.code}</span><span class="crit-name">${c.name}</span></div><div class="crit-meta">${badge}<span class="na-note">Apurado em Mar / Jun / Set / Dez</span></div></div>`;
+      continue;
+    }
+    const val=gd(c.code,m)??'';
+    const fv=parseFloat(val)||0;
+    const wMeta=Math.min(mt/mx*100,fv/mx*100);
+    const wIdeal=hasI&&fv>mt?Math.min(c.ideal/mx*100,(fv-mt)/mx*100):0;
+    html+=`<div class="crit-card">
+      <div class="crit-head"><span class="crit-code">${c.code}</span><span class="crit-name">${c.name}</span></div>
+      <div class="crit-meta">${badge}<span class="pts-info">Meta: ${mt} pts${hasI?' · Ideal: +'+(c.ideal)+' pts':''}</span>${hasI?`<span class="badge-ideal">Máx: ${mx} pts</span>`:''}</div>
+      <div class="inp-row">
+        <label>Pts:</label>
+        <input type="number" min="0" max="${mx}" step="0.5" value="${val}"
+          id="i-${c.code}-${m}"
+          inputmode="decimal"
+          oninput="onInp(this,'${c.code}',${m},${mt},${c.ideal||0},${mx})">
+        <span class="mx">/ ${mx}</span>
+        <div class="pbar">
+          <div class="pbar-meta" id="bm-${c.code}-${m}" style="width:${wMeta}%"></div>
+          <div class="pbar-ideal" id="bi-${c.code}-${m}" style="left:${mt/mx*100}%;width:${wIdeal}%"></div>
+        </div>
+      </div>
+    </div>`;
+  }
+  document.getElementById('lanc-body').innerHTML=html;
+}
+
+function onInp(el,code,m,meta,ideal,mx){
+  const v=Math.min(parseFloat(el.value)||0,mx);
+  sd(code,m,v);
+  const bm=document.getElementById('bm-'+code+'-'+m);
+  const bi=document.getElementById('bi-'+code+'-'+m);
+  if(bm)bm.style.width=Math.min(meta/mx*100,v/mx*100)+'%';
+  if(bi&&ideal>0){const over=Math.max(0,v-meta);bi.style.width=Math.min(ideal/mx*100,over/mx*100)+'%';}
+}
+
+function salvar(){
+  const m=parseInt(document.getElementById('sel-m').value);
+  for(const c of CR){
+    const el=document.getElementById('i-'+c.code+'-'+m);
+    if(el)sd(c.code,m,parseFloat(el.value)||0);
+  }
+  renderBat();
+  toast('✓ Período salvo!');
+}
+
+// ─── PAINEL ───────────────────────────────────────────────────────────────────
+function setTipo(t,btn){
+  tipoAtual=t;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  subAtual=t==='mes'?new Date().getMonth():t==='tri'?Math.floor(new Date().getMonth()/3):t==='sem'?Math.floor(new Date().getMonth()/6):0;
+  renderPainel();
+}
+function setSub(v,btn){
+  subAtual=v;
+  document.querySelectorAll('.fsub').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPainel();
+}
+
+function renderFilterSub(){
+  let opts=[];
+  if(tipoAtual==='mes')opts=MESES.map((n,i)=>({label:n,v:i}));
+  else if(tipoAtual==='tri')opts=TRI_SHORT.map((n,i)=>({label:n,v:i}));
+  else if(tipoAtual==='sem')opts=[{label:'1º Sem',v:0},{label:'2º Sem',v:1}];
+  else opts=[{label:'2026',v:0}];
+  document.getElementById('filter-sub').innerHTML=opts.map(o=>`<button class="fsub${o.v===subAtual?' active':''}" onclick="setSub(${o.v},this)">${o.label}</button>`).join('');
+}
+
+function calcPainel(){
+  const meses=mesesPeriodo();
+  let totPts=0,totMax=0,compPts=0,compMax=0;
+  let capD={1:{pts:0,max:0,name:'Performance'},2:{pts:0,max:0,name:'Excelência Op.'},3:{pts:0,max:0,name:'Compliance'}};
+  let piorMap={};
+  for(const c of CR){
+    if(c.note)continue;
+    for(const m of meses){
+      const mx=maxMes(c,m);if(!mx)continue;
+      const v=gd(c.code,m);if(v===null||v==='')continue;
+      const fv=parseFloat(v)||0;
+      totPts+=fv;totMax+=mx;
+      capD[c.cap].pts+=fv;capD[c.cap].max+=mx;
+      if(c.cap===3){compPts+=fv;compMax+=mx;}
+      if(!piorMap[c.code])piorMap[c.code]={name:c.name,pts:0,max:0,cap:c.cap};
+      piorMap[c.code].pts+=fv;piorMap[c.code].max+=mx;
+    }
+  }
+  const trisFech=[...new Set(meses.filter(m=>TRI_M.includes(m)).map(m=>Math.floor(m/3)))];
+  return{totPts,totMax,compPts,compMax,capD,piorMap,trisFech,meses};
+}
+
+function renderPainel(){
+  renderFilterSub();
+  const{totPts,totMax,compPts,compMax,capD,piorMap,trisFech,meses}=calcPainel();
+  const pctT=totMax>0?Math.round(totPts/totMax*100):null;
+  const pctC=compMax>0?Math.round(compPts/compMax*100):null;
+
+  document.getElementById('stats-top').innerHTML=`
+    <div class="stat-card"><div class="lbl">Pontos obtidos</div><div class="val">${Math.round(totPts)}</div><div class="sub">de ${totMax} possíveis</div></div>
+    <div class="stat-card"><div class="lbl">Aderência</div><div class="val">${pctT!==null?pctT+'%':'—'}</div><div class="sub">no período</div></div>
+    <div class="stat-card ${pctC===null?'':pctC>=80?'ok':'bad'}"><div class="lbl">Compliance</div><div class="val">${pctC!==null?pctC+'%':'—'}</div><div class="sub">mín. 80%</div></div>
+    <div class="stat-card"><div class="lbl">Pts perdidos</div><div class="val" style="color:var(--red)">${Math.round(totMax-totPts)}</div><div class="sub">no período</div></div>`;
+
+  let ogHtml='';
+  if(trisFech.length===0){
+    const t=Math.floor((tipoAtual==='mes'?subAtual:meses[0])/3);
+    ogHtml=`<div class="empty-note">Booster apurado no fechamento do ${TRI_SHORT[t]} (${MESES[TRI_M[t]]}). Lance naquele mês.</div>`;
+  }else{
+    for(const t of trisFech){
+      const d=getOG(t),{pct,pts}=calcOGPts(t);
+      const pc=pts===0?'p0':pts===100?'p100':pts===150?'p150':pts===200?'p200':'p300';
+      ogHtml+=`<div class="og-box">
+        <div class="og-title">📈 ${TRI_NAMES[t]}</div>
+        <div class="og-grid">
+          <div class="og-field"><label>NNS referência anterior (R$)</label><input type="number" step="0.01" value="${d.ant||''}" placeholder="0,00" id="og-a-${t}" inputmode="decimal" oninput="updOG(${t})"></div>
+          <div class="og-field"><label>NNS ${TRI_SHORT[t]} 2026 (R$)</label><input type="number" step="0.01" value="${d.atu||''}" placeholder="0,00" id="og-b-${t}" inputmode="decimal" oninput="updOG(${t})"></div>
+        </div>
+        <div class="og-result">
+          <div><div class="og-lbl">Crescimento</div><div class="og-val" id="og-pct-${t}">${pct!==null?pct.toFixed(1)+'%':'—'}</div></div>
+          <div><div class="og-lbl">Booster</div><span class="og-pts ${pc}" id="og-pts-${t}">+${pts} pts</span></div>
+        </div>
+      </div>`;
+    }
+  }
+  document.getElementById('og-section').innerHTML=ogHtml;
+
+  const capColors={1:'#1a5c2e',2:'#185fa5',3:'#854f0b'};
+  document.getElementById('cap-bars').innerHTML=Object.entries(capD).map(([cid,cd])=>{
+    const p=cd.max>0?Math.round(cd.pts/cd.max*100):0;
+    const cor=p>=80?'#27500a':p>=60?'#854f0b':'#a32d2d';
+    return `<div class="cap-bar-row"><div class="cap-bar-lbl"><span>${cd.name}</span><span>${Math.round(cd.pts)}/${cd.max} (${p}%)</span></div><div class="cap-bar-track"><div class="cap-bar-fill" style="width:${p}%;background:${capColors[cid]}"></div></div></div>`;
+  }).join('')||'<p class="empty-note">Nenhum dado lançado.</p>';
+
+  const piors=Object.entries(piorMap).filter(([,d])=>d.max>0).map(([,d])=>({name:d.name,pct:Math.round(d.pts/d.max*100)})).sort((a,b)=>a.pct-b.pct).slice(0,6);
+  document.getElementById('worst').innerHTML=piors.length?piors.map((p,i)=>{
+    const cor=p.pct<60?'var(--red)':p.pct<80?'var(--amber)':'var(--green-mid)';
+    return `<div class="list-item"><span class="list-rk">#${i+1}</span><span class="list-name">${p.name}</span><span class="list-val" style="color:${cor}">${p.pct}%</span></div>`;
+  }).join(''):'<p class="empty-note">Lance dados para ver.</p>';
+
+  const imps=Object.entries(piorMap).filter(([,d])=>d.max>0).map(([,d])=>({name:d.name,perd:d.max-d.pts})).sort((a,b)=>b.perd-a.perd).slice(0,6);
+  document.getElementById('impact').innerHTML=imps.length?imps.map(p=>`<div class="list-item"><span class="list-name">${p.name}</span><span class="list-val" style="color:var(--red)">-${Math.round(p.perd)} pts</span></div>`).join(''):'<p class="empty-note">Lance dados para ver.</p>';
+}
+
+function updOG(t){
+  const a=parseFloat(document.getElementById('og-a-'+t).value)||0;
+  const b=parseFloat(document.getElementById('og-b-'+t).value)||0;
+  setOG(t,a,b);
+  const{pct,pts}=calcOGPts(t);
+  const pe=document.getElementById('og-pct-'+t),se=document.getElementById('og-pts-'+t);
+  if(pe)pe.textContent=pct!==null?pct.toFixed(1)+'%':'—';
+  if(se){se.textContent='+'+pts+' pts';se.className='og-pts '+(pts===0?'p0':pts===100?'p100':pts===150?'p150':pts===200?'p200':'p300');}
+}
+
+// ─── PDF ──────────────────────────────────────────────────────────────────────
+function gerarPDF(){
+  const{totPts,totMax,compPts,compMax,capD,piorMap,trisFech}=calcPainel();
+  const pctT=totMax>0?Math.round(totPts/totMax*100):0;
+  const pctC=compMax>0?Math.round(compPts/compMax*100):0;
+  const label=periodoLabel();
+  const capNames={1:'Cap. I — Performance',2:'Cap. II — Excelência Operacional',3:'Compliance'};
+  const capColors={1:'#1a5c2e',2:'#185fa5',3:'#854f0b'};
+
+  let ogRows='';
+  for(const t of trisFech){
+    const{pct,pts}=calcOGPts(t);
+    const cor=pts>=200?'#27500a':pts>=100?'#854f0b':'#a32d2d';
+    ogRows+=`<tr><td>${TRI_NAMES[t]}</td><td style="text-align:center">${pct!==null?pct.toFixed(1)+'%':'—'}</td><td style="text-align:center;color:${cor};font-weight:700">+${pts} pts</td></tr>`;
+  }
+  if(!ogRows)ogRows=`<tr><td colspan="3" style="color:#999">Nenhum trimestre com dados de OG no período.</td></tr>`;
+
+  let detRows='';let lastCap=-1;
+  for(const[code,d] of Object.entries(piorMap)){
+    const c=CR.find(x=>x.code===code);if(!c)continue;
+    if(c.cap!==lastCap){lastCap=c.cap;detRows+=`<tr style="background:#e8f4ee"><td colspan="4" style="padding:7px 8px;font-weight:700;color:#1a5c2e;font-size:11px">${capNames[c.cap]}</td></tr>`;}
+    const pct=d.max>0?Math.round(d.pts/d.max*100):0;
+    const cor=pct>=80?'#27500a':pct>=60?'#854f0b':'#a32d2d';
+    detRows+=`<tr><td style="color:#1a5c2e;font-weight:700;font-size:10px">${code}</td><td style="font-size:11px">${d.name}</td><td style="text-align:center;font-size:11px">${Math.round(d.pts)}/${d.max}</td><td style="min-width:90px"><div style="height:7px;background:#e5e5e5;border-radius:4px"><div style="width:${pct}%;height:100%;background:${cor};border-radius:4px"></div></div><div style="font-size:10px;color:${cor};margin-top:2px;font-weight:600">${pct}%</div></td></tr>`;
+  }
+
+  const html=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Crescer + Brokers — ${label}</title>
+  <style>body{font-family:Arial,sans-serif;padding:28px 32px;color:#1a1a1a;max-width:900px;margin:0 auto}
+  h1{font-size:20px;color:#1a5c2e;margin:0 0 3px}.sub{font-size:11px;color:#666;margin-bottom:20px}
+  .cards{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+  .card{flex:1;min-width:110px;background:#f5f5f5;border-radius:8px;padding:11px 13px}
+  .card .cl{font-size:9px;color:#666;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.4px}
+  .card .cv{font-size:22px;font-weight:700}.card .cs{font-size:10px;color:#999;margin-top:1px}
+  .sect{font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.6px;margin:18px 0 7px;padding-bottom:4px;border-bottom:2px solid #1a5c2e}
+  table{width:100%;border-collapse:collapse;margin-bottom:6px}
+  th{font-size:11px;font-weight:700;color:#444;padding:7px 8px;background:#f5f7f5;text-align:left;border-bottom:1px solid #ddd}
+  td{padding:6px 8px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+  .footer{margin-top:30px;font-size:10px;color:#aaa;border-top:1px solid #eee;padding-top:8px;text-align:center}
+  @media print{body{padding:12px}@page{margin:1.5cm;size:A4}}</style></head><body>
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px">
+    <div style="background:#1a5c2e;color:#fff;padding:8px 16px;border-radius:8px;font-size:14px;font-weight:700">Crescer + Brokers</div>
+    <div><h1>Relatório de Resultados</h1><div class="sub">Período: ${label} &nbsp;|&nbsp; Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}</div></div>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="cl">Pontos obtidos</div><div class="cv" style="color:#1a5c2e">${Math.round(totPts)}</div><div class="cs">de ${totMax} possíveis</div></div>
+    <div class="card"><div class="cl">Aderência</div><div class="cv">${pctT}%</div><div class="cs">no período</div></div>
+    <div class="card" style="background:${pctC>=80?'#eaf3de':'#fcebeb'}"><div class="cl">Compliance</div><div class="cv" style="color:${pctC>=80?'#27500a':'#a32d2d'}">${pctC}%</div><div class="cs" style="color:${pctC>=80?'#3b6d11':'#c53030'}">mín. 80% exigido</div></div>
+    <div class="card"><div class="cl">Pts perdidos</div><div class="cv" style="color:#a32d2d">${Math.round(totMax-totPts)}</div><div class="cs">no período</div></div>
+  </div>
+  <div class="sect">Resultado por capítulo</div>
+  <table><thead><tr><th>Capítulo</th><th style="text-align:center">Obtido</th><th style="text-align:center">Possível</th><th>Aderência</th></tr></thead><tbody>
+  ${Object.entries(capD).map(([cid,cd])=>{const p=cd.max>0?Math.round(cd.pts/cd.max*100):0;const cor=p>=80?'#27500a':p>=60?'#854f0b':'#a32d2d';return `<tr><td>${capNames[cid]}</td><td style="text-align:center">${Math.round(cd.pts)}</td><td style="text-align:center">${cd.max}</td><td><div style="height:8px;background:#e5e5e5;border-radius:4px"><div style="width:${p}%;height:100%;background:${capColors[cid]};border-radius:4px"></div></div><div style="font-size:10px;color:${cor};margin-top:2px;font-weight:700">${p}%</div></td></tr>`;}).join('')}
+  </tbody></table>
+  <div class="sect">Booster OG — Crescimento NNS NIM</div>
+  <table><thead><tr><th>Trimestre</th><th style="text-align:center">Crescimento</th><th style="text-align:center">Bônus</th></tr></thead><tbody>${ogRows}</tbody></table>
+  <div class="sect">Detalhamento por critério</div>
+  <table><thead><tr><th style="width:65px">Código</th><th>Critério</th><th style="width:80px;text-align:center">Pts</th><th style="width:100px">Aderência</th></tr></thead><tbody>${detRows}</tbody></table>
+  <div class="sect">Piores indicadores</div>
+  <table><thead><tr><th>#</th><th>Critério</th><th>Aderência</th></tr></thead><tbody>
+  ${Object.entries(piorMap).filter(([,d])=>d.max>0).map(([,d])=>({name:d.name,pct:Math.round(d.pts/d.max*100)})).sort((a,b)=>a.pct-b.pct).slice(0,8).map((p,i)=>{const cor=p.pct<60?'#a32d2d':p.pct<80?'#854f0b':'#27500a';return `<tr><td style="font-weight:700;color:#a32d2d">#${i+1}</td><td>${p.name}</td><td style="font-weight:700;color:${cor}">${p.pct}%</td></tr>`;}).join('')}
+  </tbody></table>
+  <div class="footer">Crescer + Brokers — Programa de Excelência Nestlé 2026 &nbsp;|&nbsp; Relatório gerado em ${new Date().toLocaleDateString('pt-BR')}</div>
+  </body></html>`;
+
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`crescer-brokers-${label.replace(/\s/g,'-')}.html`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  toast('📄 Relatório baixado! Abra e use Ctrl+P → PDF');
+}
+
+// ─── BATALHA NAVAL ────────────────────────────────────────────────────────────
+function renderBat(){
+  const tbl=document.getElementById('bn-tbl');
+  let h=`<thead><tr><th class="rh">Critério</th>`;
+  for(const n of MESES)h+=`<th>${n}</th>`;
+  h+=`</tr></thead><tbody>`;
+  let lc=-1;
+  for(const c of CR){
+    if(c.cap!==lc){lc=c.cap;h+=`<tr class="chap-sep"><td class="rh" colspan="${MESES.length+1}">${c.capName}</td></tr>`;}
+    h+=`<tr><td class="rh"><span class="rc">${c.code}</span><span class="rn">${c.name}</span></td>`;
+    for(let m=0;m<12;m++){
+      const mx=maxMes(c,m);
+      if(!mx||c.note){h+=`<td><div class="cell na">—</div></td>`;continue;}
+      const v=gd(c.code,m);const ok=v!==null&&v!=='';
+      h+=`<td><div class="cell ${ok?'green':'red'}" onclick="goLanc('${c.code}',${m})">${ok?'✓':'·'}</div></td>`;
+    }
+    h+=`</tr>`;
+  }
+  h+=`</tbody>`;tbl.innerHTML=h;
+}
+
+function goLanc(code,m){
+  document.getElementById('sel-m').value=m;
+  showTab('lanc');renderLanc();
+  setTimeout(()=>{const el=document.getElementById('i-'+code+'-'+m);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},150);
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────────────────
+function showTab(name){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['lanc','pain','bat'][i]===name));
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  if(name==='pain'){subAtual=tipoAtual==='mes'?parseInt(document.getElementById('sel-m').value):subAtual;renderPainel();}
+  if(name==='bat')renderBat();
+}
+
+// ─── PWA / OFFLINE ────────────────────────────────────────────────────────────
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+window.addEventListener('online',()=>document.getElementById('offline-badge').classList.remove('show'));
+window.addEventListener('offline',()=>document.getElementById('offline-badge').classList.add('show'));
+if(!navigator.onLine)document.getElementById('offline-badge').classList.add('show');
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+const cm=new Date().getMonth();
+document.getElementById('sel-m').value=cm;
+subAtual=cm;
+renderLanc();
+renderBat();
+</script>
+</body>
+</html>
